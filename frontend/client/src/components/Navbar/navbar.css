@@ -1,0 +1,140 @@
+.header-top{
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-top .header-right{
+    display: flex;
+    gap: 15px;
+    font-size: 24px;
+}
+.header-top img{
+    width: 140px;
+}
+
+
+.header-bottom{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.header-bottom .header-bottom-input-wrapper{
+    display: flex;
+    gap: 40px;
+    padding: 15px 50px 15px 100px;
+    border: 1px solid rgba(101, 101, 101, 0.299);
+    border-radius: 100px;
+    box-shadow: 1px 1px 10px #0000001f;
+}
+
+.header-bottom-input-wrapper .label{
+    display: flex;
+    flex-direction: column;
+
+}
+.destination label{
+    margin-bottom: 4px;
+}
+.guest label{
+    margin-bottom: 4px;
+}
+
+
+
+.header-bottom-input-wrapper input{
+    border: none;
+    outline: none;
+    opacity: 0.5;
+}
+.header-bottom-input-wrapper :hover{
+    cursor: pointer;
+}
+
+.header-bottom .search-btn{
+    background-color: #9d7e7b;
+    margin-left: 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 100px;
+    padding: 16px 16px;
+    cursor: pointer;    
+}
+
+.header-middle ul{
+    display: flex;
+    gap: 50px;
+    list-style: none;
+    justify-content: center ;
+}
+
+.header-middle .link {
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+}
+
+
+
+
+@media (max-width: 1280px){
+    
+  }
+  @media (max-width: 1024px){
+    .header-top{
+        margin: 5px;
+    }
+    .header-top img{
+        width: 120px;
+    }
+    .header-top .header-left{
+        font-size: 25px;
+    }
+    .header-booking button{
+        padding: 10px 25px;
+        
+    }
+    
+.header-bottom .header-bottom-input-wrapper{
+
+    gap: 0px;
+    padding: 15px 50px 15px 100px;
+
+}
+.header-bottom .search-btn{
+    margin-left: 10px;
+      
+}
+
+
+  }
+  @media (max-width: 800px){
+    .header-bottom .header-bottom-input-wrapper{
+        gap: 0px;
+        padding: 10px 20px 10px 20px;
+    
+    }
+  }
+  @media (max-width: 500px){
+    .header-top img{
+        width: 100px;
+    }
+    .header-bottom ul{
+        gap: 15px;
+        font-size: 14px;
+    }
+    .header-top{
+        margin: 10px 10px;
+    }
+    .header-top .header-left{
+        display: none;
+    }
+  }

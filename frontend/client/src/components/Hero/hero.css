@@ -1,0 +1,26 @@
+.hero-main .carousel{
+    margin-top: 20px;
+   
+}
+/* 
+.hero-main img{
+    height: 100%;
+    width: 100%;
+    object-position: center;
+} */
+
+@media (max-width: 1280px){
+   
+  }
+  @media (max-width: 1024px){
+    
+  }
+  @media (max-width: 800px){
+    
+  }
+  @media (max-width: 500px){
+    .hero-main .carousel{
+        margin-top: 20px;
+       
+    }
+  }
