@@ -1,0 +1,35 @@
+.item-wrapper{
+    padding: 20px;
+    width: fit-content;
+}
+.item-img .carousel{
+    overflow: hidden !important;
+    width: 300px !important;
+}
+.carousel.carousel-slider .control-arrow:hover{
+    background-color: transparent;
+}
+.item-img img{
+    height: 200px;
+    width: 300px;
+    object-fit: cover;
+    border-radius: 10px ;
+    overflow: hidden;
+}
+
+.item-place p{
+    opacity: 0.5;
+}
+.item-cost{
+    display: flex;
+    align-items: center;
+}
+.item-cost p{
+    
+    font-weight: 600;
+}
+.item-name-wrapper{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
