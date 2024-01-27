@@ -1,0 +1,139 @@
+.homestay-gallery{
+    display: flex;
+    gap: 14px;
+    border-radius: 20px;
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+    
+}
+.homestay-gallery-main{
+    flex: 2;
+}
+.homestay-gallery-second{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.homestay-gallery-second img{
+    height: 50%;
+}
+.homestay-gallery-third{
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.homestay-gallery-third img{
+    height: 31%;
+}
+.homestay-gallery img{
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.homestay-flex-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.homestay-name h2{
+    font-weight: 600;
+    color: red;
+    font-size: 30px;
+}
+.homestay-description p{
+    width: 500px;
+    text-align: justify;
+}
+.homestay-rooms p{
+    color: rgba(0, 0, 0, 0.55);
+    margin-bottom: 10px;
+}
+
+.homestay-details h4{
+    font-size: 22px;
+    font-weight: 500;
+}
+.homestay-location{
+    width: 300px;
+    color: rgba(0, 0, 0, 0.525);
+}
+
+
+.homestay-booking ul{
+    width: 350px;
+    list-style: none;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: rgba(197, 151, 151, 0.217);
+}
+.homestay-booking .guest{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.homestay-booking .guest input{
+    width: 50%
+}
+.homestay-flex-wrapper li{
+    margin: 14px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.homestay-flex-wrapper button{
+    margin-top: 20px;
+    border-radius: 100px;
+    font-size: 15px;
+}
+.homestay-flex-wrapper label{
+    font-size: 15px;
+}
+.homestay-flex-wrapper input{
+    width: 100%;
+}
+.homestay-flex-wrapper .date-picker, input{
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.homestay-room-li{
+    display: flex;
+    gap: 10px;
+}
+.homestay-details li p{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.homestay-details li img{
+    border-radius: 5px;
+}
+
+.homestay-review  a{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+.google-map iframe{
+    margin-top: 50px;
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: none;
+    outline: none;
+}

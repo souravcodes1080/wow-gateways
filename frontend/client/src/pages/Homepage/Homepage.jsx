@@ -8,7 +8,9 @@ import room2 from "../../../public/pictures/room2.jpg"
 function Homepage() {
   return (
     <div>
-      <div className="">
+      <div className=""><br />
+      <div className="container"><h2>Locations</h2></div>
+      
       <div className="homestay-list">
       <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
       <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
@@ -20,6 +22,15 @@ function Homepage() {
       <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
 
       </div>
+
+      </div><br />
+      <div className="container"><h2>Trending Homestay</h2></div>
+      <div className="homestay-list">
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      
 
       </div>
     </div>

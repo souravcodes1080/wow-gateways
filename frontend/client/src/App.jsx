@@ -16,6 +16,7 @@ import {
   Link
 } from "react-router-dom";
 import WhatsappButton from "./components/WhatsappButton/WhatsappButton"
+import Homestay from "./pages/Homestay/Homestay"
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
         <Route path="/service" element={<Service/>}/>
         <Route path="/tourpackage" element={<Tourpackage/>}/>
         <Route path="/contactus" element={<Contactus/>}/>
+
+        <Route path="/homestay" element={<Homestay />} />
       </Routes>
       <Footer />
     </Router>
