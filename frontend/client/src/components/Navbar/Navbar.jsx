@@ -4,6 +4,11 @@ import { FaInstagram } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
+
+import { FaCar } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import { MdVilla } from "react-icons/md";
+import { MdTour } from "react-icons/md";
 import "./navbar.css";
 import logo from "../../../public/logo/logo.png";
 
@@ -82,7 +87,26 @@ function Navbar() {
       </header>
 
       <header className="header-bottom">
+        {/* <div className="header-options">
+          <div className="cars">
+            <FaCar className="header-icons"/>
+            <p>Cars</p>
+          </div>
+          <div className="homestays">
+            <FaHome className="header-icons" />
+            <p>Homestays</p>
+          </div>
+          <div className="hotels">
+            <MdVilla className="header-icons" />
+            <p>Hotels</p>
+          </div>
+          <div className="tours">
+            <MdTour className="header-icons"/>
+            <p>Tours</p>
+          </div>
+        </div> */}
         <div className="header-bottom-input-wrapper">
+          <div className="labels"></div>
           <div className="destination label">
             <label>Where?</label>
             <input
@@ -110,7 +134,6 @@ function Navbar() {
               onChange={handleCheckOutDateChange}
               dateFormat="MMMM d, yyyy"
               className="date-picker"
-
             />
           </div>
           <div className="guest label">
@@ -121,10 +144,34 @@ function Navbar() {
               placeholder="How many?"
             />
           </div>
+          <button className="search-btn">
+            <FaSearch />
+          </button>
         </div>
-        <button className="search-btn">
-          <FaSearch />
-        </button>
+        <div className="header-bottom-tabs">
+          <ul>
+            <li>
+              <Link className="link" to={"/homestays"}>
+                Homestays
+              </Link>
+            </li>
+            <li>
+              <Link className="link" to={"/cars"}>
+                Cars
+              </Link>
+            </li>
+            <li>
+              <Link className="link" to={"/tours"}>
+                Tours
+              </Link>
+            </li>
+            <li>
+              <Link className="link" to={"/hotels"}>
+                Hotels
+              </Link>
+            </li>
+          </ul>
+        </div>
       </header>
     </div>
   );

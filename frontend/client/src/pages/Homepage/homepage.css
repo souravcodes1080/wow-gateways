@@ -1,4 +1,41 @@
-.homepage-about {
+
+.homestay-list{
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+@media (max-width: 1280px) {}
+
+@media (max-width: 1024px) {}
+
+@media (max-width: 800px) {
+    .homepage-about {
+        gap: 10px;
+    }
+
+    .homepage-about-left {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .homepage-about {
     margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
@@ -46,23 +83,4 @@
 
 }
 
-
-
-
-
-
-@media (max-width: 1280px) {}
-
-@media (max-width: 1024px) {}
-
-@media (max-width: 800px) {
-    .homepage-about {
-        gap: 10px;
-    }
-
-    .homepage-about-left {
-        width: 100%;
-    }
-}
-
-@media (max-width: 500px) {}
+ */

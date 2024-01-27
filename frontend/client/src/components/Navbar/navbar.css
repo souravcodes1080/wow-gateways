@@ -14,10 +14,31 @@
     width: 140px;
 }
 
+.header-options{
+    display: flex;
+    background-color: white;
+    z-index: 2;
+    padding: 20px 40px;
+    gap: 60px;
+    border: 1px solid rgba(101, 101, 101, 0.299);
+    border-radius: 20px;
+
+}
+.header-options div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.header-options div:hover {
+    color: #9d7e7b;
+}
 
 .header-bottom{
     margin-top: 30px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     
@@ -26,7 +47,7 @@
 .header-bottom .header-bottom-input-wrapper{
     display: flex;
     gap: 40px;
-    padding: 15px 50px 15px 100px;
+    padding: 20px 20px 20px 50px;
     border: 1px solid rgba(101, 101, 101, 0.299);
     border-radius: 100px;
     box-shadow: 1px 1px 10px #0000001f;
@@ -63,7 +84,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     border-radius: 100px;
     padding: 16px 16px;
@@ -82,6 +103,25 @@
     font-size: 15px;
 }
 
+.header-bottom-tabs ul{
+    margin-top: 20px;
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    text-decoration: none;
+}
+.header-bottom-tabs li{
+    width: 130px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #8787873e;
+    border-radius: 100px;
+}
+.header-bottom-tabs .link{
+    color: black;
+    
+}
 
 
 

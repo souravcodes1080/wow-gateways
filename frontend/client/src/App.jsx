@@ -15,11 +15,13 @@ import {
   Routes,
   Link
 } from "react-router-dom";
+import WhatsappButton from "./components/WhatsappButton/WhatsappButton"
 
 function App() {
 
   return (
     <Router>
+    <WhatsappButton />
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage/>}/>

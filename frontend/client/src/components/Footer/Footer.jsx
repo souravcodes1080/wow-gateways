@@ -13,14 +13,14 @@ function Footer() {
             <div className="footer-top-left">
               <h4>Support</h4>
               <ul>
-                <li>Help Center</li>
-                <li>Help Center</li>
+                <li>+91 83910 22951</li>
+                <li>wowgateways@gmail.com</li>
                 <li>Help Center</li>
                 <li>Help Center</li>
               </ul>
             </div>
             <div className="footer-top-middle">
-            <h4>Features</h4>
+            <h4>Services</h4>
               <ul>
                 <li>24 x 7 Homestay Booking</li>
                 <li>Delicious Food</li>

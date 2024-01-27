@@ -1,10 +1,38 @@
 import React from "react";
 import "./homepage.css";
 import Hero from "../../components/Hero/Hero";
+import Item from "../../components/Item/Item";
+import balcony1 from "../../../public/pictures/balcony1.jpg"
+import room1 from "../../../public/pictures/room1.jpg"
+import room2 from "../../../public/pictures/room2.jpg"
 function Homepage() {
   return (
     <div>
-      {/* <Hero />
+      <div className="">
+      <div className="homestay-list">
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+      <Item image1={balcony1} image2={room1} image3={room2} name={"Panchpokhri Homestay"} review={"4.5"} place={"Sittong"} price={"500"}/>
+
+      </div>
+
+      </div>
+    </div>
+  );
+}
+
+export default Homepage;
+
+
+
+
+
+{/* <Hero />
       <div className="container">
         <div className="homepage-about">
           <div className="homepage-about-left">
@@ -64,10 +92,3 @@ function Homepage() {
           </div>
         </div>
       </div> */}
-
-      
-    </div>
-  );
-}
-
-export default Homepage;

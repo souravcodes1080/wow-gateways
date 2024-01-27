@@ -1,21 +1,117 @@
-
-
-
-
-
-
-
-
-
-@media (max-width: 1280px){
-
+.about-container {
+  margin-top: 50px !important;
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+  align-items: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
-@media (max-width: 1024px){
-  
-}
-@media (max-width: 800px){
 
+.about-content {
+  flex-basis: 50%;
 }
-@media (max-width: 500px){
 
+.i {
+  margin-left: 50px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 50px;
+  color: red;
 }
+
+.about-content h1 {
+  font-weight: 600;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgb(255, 0, 0);
+}
+
+.about-content span {
+  color: red;
+}
+
+.about-image {
+
+  border-radius: 50%;
+  background-image: url('../../../public/pictures/a.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  /* You can adjust as per your requirement */
+  width: 400px;
+}
+
+button {
+  background-color: #ff0000;
+  /* Example color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.aboutus-location-title {
+  color: rgb(255, 255, 255);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  text-transform: uppercase;
+  font-size: 25px;
+}
+
+
+
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-image {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 800px) {
+  .about-content {
+    flex-basis: 100%;
+  }
+
+  .about-image {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .about-content h1 {
+    font-size: 24px;
+  }
+
+  .about-content p {
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px 16px;
+  }
+}
+
+
+
+
+
+
+
+
+@media (max-width: 1280px) {}
+
+@media (max-width: 1024px) {}
+
+@media (max-width: 800px) {}
+
+@media (max-width: 500px) {}
