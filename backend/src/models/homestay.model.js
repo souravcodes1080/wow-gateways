@@ -13,6 +13,9 @@ const homestaySchema = new mongoose.Schema({
     email: {
         type: String,
     },
+    price:{
+        type: Number,
+    },
     address:{
         type: String,
         required: true
@@ -27,6 +30,32 @@ const homestaySchema = new mongoose.Schema({
         required: true,
         default: 1
     },
+    images:{
+        type: [],
+        required: true,
+    },
+    balconyImage:{
+        type: [],
+       
+    },
+    viewImage:{
+        type: [],
+        
+    },
+    roomImage:{
+        type: String,
+      
+    },
+    googleMapLink:{
+        type: String,
+    },
+    review:{
+        type: [],
+    },
+    package:{
+        type:[]
+    }
+
 });
 
 

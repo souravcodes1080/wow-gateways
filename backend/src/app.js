@@ -18,9 +18,13 @@ app.use(cookieParser())
 
 //routes
 import bookingRouter from "./routes/booking.route.js"
+import adminRouter from './routes/admin.route.js';
+import homestayRouter from './routes/homestay.route.js';
+
 
 
 //routes declaration
 app.use("/home", bookingRouter)
-
+app.use("/admin", adminRouter)
+app.use("/homestay", homestayRouter)
 export { app }

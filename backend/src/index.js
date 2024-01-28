@@ -1,6 +1,12 @@
 import {app} from "./app.js"
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
+// Import required modules
+import bodyParser from "body-parser"
+import fileUpload from "express-fileupload"
+
+app.use(bodyParser.json());
+app.use(fileUpload());
 
 dotenv.config();
 
