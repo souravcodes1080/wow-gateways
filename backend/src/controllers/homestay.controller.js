@@ -4,9 +4,11 @@ import { upload } from "../utils/cloudinary.js";
 const multerUpload = upload.fields([
   { name: "images", maxCount: 20 },
   { name: "balconyImage", maxCount: 10 },
+  { name: "viewImage", maxCount: 10 },
+  { name: "roomImage", maxCount: 10 },
 ]);
 
-const add = async (req, res) => {
+const addHomestay = async (req, res) => {
   try {
     // Handle file upload first
     multerUpload(req, res, async (err) => {
@@ -29,6 +31,8 @@ const add = async (req, res) => {
 
       const images = req.files['images'].map((file) => file.path);
       const balconyImage = req.files['balconyImage'].map(file => file.path); 
+      const viewImage = req.files['viewImage'].map(file => file.path); 
+      const roomImage = req.files['roomImage'].map(file => file.path); 
 
       const newHomestay = new Homestay({
         homestayName,
@@ -40,8 +44,8 @@ const add = async (req, res) => {
         noOfcars,
         images, 
         balconyImage,
-        // viewImage,
-        // roomImage,
+        viewImage,
+        roomImage,
         googleMapLink,
       });
 
@@ -54,7 +58,7 @@ const add = async (req, res) => {
 };
 
 // Get all homestays
-const getAll = async (req, res) => {
+const getAllHomestay = async (req, res) => {
   try {
     const homestays = await Homestay.find();
     res.json(homestays);
@@ -63,4 +67,36 @@ const getAll = async (req, res) => {
   }
 };
 
-export { add, getAll };
+const updateHomestay = async (req, res) => {
+  try {
+    const { id } = req.params
+    const updatedData = req.body; 
+    const updatedHomestay = await Homestay.findByIdAndUpdate(id, updatedData, { new: true, runValidators: true });
+    if (!updatedHomestay) {
+      console.log(updatedHomestay)
+      return res.status(404).send('Homestay not found');
+    }
+    res.json(updatedHomestay);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error updating homestay');
+  }
+}
+
+
+const deleteHomestay = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedHomestay = await Homestay.findByIdAndDelete(id);
+    if(deletedHomestay){
+
+      res.send('Homestay deleted successfully');
+    }else{
+      res.send("Couldnt delete.")
+    }
+  } catch (error) {
+    res.status(500).send('Error deleting homestay');
+  }
+}
+
+export { addHomestay, getAllHomestay, updateHomestay, deleteHomestay };

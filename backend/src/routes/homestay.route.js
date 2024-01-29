@@ -1,11 +1,14 @@
 import {Router} from "express"
-import { add } from "../controllers/homestay.controller.js"
-import { getAll } from "../controllers/homestay.controller.js"
+import { addHomestay } from "../controllers/homestay.controller.js"
+import { getAllHomestay } from "../controllers/homestay.controller.js"
+import { updateHomestay } from "../controllers/homestay.controller.js"
+import { deleteHomestay } from "../controllers/homestay.controller.js"
 const homestayRouter = Router()
 
 
-homestayRouter.post("/add", add)
-homestayRouter.get("/getall", getAll)
-
+homestayRouter.post("/addhomestay", addHomestay)
+homestayRouter.get("/", getAllHomestay)
+homestayRouter.put("/:id", updateHomestay)
+homestayRouter.delete("/:id", deleteHomestay)
 
 export default homestayRouter

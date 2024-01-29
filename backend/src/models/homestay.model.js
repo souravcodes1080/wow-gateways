@@ -43,7 +43,7 @@ const homestaySchema = new mongoose.Schema({
         
     },
     roomImage:{
-        type: String,
+        type: [],
       
     },
     googleMapLink:{
