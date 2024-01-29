@@ -1,13 +1,19 @@
 import { Homestay } from "../models/homestay.model.js";
-import {upload} from "../utils/cloudinary.js"
-const multerUpload = upload.array('images', 20);
+import { upload } from "../utils/cloudinary.js";
+// const multerUpload = upload.array('images', 20);
+const multerUpload = upload.fields([
+  { name: "images", maxCount: 20 },
+  { name: "balconyImage", maxCount: 10 },
+]);
 
 const add = async (req, res) => {
   try {
     // Handle file upload first
     multerUpload(req, res, async (err) => {
       if (err) {
-        return res.status(400).json({ message: "File upload error", error: err });
+        return res
+          .status(400)
+          .json({ message: "File upload error", error: err });
       }
 
       const {
@@ -21,7 +27,8 @@ const add = async (req, res) => {
         googleMapLink,
       } = req.body;
 
-      const images = req.files.map(file => file.path); // Extracting image URLs from Cloudinary
+      const images = req.files['images'].map((file) => file.path);
+      const balconyImage = req.files['balconyImage'].map(file => file.path); 
 
       const newHomestay = new Homestay({
         homestayName,
@@ -31,8 +38,8 @@ const add = async (req, res) => {
         address,
         noOfrooms,
         noOfcars,
-        images, // Array of image URLs
-        // balconyImage,
+        images, 
+        balconyImage,
         // viewImage,
         // roomImage,
         googleMapLink,
@@ -55,6 +62,5 @@ const getAll = async (req, res) => {
     res.status(500).send("Error retrieving homestays");
   }
 };
-
 
 export { add, getAll };

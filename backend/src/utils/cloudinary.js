@@ -1,7 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
-
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-
 import multer from "multer";
 
 cloudinary.config({
@@ -12,9 +10,12 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: "HomestayImages",
-    allowedFormats: ["jpg", "png","jpeg", "webp"],
+  params: (req, file) => {
+    return {
+      folder: `HomestayImages/${req.body.homestayName}`, // Assuming homestayName is provided in the request body
+      allowedFormats: ["jpg", "png", "jpeg", "webp"],
+      public_id: `${req.body.homestayName}_${Date.now()}_${file.originalname}`, // Example of dynamic naming
+    };
   },
 });
 

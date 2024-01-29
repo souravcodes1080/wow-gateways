@@ -43,9 +43,12 @@
 }
 
 .homestay-name h2{
-    font-weight: 600;
+    font-weight: 500;
     color: red;
-    font-size: 30px;
+    font-size: 55px;
+    letter-spacing: 3px;
+    line-height: 70px;
+    font-family: "buttermilk";
 }
 .homestay-description p{
     width: 500px;

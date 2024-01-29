@@ -185,9 +185,9 @@ function Homestay() {
             </ul>
           </div>
         </div>
-        <div className="homestay-review">
+        {/* <div className="homestay-review">
         <button><a target="_blank" href="https://www.google.com/search?hl=en-IN&gl=in&q=Panch+pokhari+Homestay+Sittong,+Tham,+Upper,+near+pachpokhari,+Sittong,+West+Bengal+734008&ludocid=14407024695230560213&lsig=AB86z5UdLq-YDCHn5wp90vg-vf0F#lrd=0x39e43b94781577f1:0xc7f008a0ed7f77d5,3"> Review Us <MdReviews/></a></button>
-        </div>
+        </div> */}
         <div className="google-map">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3557.5662900065677!2d88.37949667519159!3d26.917256359895788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e43b94781577f1%3A0xc7f008a0ed7f77d5!2sPanch%20pokhari%20Homestay%20Sittong!5e0!3m2!1sen!2sin!4v1706336658634!5m2!1sen!2sin"
