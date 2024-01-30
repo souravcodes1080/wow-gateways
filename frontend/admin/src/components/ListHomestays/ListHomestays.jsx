@@ -3,12 +3,13 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./listHomestays.css";
 import Sidebar from "../Sidebar/Sidebar";
+import { FaRupeeSign } from "react-icons/fa";
 
 function ListHomestays() {
   const [homestays, setHomestays] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("adminAuthorizationToken")) {
       navigate("/admin/login");
@@ -18,6 +19,7 @@ function ListHomestays() {
       try {
         const response = await axios.get("http://localhost:8080/homestay");
         setHomestays(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -26,29 +28,67 @@ function ListHomestays() {
     fetchHomestays();
   }, []);
 
+  const updateHomestay = (id) => {
+    navigate(`/admin/edithomestay/${id}`);
+  };
+
   return (
     <div className="admin-panel-wrapper">
       <Sidebar />
-      <div className="dashboard-mains">
-        <div>
-          {isLoading ? (
-            <div>Loading...</div>
-          ) : (
-            <div>
-              {homestays.map((homestay) => (
-                <div key={homestay._id}>
-                  <img src={homestay.images[5]} alt="" width={"200px"} />
-                  <h3>{homestay.homestayName}</h3>
-                  <p>{homestay.address}</p>
-                  <p>{homestay.price}/day</p>
-                  Display other homestay details
-                  <Link to={`/admin/edithomestay/${homestay._id}`}>Edit</Link>
-                  <Link>Delete</Link>
-                  <hr />
-                </div>
+      <div className="dashboard-main-add-homestay">
+        <div className="list-product">
+          <h1>All Homestay list</h1>
+          <br />
+          <table className="list-product-table">
+            <thead>
+              <tr>
+                <th className="column-picture">Picture</th>
+                <th className="column-name">Homestay Name</th>
+                <th className="column-address">Address</th>
+                <th className="column-phone">Phone Number</th>
+                <th className="column-email">Email</th>
+                <th className="column-price">Price</th>
+                <th className="column-price">Rooms</th>
+                <th className="column-price">Cars</th>
+              </tr>
+            </thead>
+            <tbody>
+              {homestays.map((homestay, index) => (
+                <tr key={index}>
+                  <td className="column-picture">
+                    <img src={homestay.images[4]} alt={homestay.homestayName} />
+                  </td>
+                  <td className="column-name">{homestay.homestayName}</td>
+                  <td className="column-address">{homestay.address}</td>
+                  <td className="column-phone">{homestay.phoneNumber}</td>
+                  <td className="column-email">{homestay.email}</td>
+                  <td className="column-price">{homestay.price}</td>
+                  <td className="column-price">{homestay.noOfrooms}</td>
+                  <td className="column-price"  >{homestay.noOfCars}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        updateHomestay(homestay._id);
+                      }}
+                      className="list-product-update-item"
+                    >
+                      Update
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        updateHomestay(homestay._id);
+                      }}
+                      className="list-product-delete-item"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
               ))}
-            </div>
-          )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -56,3 +96,50 @@ function ListHomestays() {
 }
 
 export default ListHomestays;
+{
+  /* <div className="list-product-format-main">
+<p>Picture</p>
+<p>Homestay Name</p>
+<p>Address</p>
+<p>Phone Number</p>
+<p>Email</p>
+<p>Price / day</p>
+<p>Rooms</p>
+<p>Cars</p>
+</div>
+<div className="list-product-all-products">
+<hr />
+{homestays.map((homestay, index) => {
+  return (
+    <div key={index}>
+      <div
+        
+        className="list-product-format-main list-product-format"
+      >
+        <img
+          className="list-product-product-icon"
+          src={homestay.images[4]}
+          alt={homestay.images[4]}
+        />
+        <p>{homestay.homestayName}</p>
+        <p>{homestay.address}</p>
+        <p>{homestay.phoneNumber}</p>
+        <p>{homestay.email}</p>
+        <p>Rs. {homestay.price}</p>
+        <p>{homestay.noOfrooms}</p>
+        <p>{homestay.noOfCars}</p>
+          <button
+          onClick={()=>{updateHomestay(homestay._id)}}
+            className="list-product-update-item"
+          >Update</button>
+         <button
+          onClick={()=>{updateHomestay(homestay._id)}}
+            className="list-product-delete-item"
+          >Delete</button> 
+      </div>
+      <hr />
+    </div>
+  );
+})}
+</div> */
+}

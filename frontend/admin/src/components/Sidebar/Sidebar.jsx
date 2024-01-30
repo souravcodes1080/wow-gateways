@@ -33,6 +33,13 @@ function Sidebar() {
             </li>
             <li>
             <button onClick={() => {
+                  navigate("/admin/homestaylist");
+                }}>
+                List Booking
+            </button>
+            </li>
+            <li>
+            <button onClick={() => {
                   navigate("/admin/addhomestay");
                 }}>
                 Manage Rooms
