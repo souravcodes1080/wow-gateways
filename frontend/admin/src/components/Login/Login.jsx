@@ -15,6 +15,7 @@ const Login = () => {
        { username, password });
 
       localStorage.setItem("adminAuthorizationToken", response.data.token);
+      
       navigate("/")
     } catch (error) {
       console.log(error);
@@ -22,7 +23,9 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleLogin}>
+    <div className="login-form-wrapper">
+        <form onSubmit={handleLogin}>
+        <p>Admin Login</p>
       <input
         type="text"
         placeholder="Username"
@@ -37,6 +40,8 @@ const Login = () => {
       />
       <button type="submit">Login</button>
     </form>
+    </div>
+  
   );
 };
 
