@@ -1,10 +1,11 @@
 import {app} from "./app.js"
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
+import cors from "cors"
 // Import required modules
 import bodyParser from "body-parser"
 import fileUpload from "express-fileupload"
-
+app.use(cors())
 app.use(bodyParser.json());
 app.use(fileUpload());
 
