@@ -1,0 +1,104 @@
+    .list-product{
+        transform: scale(1);
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px 0px;
+        margin: 30px;
+        border-radius: 6px;
+        background-color: white;
+        
+    }
+
+    .list-product-format-main{
+        display: grid;
+        grid-template-columns: 2fr 2fr 4fr 2fr 3fr 2fr 2fr 1fr 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+        padding: 20px 0;
+        color: #454545;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .list-product-format{
+        align-items: center;
+        font-weight: 500;
+    }
+
+    .list-product-product-icon{
+        height: 80px;
+    }
+
+    .list-product-update-item{
+        cursor: pointer;
+        padding: 5px 15px;
+        background-color: rgb(50, 206, 50);
+        color: white;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+
+    }
+
+    .list-product-delete-item{
+        cursor: pointer;
+        padding: 5px 15px;
+        background-color:red;
+        color: white;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+
+    }
+
+    .list-product-all-products{
+        overflow-y: auto;
+        width: 100%;
+    }
+
+
+
+
+    .list-product-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 10px 30px; 
+      }
+      
+      .list-product-table th, .list-product-table td {
+        text-align: left;
+        vertical-align: middle;
+        font-size: 13px;
+
+      }
+      .column-picture { width: 5%; }
+.column-name { width: 30%;  }
+.column-address { width: 45%;}
+.column-phone { width: 10%; }
+.column-email { width: 10%; }
+.column-price { width: 10%; }
+
+      
+      
+      .list-product-table img {
+        width: 120px; 
+        height: auto;
+      }
+
+    @media (max-width: 800px){
+        .list-product{
+            box-sizing: border-box;
+            width: 95%;
+            height: 100%;
+            padding: 10px 30px;
+            margin: 20px auto;
+        }
+        .list-product-format-main{
+            padding: 15px 0;
+            color: #454545;
+            font-size: 12px;
+        }
+        .list-product-product-icon{
+            height: 60px;
+        }
+    }

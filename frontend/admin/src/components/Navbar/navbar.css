@@ -1,9 +1,10 @@
 .header-wrapper{
     background-color: #ee2e29;
+    height: 10vh;
 }
 
 header{
-    padding: 20px 0;
+    padding: 10px 0;
     margin: auto;
     width: 90%;
     position: relative;

@@ -1,6 +1,11 @@
 .admin-panel-wrapper-add-homestay{
     display: flex;
-  
+    height: 100%;
+}
+.dashboard-main-add-homestay{
+    width: 100%;
+    height: 89vh;
+    overflow: auto;
 }
 .dashboard-main-add-homestay form{
     display: flex;
