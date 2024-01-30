@@ -1,0 +1,13 @@
+.admin-panel-wrapper{
+    display: flex;
+
+}
+.dashboard-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.dashboard-main img{
+    opacity: 0.3;
+}

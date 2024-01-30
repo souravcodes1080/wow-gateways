@@ -1,0 +1,59 @@
+.admin-panel-wrapper-add-homestay{
+    display: flex;
+  
+}
+.dashboard-main-add-homestay form{
+    display: flex;
+    gap: 30px; 
+    margin-top: 50px;
+    margin-left: 70px;
+}
+
+.dashboard-main-add-homestay form input, textarea{
+    padding: 5px 10px;
+    width: 300px;
+}
+.form-wrapper{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
+.address-textarea{
+    width: 300px; 
+    min-height: 100px; 
+    max-height: 200px;
+    resize: vertical;
+}
+
+
+.form-wrapper-pictures{
+   
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.image-previews{
+    overflow: auto;
+    width: 550px;
+}
+.preview-image{
+    width: 100px;
+    height: 100px;
+    border-radius: 7px;
+    overflow: hidden;
+    object-fit: cover;
+    margin: 10px;
+}
+
+.add-homestay{
+    padding: 15px 20px;
+    border-radius: 7px;
+    background-color: blue;
+    color: white;
+    border: none;
+    outline: none;
+    margin-left: 20px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
