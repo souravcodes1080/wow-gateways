@@ -10,9 +10,9 @@ function Sidebar() {
           <ul>
           <li>
             <button onClick={() => {
-                  navigate("/admin/addhomestay");
+                  navigate("/admin/addcustomer");
                 }}>
-                Add Tourists
+                Add Customer
             </button>
           </li>
             <li>

@@ -26,6 +26,8 @@ function AddHomestay() {
     noOfrooms: "",
     noOfcars: "",
     googleMapLink: "",
+    features: [],
+    location: "",
   });
   const [images, setImages] = useState([]);
   const [balconyImage, setBalconyImage] = useState([]);
@@ -33,8 +35,18 @@ function AddHomestay() {
   const [roomImage, setRoomImage] = useState([]);
 
   const handleInputChange = (e) => {
-    setHomestayData({ ...homestayData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+  
+    // For the 'features' input, split the value by commas and trim whitespace
+    // to create an array of features
+    if (name === "features") {
+      const featuresArray = value.split(",").map(feature => feature.trim());
+      setHomestayData({ ...homestayData, [name]: featuresArray });
+    } else {
+      setHomestayData({ ...homestayData, [name]: value });
+    }
   };
+  
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -168,6 +180,38 @@ function AddHomestay() {
                 onChange={handleInputChange}
               />
             </div>
+            <div className="form-wrapper">
+              <label>Features (use comma to seperate values)</label>
+              <input
+                type="text"
+                name="features"
+                placeholder="Homestay features"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-wrapper">
+              <label>Location</label>
+              <select
+                name="location"
+                onChange={handleInputChange}
+                value={homestayData.location}
+              >
+                <option value="">Select location</option>
+                <option value="darjeeling">Darjeeling</option>
+                <option value="kalimpong">Kalimpong</option>
+                <option value="sittong">Sittong</option>
+                <option value="tinchwe">Tinchwe</option>
+                <option value="fikka">Fikka</option>
+                <option value="paygon">Paygon</option>
+                <option value="lava">Lava</option>
+                <option value="gantok">Gantok</option>
+                <option value="lachen">Lachen</option>
+                <option value="lachong">Lachong</option>
+                <option value="pelling">Pelling</option>
+                <option value="ravangla">Ravangla</option>
+                <option value="namchi">Namchi</option>
+              </select>
+            </div>  
             <div className="form-wrapper">
               <label>Google Map Link</label>
               <input

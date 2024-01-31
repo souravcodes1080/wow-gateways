@@ -20,6 +20,13 @@ const homestaySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    location:{
+        type: String,
+        required: false
+    },
+    features:{
+        type:[],
+    },
     noOfrooms:{
         type: Number,
         required: true,

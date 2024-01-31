@@ -27,8 +27,11 @@ const addHomestay = async (req, res) => {
         noOfrooms,
         noOfcars,
         googleMapLink,
+        features,
+        location
       } = req.body;
 
+      const featuresArray = features.split(",").map(feature => feature.trim());
       const images = req.files['images'].map((file) => file.path);
       const balconyImage = req.files['balconyImage'].map(file => file.path); 
       const viewImage = req.files['viewImage'].map(file => file.path); 
@@ -47,6 +50,8 @@ const addHomestay = async (req, res) => {
         viewImage,
         roomImage,
         googleMapLink,
+        features: featuresArray,
+        location
       });
 
       await newHomestay.save();
