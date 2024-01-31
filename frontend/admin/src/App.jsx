@@ -12,6 +12,7 @@ import EditHomestay from "./components/EditHomestay/EditHomestay";
 import Navbar from "./components/Navbar/Navbar";
 import ListHomestays from "./components/ListHomestays/ListHomestays";
 import AddCustomer from "./components/AddCustomer/AddCustomer";
+import ListBooking from "./components/ListBookings/ListBookings";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/admin/addhomestay" element={<AddHomestay />} />
         <Route path="/admin/addcustomer" element={<AddCustomer />} />
         <Route path="/admin/homestaylist" element={<ListHomestays />} />
+        <Route path="/admin/bookinglist" element={<ListBooking />} />
         <Route path="/admin/edithomestay/:id" element={<EditHomestay />} />
 
         <Route path="/admin/login" element={<Login />} />

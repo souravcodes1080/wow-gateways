@@ -33,7 +33,7 @@ function Sidebar() {
             </li>
             <li>
             <button onClick={() => {
-                  navigate("/admin/homestaylist");
+                  navigate("/admin/bookinglist");
                 }}>
                 List Booking
             </button>

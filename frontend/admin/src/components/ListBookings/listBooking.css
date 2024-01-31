@@ -1,0 +1,54 @@
+    .admin-panel-wrapper {
+        display: flex;
+    }
+    
+    .dashboard-main-add-homestay {
+        flex-grow: 1;
+        padding: 20px;
+    }
+    
+    .list-product {
+        margin-top: 20px;
+    }
+    
+    .list-product h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    
+    .list-product-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .list-product-table th,
+    .list-product-table td {
+        width: 300px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    
+    .list-product-table th {
+        background-color: #f2f2f2;
+    }
+    
+    .list-product-table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    
+    .list-product-update-item,
+    .list-product-delete-item {
+        padding: 5px 10px;
+        cursor: pointer;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 3px;
+    }
+    
+    .list-product-update-item:hover,
+    .list-product-delete-item:hover {
+        background-color: #0056b3;
+    }
+    

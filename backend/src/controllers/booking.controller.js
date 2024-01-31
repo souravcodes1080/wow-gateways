@@ -103,5 +103,30 @@ const booking = asyncHandler(async (req, res, next) => {
     next(error);
   }
 });
+const getAllBooking = asyncHandler(async (req, res, next) => {
+  try {
+    
+    const bookings = await Booking.find();
 
-export { booking };
+    
+    if (!bookings || bookings.length === 0) {
+      return res.status(404).json({
+        message: "No bookings found.",
+        status: false,
+      });
+    }
+
+    
+    return res.status(200).json({
+      message: "Bookings fetched successfully.",
+      status: true,
+      bookings,
+    });
+  } catch (error) {
+    
+    next(error);
+  }
+});
+
+
+export { booking, getAllBooking };
