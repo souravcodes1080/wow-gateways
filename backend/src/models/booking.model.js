@@ -2,50 +2,65 @@ import mongoose from "mongoose";
 
 
 const bookingSchema = new mongoose.Schema({
-    name: {
+    customerName: {
         type: String,
         required: true,
     },
-    phoneNumber: {
+    customerPhoneNumber: {
         type: Number,
         required: true,
     },
-    email: {
+    customerEmail: {
         type: String,
     },
-    familyMembers: {
-        type: Number,
-        required: true,
-        default: 1,
-    },
-    checkInDate: {
+    checkIn: {
         type: Date,
         required: true,
     },
-    checkOutDate: {
+    checkOut: {
         type: Date,
-    },
-    numberOfDays: {
-        type: Number,
     },
     homestayName: {
         type: String,
         required: true,
     },
-    rooms: {
+    noOfAdults:{
+        type: Number,
+        default: 1
+    },
+    noOfchilds1: {
+        type: Number,
+        default: 0,
+    },  
+    noOfchilds2:{
+        type: Number,
+        default: 0
+    },
+    noOfRoomsBooked: {
+        type: Number,
+        default: 1
+    },
+    totalAmount: {
         type: Number,
     },
-    car: { 
+    paid: {
+        type: Number,
+    },
+    due: {
+        type: Number,
+    },
+    note: {
         type: String,
-        default: false,
+    },
+    cars: { 
+        type: String,
+    },
+    tourPackage: { 
+        type: String,
     },
     bookedOn:{
         type: Date,
         default: Date.now,
-    },
-    extra:{
-        type: String,
-        required: false
     }
 });
 

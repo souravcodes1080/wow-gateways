@@ -6,26 +6,35 @@ import Sidebar from "../Sidebar/Sidebar";
 function AddCustomer() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [imagePreviews, setImagePreviews] = useState([]);
-  const [imageBalconyPreviews, setBalconyImagePreviews] = useState([]);
-  const [imageViewPreviews, setViewImagePreviews] = useState([]);
-  const [imageRoomPreviews, setRoomImagePreviews] = useState([]);
-
+  const [homestayList, setHomestayList] = useState([]);
   useEffect(() => {
     if (!localStorage.getItem("adminAuthorizationToken")) {
       navigate("/admin/login");
     }
   }, []);
+  useEffect(() => {
+    
+    fetchHomestayNames();
+  }, []);
 
-  const [homestayData, setHomestayData] = useState({
+
+  const fetchHomestayNames = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/homestay");
+      setHomestayList(response.data);
+    } catch (error) {
+      console.error("Error fetching homestay names:", error);
+    }
+  };
+  const [customerData, setCustomerData] = useState({
     customerName: "",
     customerPhoneNumber: "",
     customerEmail: "",
-    checkIn:"",
-    checkOut:"",
+    checkIn: "",
+    checkOut: "",
     noOfAdults: "",
-    noOfchilds1: "",  //0-5
-    noOfchilds2: "",   //5-9
+    noOfchilds1: "",
+    noOfchilds2: "",
     homestayName: "",
     noOfRoomsBooked: "",
     totalAmount: "",
@@ -33,64 +42,61 @@ function AddCustomer() {
     due: "",
     note: "",
     cars: "",
-    tourPackage: ""
+    tourPackage: "",
   });
-  const [images, setImages] = useState([]);
-  const [balconyImage, setBalconyImage] = useState([]);
-  const [viewImage, setViewImage] = useState([]);
-  const [roomImage, setRoomImage] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-  
-    // For the 'features' input, split the value by commas and trim whitespace
-    // to create an array of features
-    if (name === "features") {
-      const featuresArray = value.split(",").map(feature => feature.trim());
-      setHomestayData({ ...homestayData, [name]: featuresArray });
-    } else {
-      setHomestayData({ ...homestayData, [name]: value });
-    }
+    setCustomerData({ ...customerData, [name]: value });
   };
-  
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const formData = new FormData();
-    Object.keys(homestayData).forEach((key) =>
-      formData.append(key, homestayData[key])
-    );
-    Array.from(images).forEach((image) => formData.append("images", image));
-    Array.from(balconyImage).forEach((image) =>
-      formData.append("balconyImage", image)
-    );
-    Array.from(viewImage).forEach((image) =>
-      formData.append("viewImage", image)
-    );
-    Array.from(roomImage).forEach((image) =>
-      formData.append("roomImage", image)
-    );
-
+  
     try {
-      await axios.post("http://localhost:8080/homestay/addhomestay", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      alert("Homestay added successfully!");
-
+      const formData = {
+        ...customerData,
+        // Convert number inputs to integers
+        noOfAdults: parseInt(customerData.noOfAdults),
+        noOfchilds1: parseInt(customerData.noOfchilds1),
+        noOfchilds2: parseInt(customerData.noOfchilds2),
+        noOfRoomsBooked: parseInt(customerData.noOfRoomsBooked),
+        totalAmount: parseInt(customerData.totalAmount),
+        paid: parseInt(customerData.paid),
+        due: parseInt(customerData.due),
+      };
+  
+      // Make the POST request with formData
+      await axios.post("http://localhost:8080/home/booking", formData);
+  
+      alert("Customer booked successfully!");
       navigate("/");
     } catch (error) {
-      alert("Error adding homestay. Please try again later.");
+      let errorMessage = "Error booking. Please try again later."; // Default error message
+  
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        const { status, data } = error.response;
+        if (status === 400 && data.message) {
+          errorMessage = data.message; // Use the specific error message from the server
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        errorMessage = "No response from the server. Please try again later.";
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        errorMessage = "An unexpected error occurred. Please try again later.";
+      }
+  
+      alert(errorMessage); // Show the error message to the user
       console.error(error);
     } finally {
       setIsSubmitting(false);
     }
   };
-
+  
   return (
     <div className="admin-panel-wrapper-add-homestay">
       <Sidebar />
@@ -100,7 +106,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Customer Name</label>
               <input
-              required
+                required
                 type="text"
                 name="customerName"
                 placeholder="Customer Name"
@@ -109,21 +115,26 @@ function AddCustomer() {
             </div>
             <div className="form-wrapper">
               <label>Homestay Name</label>
-              <input
-              required
-                type="text"
-                name="hofme"
-                placeholder="Homestay Name"
+              <select
+                required
+                name="homestayName"
+                value={customerData.homestayName}
                 onChange={handleInputChange}
-              />
+              >
+                <option value="">Select Homestay</option>
+                {homestayList.map((homestay) => (
+                  <option key={homestay._id} value={homestay.homestayName}>
+                    {homestay.homestayName}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="form-wrapper">
               <label>Package</label>
               <select
-              required
+                required
                 type="text"
                 name="tourPackage"
-                value={homestayData.tourPackage}
                 placeholder="Homestay Name"
                 onChange={handleInputChange}
               >
@@ -136,7 +147,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Total Price</label>
               <input
-              required
+                required
                 type="number"
                 name="totalAmount"
                 placeholder="Price"
@@ -147,7 +158,7 @@ function AddCustomer() {
               <label>Customer Phone Number</label>
               <input
                 type="number"
-                name="customerpPhoneNumber"
+                name="customerPhoneNumber"
                 placeholder="Customer phonenumber"
                 onChange={handleInputChange}
               />
@@ -156,26 +167,18 @@ function AddCustomer() {
               <label>Customer Email Address</label>
               <input
                 type="email"
-                name="email"
+                name="customerEmail"
                 placeholder="Customer Email"
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-wrapper">
               <label>Check In Date</label>
-              <input
-                type="date"
-                name="checkInDate"
-                onChange={handleInputChange}
-              />
+              <input type="date" name="checkIn" onChange={handleInputChange} />
             </div>
             <div className="form-wrapper">
               <label>Check Out Date</label>
-              <input
-                type="date"
-                name="checkOutDate"
-                onChange={handleInputChange}
-              />
+              <input type="date" name="checkOut" onChange={handleInputChange} />
             </div>
             <div className="form-wrapper">
               <label>Number of adults</label>
@@ -190,7 +193,7 @@ function AddCustomer() {
               <label>Number of Childs(0-5 yrs.)</label>
               <input
                 type="number"
-                name="noOfChild1"
+                name="noOfchilds1"
                 placeholder="Number of Children"
                 onChange={handleInputChange}
               />
@@ -199,16 +202,15 @@ function AddCustomer() {
               <label>Number of Childs(5-9 yrs.)</label>
               <input
                 type="number"
-                name="noOfChild2"
+                name="noOfchilds2"
                 placeholder="Number of Children"
                 onChange={handleInputChange}
               />
             </div>
-            
-           
-           
           </div>
-          <div className="form-right"> <div className="form-wrapper">
+          <div className="form-right">
+            {" "}
+            <div className="form-wrapper">
               <label>Number of Rooms booked</label>
               <input
                 type="number"
@@ -244,27 +246,25 @@ function AddCustomer() {
                 onChange={handleInputChange}
               />
             </div>
-             
-          <div className="form-wrapper">
+            <div className="form-wrapper">
               <label>Note</label>
               <textarea
-              className="address-textarea"
+                className="address-textarea"
                 type="text"
                 name="note"
                 placeholder="Customer note"
                 onChange={handleInputChange}
               />
             </div>
-           
-            
-
-        
-
-          <button className="add-homestay" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Adding Customer...' : 'Add Customer'}
+            <button
+              className="add-homestay"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Adding Customer..." : "Add Customer"}
             </button>
           </div>
-        </form>  
+        </form>
       </div>
     </div>
   );
