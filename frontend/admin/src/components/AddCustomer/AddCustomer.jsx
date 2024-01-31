@@ -13,10 +13,8 @@ function AddCustomer() {
     }
   }, []);
   useEffect(() => {
-    
     fetchHomestayNames();
   }, []);
-
 
   const fetchHomestayNames = async () => {
     try {
@@ -53,7 +51,7 @@ function AddCustomer() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-  
+
     try {
       const formData = {
         ...customerData,
@@ -66,15 +64,15 @@ function AddCustomer() {
         paid: parseInt(customerData.paid),
         due: parseInt(customerData.due),
       };
-  
+
       // Make the POST request with formData
       await axios.post("http://localhost:8080/home/booking", formData);
-  
+
       alert("Customer booked successfully!");
       navigate("/");
     } catch (error) {
       let errorMessage = "Error booking. Please try again later."; // Default error message
-  
+
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
@@ -89,14 +87,14 @@ function AddCustomer() {
         // Something happened in setting up the request that triggered an Error
         errorMessage = "An unexpected error occurred. Please try again later.";
       }
-  
+
       alert(errorMessage); // Show the error message to the user
       console.error(error);
     } finally {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
     <div className="admin-panel-wrapper-add-homestay">
       <Sidebar />
@@ -139,21 +137,13 @@ function AddCustomer() {
                 onChange={handleInputChange}
               >
                 <option value="">Select packages</option>
-                <option value="1">Package 1</option>
-                <option value="2">Package 2</option>
-                <option value="3">Package 3</option>
+                <option value="premium">Premium</option>
+                <option value="dulux">Dulux</option>
+                <option value="normal">Normal</option>
+                <option value="others">Others</option>
               </select>
             </div>
-            <div className="form-wrapper">
-              <label>Total Price</label>
-              <input
-                required
-                type="number"
-                name="totalAmount"
-                placeholder="Price"
-                onChange={handleInputChange}
-              />
-            </div>
+
             <div className="form-wrapper">
               <label>Customer Phone Number</label>
               <input
@@ -179,6 +169,15 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Check Out Date</label>
               <input type="date" name="checkOut" onChange={handleInputChange} />
+            </div>
+            <div className="form-wrapper">
+              <label>Number of Rooms booked</label>
+              <input
+                type="number"
+                name="noOfRoomsBooked"
+                placeholder="Rooms Booked"
+                onChange={handleInputChange}
+              />
             </div>
             <div className="form-wrapper">
               <label>Number of adults</label>
@@ -209,22 +208,29 @@ function AddCustomer() {
             </div>
           </div>
           <div className="form-right">
-            {" "}
-            <div className="form-wrapper">
-              <label>Number of Rooms booked</label>
-              <input
-                type="number"
-                name="noOfRoomsBooked"
-                placeholder="Rooms Booked"
-                onChange={handleInputChange}
-              />
-            </div>
             <div className="form-wrapper">
               <label>Cars</label>
+              <select name="cars" onChange={handleInputChange}>
+                <option value="">Select Car</option>
+                <option value="Wagnor">Wagnor</option>
+                <option value="Alto">Alto</option>
+                <option value="Sumo Gold">Sumo Gold</option>
+                <option value="Bolero">Bolero</option>
+                <option value="Fortuner">Fortuner</option>
+                <option value="Spresso">Spresso</option>
+                <option value="Swift Desire">Swift Desire</option>
+                <option value="Small Car">Small Car</option>
+                <option value="8 Seater Car">8 Seater Car</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div className="form-wrapper">
+              <label>Total Price</label>
               <input
-                type="text"
-                name="cars"
-                placeholder="Cars"
+                required
+                type="number"
+                name="totalAmount"
+                placeholder="Price"
                 onChange={handleInputChange}
               />
             </div>
