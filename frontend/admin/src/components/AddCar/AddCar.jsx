@@ -24,44 +24,56 @@ function AddCar() {
     drivingLocation: "",
     ac: false,
     condition: "",
-    carRating: ""
+    carRating: "",
   });
-//   const [images, setImages] = useState([]);
- 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-  
-   
-      setCarData({ ...carData, [name]: value });
-    
-  };
-  
+  //   const [images, setImages] = useState([]);
 
-//   const handleFileChange = (e) => {
-//     const files = Array.from(e.target.files);
-//     setImages(e.target.files);
-//     const previews = files.map((file) => URL.createObjectURL(file));
-//     setImagePreviews(previews);
-//   };
-  
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+
+    setCarData({ ...carData, [name]: newValue });
+  };
+
+  //   const handleFileChange = (e) => {
+  //     const files = Array.from(e.target.files);
+  //     setImages(e.target.files);
+  //     const previews = files.map((file) => URL.createObjectURL(file));
+  //     setImagePreviews(previews);
+  //   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   const formData = new FormData();
+  //   Object.keys(carData).forEach((key) => formData.append(key, carData[key]));
+  //   // Array.from(images).forEach((image) => formData.append("images", image));
+
+  //   try {
+  //     await axios.post("http://localhost:8080/car", formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
+
+  //     alert("Car added successfully!");
+
+  //     navigate("/");
+  //   } catch (error) {
+  //     alert("Error adding Car. Please try again later.");
+  //     console.error(error);
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const formData = new FormData();
-    Object.keys(carData).forEach((key) =>
-      formData.append(key, carData[key])
-    );
-    // Array.from(images).forEach((image) => formData.append("images", image));
-    
+
     try {
-      await axios.post("http://localhost:8080/homestay/addCar", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post("http://localhost:8080/car", carData);
 
       alert("Car added successfully!");
-
       navigate("/");
     } catch (error) {
       alert("Error adding Car. Please try again later.");
@@ -80,7 +92,7 @@ function AddCar() {
             <div className="form-wrapper">
               <label>Car Name</label>
               <input
-              required
+                required
                 type="text"
                 name="carName"
                 placeholder="Car Name"
@@ -90,6 +102,7 @@ function AddCar() {
             <div className="form-wrapper">
               <label>Car Driver Name</label>
               <input
+              required
                 type="text"
                 name="driverName"
                 placeholder="Driver Name"
@@ -99,6 +112,7 @@ function AddCar() {
             <div className="form-wrapper">
               <label>Driver Phone Number</label>
               <input
+              required
                 type="number"
                 name="driverPhoneNumber"
                 placeholder="Driver Phone Number"
@@ -153,7 +167,7 @@ function AddCar() {
             <div className="form-wrapper">
               <label>Ac / Non Ac</label>
               <input
-              className="checkboxes"
+                className="checkboxes"
                 type="checkbox"
                 name="ac"
                 onChange={handleInputChange}
@@ -186,8 +200,13 @@ function AddCar() {
                 <option value="4">4 Star</option>
                 <option value="5">5 Star</option>
               </select>
-            </div><button className="add-homestay" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Adding Car...' : 'Add Car'}
+            </div>
+            <button
+              className="add-homestay"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Adding Car..." : "Add Car"}
             </button>
           </div>
           <div className="form-right">
@@ -206,11 +225,8 @@ function AddCar() {
                 ))}
               </div>
             </div> */}
-            
-            
-          
           </div>
-        </form>  
+        </form>
       </div>
     </div>
   );
