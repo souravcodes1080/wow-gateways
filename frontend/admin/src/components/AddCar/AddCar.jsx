@@ -32,7 +32,7 @@ function AddCar() {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
 
-    setCarData({ ...carData, [name]: newValue });
+    setCarData({ ...carData, [name]: name === "noOfSeats" ? parseInt(newValue) : newValue });
   };
 
   //   const handleFileChange = (e) => {

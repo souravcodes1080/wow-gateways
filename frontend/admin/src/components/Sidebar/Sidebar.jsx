@@ -47,9 +47,9 @@ function Sidebar() {
             </li>
             <li>
             <button onClick={() => {
-                  navigate("/admin/addhomestay");
+                  navigate("/admin/carlist");
                 }}>
-                Manage Rooms
+                Manage Cars
             </button>
             </li>
             
