@@ -26,6 +26,13 @@ function Sidebar() {
             </li>
             <li>
             <button onClick={() => {
+                  navigate("/admin/addcar");
+                }}>
+                Add Cars
+            </button>
+            </li>
+            <li>
+            <button onClick={() => {
                   navigate("/admin/homestaylist");
                 }}>
                 List Homestays
@@ -45,13 +52,7 @@ function Sidebar() {
                 Manage Rooms
             </button>
             </li>
-            <li>
-            <button onClick={() => {
-                  navigate("/admin/addhomestay");
-                }}>
-                Manage Cars
-            </button>
-            </li>
+            
           </ul>
         </div>
     </>

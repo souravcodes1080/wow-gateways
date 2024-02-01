@@ -10,8 +10,8 @@
 .dashboard-main-add-homestay form{
     display: flex;
     gap: 30px; 
-    margin-top: 50px;
-    margin-left: 70px;
+    margin-top: 0;
+    margin-left: 10px;
 }
 
 .dashboard-main-add-homestay form input, textarea{

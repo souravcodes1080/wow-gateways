@@ -19,9 +19,11 @@ app.use(cookieParser());
 import bookingRouter from "./routes/booking.route.js";
 import adminRouter from "./routes/admin.route.js";
 import homestayRouter from "./routes/homestay.route.js";
+import carRouter from "./routes/car.route.js";
 
 //routes declaration
 app.use("/home", bookingRouter);
 app.use("/admin", adminRouter);
 app.use("/homestay", homestayRouter);
+app.use("/car", carRouter);
 export { app };

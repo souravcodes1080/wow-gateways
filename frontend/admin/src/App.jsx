@@ -13,6 +13,7 @@ import Navbar from "./components/Navbar/Navbar";
 import ListHomestays from "./components/ListHomestays/ListHomestays";
 import AddCustomer from "./components/AddCustomer/AddCustomer";
 import ListBooking from "./components/ListBookings/ListBookings";
+import AddCar from "./components/AddCar/AddCar";
 
 const App = () => {
   return (
@@ -22,6 +23,10 @@ const App = () => {
         <Route path="/" element={<Dashboard />} />
         <Route path="/admin/addhomestay" element={<AddHomestay />} />
         <Route path="/admin/addcustomer" element={<AddCustomer />} />
+        <Route path="/admin/addcar" element={<AddCar />} />
+
+
+
         <Route path="/admin/homestaylist" element={<ListHomestays />} />
         <Route path="/admin/bookinglist" element={<ListBooking />} />
         <Route path="/admin/edithomestay/:id" element={<EditHomestay />} />
