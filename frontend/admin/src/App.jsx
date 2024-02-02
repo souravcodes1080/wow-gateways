@@ -15,6 +15,7 @@ import AddCustomer from "./components/AddCustomer/AddCustomer";
 import ListBooking from "./components/ListBookings/ListBookings";
 import AddCar from "./components/AddCar/AddCar";
 import ListCar from "./components/ListCar/ListCar";
+import EditBooking from "./components/EditBooking/EditBooking";
 
 const App = () => {
   return (
@@ -31,7 +32,10 @@ const App = () => {
         <Route path="/admin/homestaylist" element={<ListHomestays />} />
         <Route path="/admin/bookinglist" element={<ListBooking />} />
         <Route path="/admin/carlist" element={<ListCar/>} />
+
+
         <Route path="/admin/edithomestay/:id" element={<EditHomestay />} />
+        <Route path="/admin/editbooking/:id" element={<EditBooking />} />
 
         <Route path="/admin/login" element={<Login />} />
       </Routes>
