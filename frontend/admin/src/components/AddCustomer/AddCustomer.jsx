@@ -7,6 +7,7 @@ function AddCustomer() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [homestayList, setHomestayList] = useState([]);
+  const [carList, setCarList] = useState([]);
   useEffect(() => {
     if (!localStorage.getItem("adminAuthorizationToken")) {
       navigate("/admin/login");
@@ -14,6 +15,7 @@ function AddCustomer() {
   }, []);
   useEffect(() => {
     fetchHomestayNames();
+    fetchCarList()
   }, []);
 
   const fetchHomestayNames = async () => {
@@ -24,6 +26,15 @@ function AddCustomer() {
       console.error("Error fetching homestay names:", error);
     }
   };
+  const fetchCarList = async () =>{
+    try{
+      const response = await axios.get("http://localhost:8080/car")
+       setCarList(response.data.cars)
+       console.log(response.data)
+    }catch(err){
+      console.log(err)
+    }
+  }
   const [customerData, setCustomerData] = useState({
     customerName: "",
     customerPhoneNumber: "",
@@ -210,18 +221,18 @@ function AddCustomer() {
           <div className="form-right">
             <div className="form-wrapper">
               <label>Cars</label>
-              <select name="cars" onChange={handleInputChange}>
+              <select
+                required
+                name="cars"
+                value={customerData.cars}
+                onChange={handleInputChange}
+              >
                 <option value="">Select Car</option>
-                <option value="Wagnor">Wagnor</option>
-                <option value="Alto">Alto</option>
-                <option value="Sumo Gold">Sumo Gold</option>
-                <option value="Bolero">Bolero</option>
-                <option value="Fortuner">Fortuner</option>
-                <option value="Spresso">Spresso</option>
-                <option value="Swift Desire">Swift Desire</option>
-                <option value="Small Car">Small Car</option>
-                <option value="8 Seater Car">8 Seater Car</option>
-                <option value="other">Other</option>
+                {carList.map((car) => (
+                  <option key={car._id} value={car.carName}>
+                    {car.carName}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="form-wrapper">
@@ -248,6 +259,7 @@ function AddCustomer() {
               <input
                 type="number"
                 name="due"
+                value={customerData.totalAmount - customerData.paid}
                 placeholder="Total Amount Due"
                 onChange={handleInputChange}
               />

@@ -8,30 +8,57 @@ import moment from "moment"; // Import moment library
 
 function ListBooking() {
   const [booking, setBooking] = useState([]);
+  const [originalBooking, setOriginalBooking] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!localStorage.getItem("adminAuthorizationToken")) {
       navigate("/admin/login");
     }
-
-    const fetchBooking = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/home/booking");
-        setBooking(response.data.bookings);
-        console.log(response.data.bookings);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     fetchBooking();
   }, []);
 
-  
+  const fetchBooking = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/home/booking");
+      setBooking(response.data.bookings);
+      setOriginalBooking(response.data.bookings); // Set original bookings
+      console.log(response.data.bookings);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getOngoingBookings = () => {
+    const currentDate = moment();
+    const ongoingBookings = originalBooking.filter((book) => {
+      const checkInDate = moment(book.checkIn);
+      const checkOutDate = moment(book.checkOut);
+      return currentDate.isBetween(checkInDate, checkOutDate);
+    });
+    setBooking(ongoingBookings);
+  };
+
+  const getAllBookings = () => {
+    setBooking(originalBooking); // Set original bookings
+  };
+
+  const getTodaysBookings = () => {
+    const today = moment().startOf("day");
+    const todaysBookings = originalBooking.filter((book) =>
+      moment(book.bookedOn).isSame(today, "day")
+    );
+    setBooking(todaysBookings);
+  };
+
+  const getPaymentDueBookings = () => {
+    const paymentDueBookings = originalBooking.filter((book) => book.due > 0);
+    setBooking(paymentDueBookings);
+  };
+
   const updateBooking = (id) => {
-    navigate(`/admin/edithomestay/${id}`);
+    navigate(`/admin/editbooking/${id}`);
   };
 
   return (
@@ -40,6 +67,13 @@ function ListBooking() {
       <div className="dashboard-main-add-homestay">
         <div className="list-product">
           <h1>All Booking list</h1>
+          <br />
+          <div className="action-buttons">
+            <button onClick={getOngoingBookings}>Ongoing Bookings</button>
+            <button onClick={getAllBookings}>All Bookings</button>
+            <button onClick={getTodaysBookings}>Today's Bookings</button>
+            <button onClick={getPaymentDueBookings}>Payment Due Bookings</button>
+          </div>
           <br />
           <table className="list-product-table">
             <thead>

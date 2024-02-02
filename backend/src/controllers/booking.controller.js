@@ -127,6 +127,22 @@ const getAllBooking = asyncHandler(async (req, res, next) => {
     next(error);
   }
 });
+const updateBooking = async (req, res) => {
+  try {
+    const { id } = req.params
+    const updatedData = req.body; 
+    const updatedBooking = await Booking.findByIdAndUpdate(id, updatedData, { new: true, runValidators: true });
+    if (!updatedBooking) {
+      console.log(updatedBooking)
+      return res.status(404).send('Booking not found');
+    }
+    res.json(updatedBooking);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error updating customer');
+  }
+}
 
 
-export { booking, getAllBooking };
+
+export { booking, getAllBooking, updateBooking };
