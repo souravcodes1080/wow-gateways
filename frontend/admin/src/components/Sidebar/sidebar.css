@@ -2,7 +2,8 @@
     height: 89.79vh;
     overflow: hidden;
     width: 250px !important;
-    max-width: 250px;
+    min-width: 250px !important;
+    max-width: 250px !important;
     background-color: rgb(236, 236, 236);
 }
 .dashboard-sidebar ul{

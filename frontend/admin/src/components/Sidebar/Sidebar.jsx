@@ -35,7 +35,7 @@ function Sidebar() {
             <button onClick={() => {
                   navigate("/admin/homestaylist");
                 }}>
-                List Homestays
+                Manage Homestays
             </button>
             </li>
             <li>
