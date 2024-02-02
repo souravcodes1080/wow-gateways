@@ -101,7 +101,7 @@ function ListCar() {
                   <td className="column-price">{car.ac ? "Yes" : "No"}</td>
                   <td className="column-email">{car.noOfSeats}</td>
                   <td className="column-price">{car.condition}</td>
-                  <td>
+                  {/* <td>
                     <button
                       onClick={() => {
                         navigate(`/admin/editcar/${car._id}`);
@@ -120,7 +120,7 @@ function ListCar() {
                     >
                       Delete
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

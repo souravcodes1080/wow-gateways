@@ -54,12 +54,25 @@ const EditBooking = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/home/${id}`, bookingData);
+      const updatedBookingData = {
+        ...bookingData,
+        // Convert number inputs to integers
+        noOfRoomsBooked: parseInt(bookingData.noOfRoomsBooked),
+        noOfAdults: parseInt(bookingData.noOfAdults),
+        noOfchilds1: parseInt(bookingData.noOfchilds1),
+        noOfchilds2: parseInt(bookingData.noOfchilds2),
+        totalAmount: parseInt(bookingData.totalAmount),
+        paid: parseInt(bookingData.paid),
+        // Calculate due
+        due: parseInt(bookingData.totalAmount - bookingData.paid)
+      };
+      await axios.put(`http://localhost:8080/home/${id}`, updatedBookingData);
       navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
+  
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -234,9 +247,9 @@ const EditBooking = () => {
               <input
                 type="number"
                 name="due"
-                value={bookingData.due}
+                value={bookingData.totalAmount - bookingData.paid}
                 placeholder="Total Amount Due"
-                onChange={handleInputChange}
+                disabled
               />
             </div>
             <div className="form-wrapper">

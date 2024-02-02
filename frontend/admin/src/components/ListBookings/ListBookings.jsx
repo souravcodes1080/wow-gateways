@@ -10,6 +10,8 @@ function ListBooking() {
   const [booking, setBooking] = useState([]);
   const [originalBooking, setOriginalBooking] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); // State variable for search query
+  const [filteredBooking, setFilteredBooking] = useState([]); // State variable for filtered bookings
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,6 +63,22 @@ function ListBooking() {
     navigate(`/admin/editbooking/${id}`);
   };
 
+  // Function to handle search
+  const handleSearch = (e) => {
+    const value = e.target.value.toLowerCase(); // Convert search query to lowercase
+    setSearchQuery(value); // Update search query state
+    // Filter bookings based on search query
+    const filtered = originalBooking.filter(
+      (book) =>
+        book.customerName.toLowerCase().includes(value) || // Search by customer name
+        book.homestayName.toLowerCase().includes(value) || // Search by homestay name
+        
+        book.customerEmail.toLowerCase().includes(value) // Search by email
+    );
+    setFilteredBooking(filtered); // Set filtered bookings state
+  };
+
+
   return (
     <div className="admin-panel-wrapper">
       <Sidebar />
@@ -68,11 +86,19 @@ function ListBooking() {
         <div className="list-product">
           <h1>All Booking list</h1>
           <br />
+          
           <div className="action-buttons">
+          {/* <input
+            type="text"
+            placeholder="Search "
+            value={searchQuery}
+            onChange={handleSearch}
+          /> */}
             <button onClick={getOngoingBookings}>Ongoing Bookings</button>
             <button onClick={getAllBookings}>All Bookings</button>
             <button onClick={getTodaysBookings}>Today's Bookings</button>
-            <button onClick={getPaymentDueBookings}>Payment Due Bookings</button>
+            <button onClick={getPaymentDueBookings}>Guest Payment Due Bookings</button>
+            <button onClick={getPaymentDueBookings}>Homestay Payment Due Bookings</button>
           </div>
           <br />
           <table className="list-product-table">

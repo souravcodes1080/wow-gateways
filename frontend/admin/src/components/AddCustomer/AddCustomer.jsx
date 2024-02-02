@@ -73,7 +73,7 @@ function AddCustomer() {
         noOfRoomsBooked: parseInt(customerData.noOfRoomsBooked),
         totalAmount: parseInt(customerData.totalAmount),
         paid: parseInt(customerData.paid),
-        due: parseInt(customerData.due),
+        due: parseInt(customerData.totalAmount - customerData.paid),
       };
 
       // Make the POST request with formData
@@ -261,7 +261,6 @@ function AddCustomer() {
                 name="due"
                 value={customerData.totalAmount - customerData.paid}
                 placeholder="Total Amount Due"
-                onChange={handleInputChange}
               />
             </div>
             <div className="form-wrapper">

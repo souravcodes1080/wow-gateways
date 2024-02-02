@@ -75,7 +75,7 @@ function ListHomestays() {
                       Update
                     </button>
                   </td>
-                  <td>
+                  {/* <td>
                     <button
                       onClick={() => {
                         updateHomestay(homestay._id);
@@ -84,7 +84,7 @@ function ListHomestays() {
                     >
                       Delete
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
