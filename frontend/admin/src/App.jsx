@@ -16,11 +16,14 @@ import ListBooking from "./components/ListBookings/ListBookings";
 import AddCar from "./components/AddCar/AddCar";
 import ListCar from "./components/ListCar/ListCar";
 import EditBooking from "./components/EditBooking/EditBooking";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 const App = () => {
   return (
     <Router>
     <Navbar />
+    {localStorage.getItem("adminAuthorizationToken") && <Sidebar />}
+    {/* <Sidebar /> */}
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/admin/addhomestay" element={<AddHomestay />} />

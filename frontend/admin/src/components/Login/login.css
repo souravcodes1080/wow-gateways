@@ -11,8 +11,8 @@
     align-items: center;
     gap: 20px;
     padding:30px  30px 60px 30px;
-    border-radius: 10px;
-    background-color: rgba(255, 2, 2, 0.301);
+    border-radius: 0px;
+    background-color: rgba(44, 44, 44, 0.279);
 }
 .login-form-wrapper form p{
     font-weight: 600;
@@ -20,7 +20,7 @@
 }
 .login-form-wrapper form input{
     padding: 10px 20px;
-    border-radius: 7px;
+    border-radius: 0px;
     border: none;
     outline: none;
     font-size: 14px;
@@ -28,8 +28,8 @@
 .login-form-wrapper form button{
     width: 100%;
     padding: 10px 20px;
-    border-radius: 7px;
-    background-color: #ee2e29;
+    border-radius: 0px;
+    background-color: blue;
     color: white;
     font-size: 14px;
     border: none;

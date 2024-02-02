@@ -56,8 +56,7 @@ function ListCar() {
   };
 
   return (
-    <div className="admin-panel-wrapper">
-      <Sidebar />
+    <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
       <div className="dashboard-main-add-car">
         <div className="list-product">
           <h1>All Cars list</h1>

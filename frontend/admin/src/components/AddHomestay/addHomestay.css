@@ -1,6 +1,7 @@
 .admin-panel-wrapper-add-homestay{
     display: flex;
     height: 100%;
+    margin-left: 250px;
 }
 .dashboard-main-add-homestay{
     width: 100%;
@@ -45,20 +46,21 @@
 .preview-image{
     width: 100px;
     height: 100px;
-    border-radius: 7px;
+    border-radius: 3px;
     overflow: hidden;
     object-fit: cover;
     margin: 10px;
 }
 
 .add-homestay{
-    padding: 15px 20px;
-    border-radius: 7px;
+    cursor: pointer;
+    padding: 12px 20px;
+    border-radius: 0px;
     background-color: blue;
     color: white;
     border: none;
     outline: none;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     margin-top: 50px;
     margin-bottom: 30px;
 }

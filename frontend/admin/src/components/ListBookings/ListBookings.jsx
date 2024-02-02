@@ -80,8 +80,7 @@ function ListBooking() {
 
 
   return (
-    <div className="admin-panel-wrapper">
-      <Sidebar />
+    <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
       <div className="dashboard-main-add-homestay">
         <div className="list-product">
           <h1>All Booking list</h1>

@@ -1,6 +1,6 @@
 .header-wrapper{
-    background-color: #ee2e29;
-    height: 10vh;
+    background-color: #353434;
+    height: 8vh;
 }
 
 header{
@@ -15,15 +15,12 @@ header{
     align-items: center;
 }
 .header-logo{
-    width: 140px;
+    width: 125px;
 }
-.header-desc h5{
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.header-desc {
     color: white;
-    font-weight: 400;
-    font-size: 20px;
+    font-size: 24px;
+    cursor: pointer;
 }
 .admin-logo{
     font-size: 25px;

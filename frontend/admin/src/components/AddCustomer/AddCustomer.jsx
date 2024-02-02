@@ -108,7 +108,6 @@ function AddCustomer() {
 
   return (
     <div className="admin-panel-wrapper-add-homestay">
-      <Sidebar />
       <div className="dashboard-main-add-homestay">
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form-left">

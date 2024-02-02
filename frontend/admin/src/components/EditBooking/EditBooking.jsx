@@ -84,7 +84,6 @@ const EditBooking = () => {
 
   return (
     <div className="admin-panel-wrapper-add-homestay">
-      <Sidebar />
       <div className="dashboard-main-add-homestay">
       <h3>{bookingData.customerName}</h3>
       <p>{bookingData.homestayName}</p>

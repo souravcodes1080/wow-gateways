@@ -28,13 +28,32 @@ const Dashboard = () => {
   return (
     <>
       <div className="admin-panel-wrapper">
-        <Sidebar />
+       
         <div className="dashboard-main">
        
-                <img src={logo} alt="" width={"600px"} />
+               <div className="box1 box">
+                <div className="box1-header1">
+                  Total Bookings
+                </div>
+                <p>60+</p>
+               </div>
+               <div className="box2 box">
+               <div className="box2-header2">
+                Total Homestays
+               </div>
+                <p>20+</p>
+               </div>
+               <div className="box3 box">
+               <div className="box3-header3">
+                Total Revenue
+               </div>
+                <p>45,000+</p>
+               </div>
   
         </div>
+
       </div>
+        <div className="admin-panel-footer"><p>Made with ❤️ by Sourav</p></div>
     </>
   );
 };

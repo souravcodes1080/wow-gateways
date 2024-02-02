@@ -1,62 +1,116 @@
-import React from 'react'
-import "./sidebar.css"
-import { useNavigate } from 'react-router-dom';
-function Sidebar() {
-    const navigate = useNavigate();
+import React, { useState } from "react";
+import "./sidebar.css";
+import { useNavigate } from "react-router-dom";
 
+import { MdDashboard } from "react-icons/md";
+import { TiUserAdd } from "react-icons/ti";
+import { MdAddHomeWork } from "react-icons/md";
+import { FaCar, FaCarSide } from "react-icons/fa";
+import { RiGridFill } from "react-icons/ri";
+import { FaTable } from "react-icons/fa";
+
+function Sidebar() {
+  const navigate = useNavigate();
+  const [currentTab, setCurrentTab] = useState("Dashboard");
+
+  const handleClick = (value) => {
+    setCurrentTab(value);
+  };
   return (
     <>
-        <div className="dashboard-sidebar">
-          <ul>
-          <li>
-            <button onClick={() => {
-                  navigate("/admin/addcustomer");
-                }}>
-                Add Customer
-            </button>
+      <div className="dashboard-sidebar">
+        <ul>
+          <li
+            onClick={() => {
+              handleClick("Dashboard");
+              navigate("/");
+            }}
+            className={currentTab === "Dashboard" ? "current" : ""}
+          >
+            <p>
+              <MdDashboard />
+              Dashboard
+            </p>
           </li>
-            <li>
-              <button
-                onClick={() => {
-                  navigate("/admin/addhomestay");
-                }}
-              >
-                Add Homestay
-              </button>
-            </li>
-            <li>
-            <button onClick={() => {
-                  navigate("/admin/addcar");
-                }}>
-                Add Cars
-            </button>
-            </li>
-            <li>
-            <button onClick={() => {
-                  navigate("/admin/homestaylist");
-                }}>
-                Manage Homestays
-            </button>
-            </li>
-            <li>
-            <button onClick={() => {
-                  navigate("/admin/bookinglist");
-                }}>
-                List Booking
-            </button>
-            </li>
-            <li>
-            <button onClick={() => {
-                  navigate("/admin/carlist");
-                }}>
-                Manage Cars
-            </button>
-            </li>
+          <li
+            onClick={() => {
+              handleClick("AddCustomer");
+              navigate("/admin/addcustomer");
+            }}
+            className={currentTab === "AddCustomer" ? "current" : ""}
+          >
+            <p>
+              <TiUserAdd />
+              Add Customer
+            </p>
+          </li>
+          <li
+            onClick={() => {
+              handleClick("AddHomestay");
+              navigate("/admin/addhomestay");
+            }}
+            className={currentTab === "AddHomestay" ? "current" : ""}
+          >
+            <p>
+              <MdAddHomeWork />
+              Add Homestay
+            </p>
+          </li>
+          <li
+            onClick={() => {
+              handleClick("AddCar");
+              navigate("/admin/addcar");
+            }}
+            className={currentTab === "AddCar" ? "current" : ""}
+          >
+            <p>
+              <FaCar />
+              Add Cars
+            </p>
+          </li>
+          <li 
+          onClick={()=>{
+            handleClick("MB")
+            navigate("/admin/bookinglist");
+          }}
+          className={currentTab === "MB" ? "current" : ""}>
             
-          </ul>
-        </div>
+              <p>
+                <FaTable />
+                Manage Bookings
+              </p>
+            
+          </li>
+          <li
+          onClick={()=>{
+            handleClick("MH")
+                navigate("/admin/homestaylist");
+          }}
+          className={currentTab === "MH" ? "current" : ""}>
+            
+              <p>
+                <RiGridFill />
+                Manage Homestays
+              </p>
+          </li>
+
+          <li
+          onClick={()=>{
+            handleClick("MC")
+                navigate("/admin/carlist");
+          }}
+          className={currentTab === "MC" ? "current" : "" }>
+      
+              <p>
+                <FaCarSide />
+                Manage Cars
+              </p>
+           
+          </li>
+        </ul>
+      </div>
     </>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;
