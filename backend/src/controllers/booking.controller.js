@@ -23,6 +23,10 @@ const booking = asyncHandler(async (req, res, next) => {
       note,
       cars,
       tourPackage,
+      totalHomestayPriceB2B,
+      advPaidB2B,
+        guestRemainingBalance,
+        dueB2B
     } = req.body;
 
     const homestay = await Homestay.findOne({ homestayName: homestayName });
@@ -79,6 +83,10 @@ const booking = asyncHandler(async (req, res, next) => {
         due,
         note,
         tourPackage,
+        totalHomestayPriceB2B,
+        advPaidB2B,
+        guestRemainingBalance,
+        dueB2B
       });
 
       return res.status(201).json({

@@ -61,7 +61,20 @@ const bookingSchema = new mongoose.Schema({
     bookedOn:{
         type: Date,
         default: Date.now,
+    },
+    totalHomestayPriceB2B: {
+        type: Number,
+    },
+    advPaidB2B:{
+        type: Number,
+    },
+    guestRemainingBalance:{
+        type: Number,
+    },
+    dueB2B:{
+        type: Number
     }
+
 });
 
 

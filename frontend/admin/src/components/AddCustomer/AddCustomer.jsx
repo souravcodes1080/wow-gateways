@@ -11,6 +11,7 @@ function AddCustomer() {
   // Inside your component function
   const [selectedHomestay, setSelectedHomestay] = useState(null);
   const [totalHomestayPrice, setTotalHomestayPrice] = useState(0);
+  const [totalHomestayPriceC, setTotalHomestayPriceC] = useState(0);
   useEffect(() => {
     if (!localStorage.getItem("adminAuthorizationToken")) {
       navigate("/admin/login");
@@ -18,14 +19,14 @@ function AddCustomer() {
   }, []);
   useEffect(() => {
     fetchHomestayNames();
-    fetchCarList()
+    fetchCarList();
   }, []);
 
   const fetchHomestayNames = async () => {
     try {
       const response = await axios.get("http://localhost:8080/homestay");
       setHomestayList(response.data);
-      console.log(response.data)
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching homestay names:", error);
     }
@@ -44,16 +45,15 @@ function AddCustomer() {
     }
   };
 
-
   const fetchCarList = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/car")
-      setCarList(response.data.cars)
-      console.log(response.data)
+      const response = await axios.get("http://localhost:8080/car");
+      setCarList(response.data.cars);
+      console.log(response.data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   const [customerData, setCustomerData] = useState({
     customerName: "",
     customerPhoneNumber: "",
@@ -71,16 +71,21 @@ function AddCustomer() {
     note: "",
     cars: "",
     tourPackage: "", //total b2b price for homestay * noOfAdults + no_of_childs2
+    totalHomestayPriceB2B: "",
+    advPaidB2B: "",
+    guestRemainingBalance: "",
+    dueB2B: "",
   });
 
   // Update total price when selected homestay or number of adults changes
-useEffect(() => {
-  if (selectedHomestay) {
-    const totalPrice = customerData.noOfAdults * selectedHomestay.b2b;
-    setTotalHomestayPrice(totalPrice);
-  }
-}, [selectedHomestay, customerData.noOfAdults]);
-
+  useEffect(() => {
+    if (selectedHomestay) {
+      const totalPrice = customerData.noOfAdults * selectedHomestay.b2b;
+      const totalPriceC = customerData.noOfAdults * selectedHomestay.price;
+      setTotalHomestayPriceC(totalPriceC);
+      setTotalHomestayPrice(totalPrice);
+    }
+  }, [selectedHomestay, customerData.noOfAdults]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -99,9 +104,13 @@ useEffect(() => {
         noOfchilds1: parseInt(customerData.noOfchilds1),
         noOfchilds2: parseInt(customerData.noOfchilds2),
         noOfRoomsBooked: parseInt(customerData.noOfRoomsBooked),
-        totalAmount: parseInt(customerData.totalAmount),
+        totalAmount: totalHomestayPriceC,
         paid: parseInt(customerData.paid),
         due: parseInt(customerData.totalAmount - customerData.paid), //achaa
+        totalHomestayPriceB2B: totalHomestayPrice, //achaa
+        advPaidB2B: parseInt(customerData.advPaidB2B),
+        guestRemainingBalance: parseInt(customerData.guestRemainingBalance),
+        dueB2B: parseInt(customerData.dueB2B)
       };
 
       // Make the POST request with formData
@@ -266,17 +275,18 @@ useEffect(() => {
               </select>
             </div>
             <div className="form-wrapper">
-              <label>Total Price</label>
+              <label>Total Price (Customer)</label>
               <input
                 required
                 type="number"
                 name="totalAmount"
                 placeholder="Price"
                 onChange={handleInputChange}
+                value={totalHomestayPriceC}
               />
             </div>
             <div className="form-wrapper">
-              <label>Paid</label>
+              <label>Paid (to WOW)</label>
               <input
                 type="number"
                 name="paid"
@@ -289,7 +299,7 @@ useEffect(() => {
               <input
                 type="number"
                 name="due"
-                value={customerData.totalAmount - customerData.paid} //achaa
+                value={totalHomestayPriceC - customerData.paid} //achaa
                 placeholder="Total Amount Due"
               />
             </div>
@@ -304,22 +314,22 @@ useEffect(() => {
               />
             </div>
             <div className="form-wrapper">
-              <label>Homestay Total Price</label>
+              <label>Homestay Total Price(B2B)</label>
               <input
                 required
                 type="number"
-                name="htp"
+                name="totalHomestayPriceB2B"
                 placeholder="Price"
                 onChange={handleInputChange}
                 value={totalHomestayPrice}
               />
             </div>
             <div className="form-wrapper">
-              <label>Adv. Paid</label>
+              <label>Adv. Paid (to Homestay by wow)</label>
               <input
                 required
                 type="number"
-                name="advPaid"
+                name="advPaidB2B"
                 placeholder="Price"
                 onChange={handleInputChange}
               />
@@ -329,9 +339,10 @@ useEffect(() => {
               <input
                 required
                 type="number"
-                name="remBal"
+                name="guestRemainingBalance"
                 placeholder="Price"
                 onChange={handleInputChange}
+                value={totalHomestayPriceC - customerData.paid}
               />
             </div>
             <div className="form-wrapper">
@@ -339,9 +350,10 @@ useEffect(() => {
               <input
                 required
                 type="number"
-                name="due"
+                name="dueB2B"
                 placeholder="Price"
                 onChange={handleInputChange}
+                value={totalHomestayPrice - customerData.advPaidB2B}
               />
             </div>
             <button
