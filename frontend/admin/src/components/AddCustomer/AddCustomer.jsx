@@ -8,6 +8,9 @@ function AddCustomer() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [homestayList, setHomestayList] = useState([]);
   const [carList, setCarList] = useState([]);
+  // Inside your component function
+  const [selectedHomestay, setSelectedHomestay] = useState(null);
+  const [totalHomestayPrice, setTotalHomestayPrice] = useState(0);
   useEffect(() => {
     if (!localStorage.getItem("adminAuthorizationToken")) {
       navigate("/admin/login");
@@ -27,12 +30,27 @@ function AddCustomer() {
       console.error("Error fetching homestay names:", error);
     }
   };
-  const fetchCarList = async () =>{
-    try{
+
+  const handleHomestayChange = (e) => {
+    const homestayName = e.target.value;
+    const homestay = homestayList.find((h) => h.homestayName === homestayName);
+
+    setSelectedHomestay(homestay);
+
+    // Update total price based on the selected homestay
+    if (homestay) {
+      const totalPrice = customerData.noOfAdults * homestay.b2b;
+      setTotalHomestayPrice(totalPrice);
+    }
+  };
+
+
+  const fetchCarList = async () => {
+    try {
       const response = await axios.get("http://localhost:8080/car")
-       setCarList(response.data.cars)
-       console.log(response.data)
-    }catch(err){
+      setCarList(response.data.cars)
+      console.log(response.data)
+    } catch (err) {
       console.log(err)
     }
   }
@@ -52,8 +70,17 @@ function AddCustomer() {
     due: "",
     note: "",
     cars: "",
-    tourPackage: "",
+    tourPackage: "", //total b2b price for homestay * noOfAdults + no_of_childs2
   });
+
+  // Update total price when selected homestay or number of adults changes
+useEffect(() => {
+  if (selectedHomestay) {
+    const totalPrice = customerData.noOfAdults * selectedHomestay.b2b;
+    setTotalHomestayPrice(totalPrice);
+  }
+}, [selectedHomestay, customerData.noOfAdults]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -74,7 +101,7 @@ function AddCustomer() {
         noOfRoomsBooked: parseInt(customerData.noOfRoomsBooked),
         totalAmount: parseInt(customerData.totalAmount),
         paid: parseInt(customerData.paid),
-        due: parseInt(customerData.totalAmount - customerData.paid),
+        due: parseInt(customerData.totalAmount - customerData.paid), //achaa
       };
 
       // Make the POST request with formData
@@ -128,7 +155,10 @@ function AddCustomer() {
                 required
                 name="homestayName"
                 value={customerData.homestayName}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  handleHomestayChange(e);
+                  handleInputChange(e); // Optionally, you might want to update other customer data
+                }}
               >
                 <option value="">Select Homestay</option>
                 {homestayList.map((homestay) => (
@@ -259,7 +289,7 @@ function AddCustomer() {
               <input
                 type="number"
                 name="due"
-                value={customerData.totalAmount - customerData.paid}
+                value={customerData.totalAmount - customerData.paid} //achaa
                 placeholder="Total Amount Due"
               />
             </div>
@@ -281,6 +311,7 @@ function AddCustomer() {
                 name="htp"
                 placeholder="Price"
                 onChange={handleInputChange}
+                value={totalHomestayPrice}
               />
             </div>
             <div className="form-wrapper">
@@ -292,7 +323,7 @@ function AddCustomer() {
                 placeholder="Price"
                 onChange={handleInputChange}
               />
-            </div>  
+            </div>
             <div className="form-wrapper">
               <label>Guest Remaining Balance</label>
               <input

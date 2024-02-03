@@ -79,7 +79,7 @@ const EditHomestay = () => {
               <label>B2B Price per day</label>
               <input
                 type="number"
-                name="price"
+                name="b2b"
                 value={homestayData.b2b}
                 placeholder="Homestay price/day"
                 onChange={handleInputChange}
