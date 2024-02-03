@@ -8,9 +8,29 @@
     }
     
     .list-product {
-        margin-top: 20px;
+        margin-top: 10px;
     }
     
+    .all-booking-list{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .manage-homestay-header div{
+        display: flex;
+
+    }
+    /* .manage-customer-header{ */
+        /* position: fixed !important;
+        top: 80px;
+        z-index: 1;
+        width: 82%;
+    } */
+    .manage-homestay-header div input{
+        margin-right: 10px;
+        padding: 0 20px;
+        outline: 0;
+    }
     .list-product h1 {
         font-size: 24px;
         margin-bottom: 20px;

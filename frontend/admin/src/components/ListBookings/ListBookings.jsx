@@ -3,8 +3,9 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./listBooking.css";
 import Sidebar from "../Sidebar/Sidebar";
-import { FaRupeeSign } from "react-icons/fa";
+import { FaBook, FaHome, FaList, FaPlus, FaRupeeSign, FaSearch, FaTable, FaTimesCircle } from "react-icons/fa";
 import moment from "moment"; // Import moment library
+import { RiCalendarEventFill } from "react-icons/ri";
 
 function ListBooking() {
   const [booking, setBooking] = useState([]);
@@ -21,17 +22,18 @@ function ListBooking() {
     fetchBooking();
   }, []);
 
+  // Function to fetch bookings from the server
   const fetchBooking = async () => {
     try {
       const response = await axios.get("http://localhost:8080/home/booking");
       setBooking(response.data.bookings);
       setOriginalBooking(response.data.bookings); // Set original bookings
-      console.log(response.data.bookings);
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Function to filter bookings based on ongoing status
   const getOngoingBookings = () => {
     const currentDate = moment();
     const ongoingBookings = originalBooking.filter((book) => {
@@ -41,11 +43,10 @@ function ListBooking() {
     });
     setBooking(ongoingBookings);
   };
-
   const getAllBookings = () => {
     setBooking(originalBooking); // Set original bookings
   };
-
+  // Function to filter bookings based on today's date
   const getTodaysBookings = () => {
     const today = moment().startOf("day");
     const todaysBookings = originalBooking.filter((book) =>
@@ -54,11 +55,13 @@ function ListBooking() {
     setBooking(todaysBookings);
   };
 
+  // Function to filter bookings based on payment due
   const getPaymentDueBookings = () => {
     const paymentDueBookings = originalBooking.filter((book) => book.due > 0);
     setBooking(paymentDueBookings);
   };
 
+  // Function to update booking
   const updateBooking = (id) => {
     navigate(`/admin/editbooking/${id}`);
   };
@@ -72,30 +75,29 @@ function ListBooking() {
       (book) =>
         book.customerName.toLowerCase().includes(value) || // Search by customer name
         book.homestayName.toLowerCase().includes(value) || // Search by homestay name
-        
         book.customerEmail.toLowerCase().includes(value) // Search by email
     );
     setFilteredBooking(filtered); // Set filtered bookings state
   };
 
-
+  // Render component
   return (
     <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
       <div className="dashboard-main-add-homestay">
         <div className="list-product">
-          <h1>All Booking list</h1>
-          <br />
+          <div className="manage-homestay-header manage-customer-header">
+            <h5> <FaBook/> Manage Bookings</h5>
+            <div>
+              <input type="text" placeholder="Search" onChange={handleSearch} />
+             {/* Search input */}
+              {/* <button><FaSearch/></button> Search button */}
+              <button onClick={getAllBookings}> <FaList />All Booking</button>
+              <button onClick={getTodaysBookings}> <RiCalendarEventFill />Today's Booking</button>
+            </div>
+          </div>
           
           <div className="action-buttons">
-          {/* <input
-            type="text"
-            placeholder="Search "
-            value={searchQuery}
-            onChange={handleSearch}
-          /> */}
             <button onClick={getOngoingBookings}>Ongoing Bookings</button>
-            <button onClick={getAllBookings}>All Bookings</button>
-            <button onClick={getTodaysBookings}>Today's Bookings</button>
             <button onClick={getPaymentDueBookings}>Guest Payment Due Bookings</button>
             <button onClick={getPaymentDueBookings}>Homestay Payment Due Bookings</button>
           </div>
@@ -118,10 +120,12 @@ function ListBooking() {
                 <th className="column-price">Paid</th>
                 <th className="column-price">Due</th>
                 <th className="column-price">Booked On</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {booking.map((book, index) => (
+              {/* Map through filtered or original bookings based on search query */}
+              {(searchQuery ? filteredBooking : booking).map((book, index) => (
                 <tr key={index}>
                   <td className="column-name">{book.customerName}</td>
                   <td className="column-name">{book.homestayName}</td>
