@@ -22,6 +22,7 @@ function AddHomestay() {
     phoneNumber: "",
     email: "",
     price: "",
+    b2b: "",
     address: "",
     noOfrooms: "",
     noOfcars: "",
@@ -143,11 +144,20 @@ function AddHomestay() {
               />
             </div>
             <div className="form-wrapper">
-              <label>Price per day</label>
+              <label>Customer Price per day</label>
               <input
                 type="number"
                 name="price"
-                placeholder="Homestay price/day"
+                placeholder="Customer price/day"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-wrapper">
+              <label>Homestay B2B Price</label>
+              <input
+                type="number"
+                name="b2b"
+                placeholder="Homestay B2B Price"
                 onChange={handleInputChange}
               />
             </div>

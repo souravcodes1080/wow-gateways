@@ -7,6 +7,7 @@
     width: 100%;
     height: 89vh;
     overflow: auto;
+    padding: 0 !important;
 }
 .dashboard-main-add-homestay form{
     display: flex;

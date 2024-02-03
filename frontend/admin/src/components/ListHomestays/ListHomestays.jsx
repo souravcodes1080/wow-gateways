@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./listHomestays.css";
 import Sidebar from "../Sidebar/Sidebar";
-import { FaRupeeSign } from "react-icons/fa";
+import { FaHome, FaPlus, FaRupeeSign, FaTable } from "react-icons/fa";
 
 function ListHomestays() {
   const [homestays, setHomestays] = useState([]);
@@ -36,34 +36,37 @@ function ListHomestays() {
     <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
       <div className="dashboard-main-add-homestay">
         <div className="list-product">
-          <h1>All Homestay list</h1>
+        <div className="manage-homestay-header">
+          <h5> <FaHome/> Manage Homestays</h5>
+          <button onClick={()=>{navigate("/admin/addhomestay")}}> <FaPlus />Add New Homestay </button>
+        </div>
           <br />
           <table className="list-product-table">
             <thead>
               <tr>
-                <th className="column-picture">Picture</th>
+                {/* <th className="column-picture">Picture</th> */}
                 <th className="column-name">Homestay Name</th>
                 <th className="column-address">Address</th>
                 <th className="column-phone">Phone Number</th>
                 <th className="column-email">Email</th>
                 <th className="column-price">Price</th>
-                <th className="column-price">Rooms</th>
-                <th className="column-price">Cars</th>
+                <th className="column-room">Rooms</th>
+                {/* <th className="column-price">Cars</th> */}
               </tr>
             </thead>
             <tbody>
               {homestays.map((homestay, index) => (
                 <tr key={index}>
-                  <td className="column-picture">
+                  {/* <td className="column-picture">
                     <img src={homestay.images[4]} alt={homestay.homestayName} />
-                  </td>
+                  </td> */}
                   <td className="column-name">{homestay.homestayName}</td>
                   <td className="column-address">{homestay.address}</td>
                   <td className="column-phone">{homestay.phoneNumber}</td>
                   <td className="column-email">{homestay.email}</td>
                   <td className="column-price">{homestay.price}</td>
-                  <td className="column-price">{homestay.noOfrooms}</td>
-                  <td className="column-price"  >{homestay.noOfCars}</td>
+                  <td className="column-room">{homestay.noOfrooms}</td>
+                  {/* <td className="column-price"  >{homestay.noOfCars}</td> */}
                   <td>
                     <button
                       onClick={() => {

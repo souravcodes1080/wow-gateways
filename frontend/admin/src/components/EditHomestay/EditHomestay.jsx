@@ -76,6 +76,16 @@ const EditHomestay = () => {
               />
             </div>
             <div className="form-wrapper">
+              <label>B2B Price per day</label>
+              <input
+                type="number"
+                name="price"
+                value={homestayData.b2b}
+                placeholder="Homestay price/day"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-wrapper">
               <label>Homestay address</label>
               <textarea
                 className="address-textarea"

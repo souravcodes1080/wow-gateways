@@ -22,6 +22,7 @@ function AddCustomer() {
     try {
       const response = await axios.get("http://localhost:8080/homestay");
       setHomestayList(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error("Error fetching homestay names:", error);
     }
@@ -254,7 +255,7 @@ function AddCustomer() {
               />
             </div>
             <div className="form-wrapper">
-              <label>Due</label>
+              <label>Guest Due</label>
               <input
                 type="number"
                 name="due"
@@ -269,6 +270,46 @@ function AddCustomer() {
                 type="text"
                 name="note"
                 placeholder="Customer note"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-wrapper">
+              <label>Homestay Total Price</label>
+              <input
+                required
+                type="number"
+                name="htp"
+                placeholder="Price"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-wrapper">
+              <label>Adv. Paid</label>
+              <input
+                required
+                type="number"
+                name="advPaid"
+                placeholder="Price"
+                onChange={handleInputChange}
+              />
+            </div>  
+            <div className="form-wrapper">
+              <label>Guest Remaining Balance</label>
+              <input
+                required
+                type="number"
+                name="remBal"
+                placeholder="Price"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-wrapper">
+              <label>B2B Homestay Due</label>
+              <input
+                required
+                type="number"
+                name="due"
+                placeholder="Price"
                 onChange={handleInputChange}
               />
             </div>

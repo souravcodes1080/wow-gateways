@@ -43,32 +43,7 @@ function Sidebar() {
               <TiUserAdd />
               New Booking
             </p>
-          </li>
-          <li
-            onClick={() => {
-              handleClick("AddHomestay");
-              navigate("/admin/addhomestay");
-            }}
-            className={currentTab === "AddHomestay" ? "current" : ""}
-          >
-            <p>
-              <MdAddHomeWork />
-              Add Homestay
-            </p>
-          </li>
-          <li
-            onClick={() => {
-              handleClick("AddCar");
-              navigate("/admin/addcar");
-            }}
-            className={currentTab === "AddCar" ? "current" : ""}
-          >
-            <p>
-              <FaCar />
-              Add Cars
-            </p>
-          </li>
-          <li 
+          </li><li 
           onClick={()=>{
             handleClick("MB")
             navigate("/admin/bookinglist");
@@ -94,6 +69,31 @@ function Sidebar() {
               </p>
           </li>
 
+          {/* <li
+            onClick={() => {
+              handleClick("AddHomestay");
+              navigate("/admin/addhomestay");
+            }}
+            className={currentTab === "AddHomestay" ? "current" : ""}
+          >
+            <p>
+              <MdAddHomeWork />
+              Add Homestay
+            </p>
+          </li> */}
+          <li
+            onClick={() => {
+              handleClick("AddCar");
+              navigate("/admin/addcar");
+            }}
+            className={currentTab === "AddCar" ? "current" : ""}
+          >
+            <p>
+              <FaCar />
+              Add Cars
+            </p>
+          </li>
+          
           <li
           onClick={()=>{
             handleClick("MC")

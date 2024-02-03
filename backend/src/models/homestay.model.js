@@ -16,6 +16,9 @@ const homestaySchema = new mongoose.Schema({
     price:{
         type: Number,
     },
+    b2b:{
+        type: Number,
+    },
     address:{
         type: String,
         required: true
