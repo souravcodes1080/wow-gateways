@@ -41,7 +41,7 @@ function Sidebar() {
           >
             <p>
               <TiUserAdd />
-              Add Customer
+              New Booking
             </p>
           </li>
           <li

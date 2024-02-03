@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 import "./addCar.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -73,8 +74,9 @@ function AddCar() {
     try {
       await axios.post("http://localhost:8080/car", carData);
 
-      alert("Car added successfully!");
-      navigate("/");
+     alert("Car Added Sucess")
+     navigate("/")
+      
     } catch (error) {
       alert("Error adding Car. Please try again later.");
       console.error(error);
@@ -85,6 +87,7 @@ function AddCar() {
 
   return (
     <div className="admin-panel-wrapper-add-homestay">
+    <ToastContainer />
       <div className="dashboard-main-add-homestay">
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form-left">
