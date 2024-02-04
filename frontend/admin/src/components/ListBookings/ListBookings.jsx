@@ -98,19 +98,20 @@ function ListBooking() {
 
   // Render component
   return (
-    <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
+    <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay admin-panel-wrapper-manage-booking">
       <div className="dashboard-main-add-homestay">
-        <div className="list-product">
-          <div className="manage-homestay-header manage-customer-header">
-            <h5> <FaBook /> Manage Bookings</h5>
-            <div>
-              <input type="text" placeholder="Search" onChange={handleSearch} />
-              {/* Search input */}
-              {/* <button><FaSearch/></button> Search button */}
-              <button onClick={getAllBookings}> <FaList />All Booking</button>
-              <button onClick={getTodaysBookings}> <RiCalendarEventFill />Today's Booking</button>
-            </div>
+        <div className="manage-homestay-header manage-customer-header">
+          <h5> <FaBook /> Manage Bookings</h5>
+          <div>
+            <input type="text" placeholder="Search" onChange={handleSearch} />
+            {/* Search input */}
+            {/* <button><FaSearch/></button> Search button */}
+            <button onClick={getAllBookings}> <FaList />All Booking</button>
+            <button onClick={getTodaysBookings}> <RiCalendarEventFill />Today's Booking</button>
           </div>
+        </div>
+        <div className="list-product">
+
 
           <div className="action-buttons">
             <button onClick={getOngoingBookings}>Ongoing Bookings</button>
