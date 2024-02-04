@@ -1,16 +1,16 @@
     .admin-panel-wrapper {
         display: flex;
+        position: relative;
     }
     
     .dashboard-main-add-homestay {
         flex-grow: 1;
+        position: relative;
         padding: 20px;
         
     }
 
-    .admin-panel-wrapper-manage-booking{
-        margin-top: 100px;
-    }
+   
     
     .list-product {
         margin-top: 10px;
@@ -26,11 +26,16 @@
     }
     .manage-homestay-header div{
         display: flex;
-
-    }
-
-    .manage-customer-header h5{
+        background-color:  white;
         
+    }
+    .manage-customer-header{
+        background-color: white;
+    }
+    .manage-customer-header h5{
+        margin-left: 10px;
+        padding: 20px 0;
+            background-color: white;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -38,13 +43,7 @@
             font-weight: 600 !important;
         
     }
-     .manage-customer-header{
-        position: fixed !important;
-        top: 80px;
-        z-index: 1;
-        width: 82%;
-    } 
-    .manage-homestay-header div input{
+    .manage-customer-header div input{
         margin-right: 10px;
         padding: 0 20px;
         outline: 0;
@@ -91,3 +90,29 @@
         background-color: #0056b3;
     }
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.list-booking {
+    padding: 0  20px;
+    width: 100%;
+    height: 80vh;
+    overflow: auto;
+}
+
+.admin-booking-list-container{
+        position: relative;
+        width: 85%;
+        margin-left: 15vw;
+}
