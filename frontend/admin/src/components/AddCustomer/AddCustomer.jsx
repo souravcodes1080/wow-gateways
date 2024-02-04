@@ -70,7 +70,7 @@ function AddCustomer() {
     due: "",
     note: "",
     cars: "",
-    tourPackage: "", //total b2b price for homestay * noOfAdults + no_of_childs2
+    tourPackage: "", 
     totalHomestayPriceB2B: "",
     advPaidB2B: "",
     guestRemainingBalance: "",
@@ -80,12 +80,12 @@ function AddCustomer() {
   // Update total price when selected homestay or number of adults changes
   useEffect(() => {
     if (selectedHomestay) {
-      const totalPrice = customerData.noOfAdults * selectedHomestay.b2b;
-      const totalPriceC = customerData.noOfAdults * selectedHomestay.price;
+      const totalPrice = customerData.noOfAdults * selectedHomestay.b2b + customerData.noOfchilds2 * selectedHomestay.b2b /2;
+      const totalPriceC = customerData.noOfAdults * selectedHomestay.price + customerData.noOfchilds2 * selectedHomestay.price /2;
       setTotalHomestayPriceC(totalPriceC);
       setTotalHomestayPrice(totalPrice);
     }
-  }, [selectedHomestay, customerData.noOfAdults]);
+  }, [selectedHomestay, customerData.noOfAdults, customerData.noOfchilds2]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -277,6 +277,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Total Price (Customer)</label>
               <input
+              disabled
                 required
                 type="number"
                 name="totalAmount"
@@ -297,9 +298,10 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Guest Due</label>
               <input
+              disabled
                 type="number"
                 name="due"
-                value={totalHomestayPriceC - customerData.paid} //achaa
+                value={totalHomestayPriceC - customerData.paid}
                 placeholder="Total Amount Due"
               />
             </div>
@@ -316,6 +318,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Homestay Total Price(B2B)</label>
               <input
+              disabled
                 required
                 type="number"
                 name="totalHomestayPriceB2B"
@@ -337,6 +340,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Guest Remaining Balance</label>
               <input
+              disabled
                 required
                 type="number"
                 name="guestRemainingBalance"
@@ -348,12 +352,14 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>B2B Homestay Due</label>
               <input
+              disabled
                 required
                 type="number"
                 name="dueB2B"
                 placeholder="Price"
                 onChange={handleInputChange}
                 value={totalHomestayPrice - customerData.advPaidB2B}
+                className={totalHomestayPrice - customerData.advPaidB2B >= 0 ? "green" : "red"}
               />
             </div>
             <button
