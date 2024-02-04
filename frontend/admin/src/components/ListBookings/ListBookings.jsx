@@ -33,11 +33,11 @@ function ListBooking() {
       setBooking(response.data.bookings);
       setOriginalBooking(response.data.bookings); // Set original bookings
 
-      toast.success("Data fetched successfully!", {
-        onClose: () => {
-        },
-        autoClose: 5000,
-      });
+      // toast.success("Data fetched successfully!", {
+      //   onClose: () => {
+      //   },
+      //   autoClose: 5000,
+      // });
     } catch (error) {
 
       toast.error("Error!", {
@@ -98,28 +98,21 @@ function ListBooking() {
 
   // Render component
   return (
-    <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay admin-panel-wrapper-manage-booking">
-      <div className="dashboard-main-add-homestay">
-        <div className="manage-homestay-header manage-customer-header">
-          <h5> <FaBook /> Manage Bookings</h5>
+    <>
+      <div className="admin-booking-list-container">
+        <div className="manage-customer-header manage-homestay-header">
+          <h5><FaBook/>Manage Bookings</h5>
           <div>
             <input type="text" placeholder="Search" onChange={handleSearch} />
-            {/* Search input */}
-            {/* <button><FaSearch/></button> Search button */}
-            <button onClick={getAllBookings}> <FaList />All Booking</button>
-            <button onClick={getTodaysBookings}> <RiCalendarEventFill />Today's Booking</button>
+             {/* Search input */}
+             {/* <button><FaSearch/></button> Search button */}
+             <button onClick={getAllBookings}> <FaList />All Booking</button>
+             <button onClick={getTodaysBookings}> <RiCalendarEventFill />Today's Booking</button>
           </div>
         </div>
-        <div className="list-product">
 
-
-          <div className="action-buttons">
-            <button onClick={getOngoingBookings}>Ongoing Bookings</button>
-            <button onClick={getPaymentDueBookings}>Guest Payment Due Bookings</button>
-            <button onClick={getPaymentDueBookings}>Homestay Payment Due Bookings</button>
-          </div>
-          <br />
-          <table className="list-product-table">
+        <div className="list-booking">
+        <table className="list-product-table">
             <thead>
               <tr>
                 <th className="column-picture">Name</th>
@@ -185,8 +178,99 @@ function ListBooking() {
           </table>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default ListBooking;
+
+
+
+// <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay admin-panel-wrapper-manage-booking">
+//       <div className="dashboard-main-add-homestay">
+//         <div className="manage-homestay-header manage-customer-header">
+//           <h5> <FaBook /> Manage Bookings</h5>
+//           <div>
+//             <input type="text" placeholder="Search" onChange={handleSearch} />
+//             {/* Search input */}
+//             {/* <button><FaSearch/></button> Search button */}
+//             <button onClick={getAllBookings}> <FaList />All Booking</button>
+//             <button onClick={getTodaysBookings}> <RiCalendarEventFill />Today's Booking</button>
+//           </div>
+//         </div>
+//         <div className="list-product">
+// <br /><br /><br /><br />
+
+//           <div className="action-buttons">
+//             <button onClick={getOngoingBookings}>Ongoing Bookings</button>
+//             <button onClick={getPaymentDueBookings}>Guest Payment Due Bookings</button>
+//             <button onClick={getPaymentDueBookings}>Homestay Payment Due Bookings</button>
+//           </div>
+//           <br />
+          // <table className="list-product-table">
+          //   <thead>
+          //     <tr>
+          //       <th className="column-picture">Name</th>
+          //       <th className="column-name">Homestay Name</th>
+          //       <th className="column-phone">Phone Number</th>
+          //       <th className="column-email">Email</th>
+          //       <th className="column-email">CheckIn</th>
+          //       <th className="column-email">CheckOut</th>
+          //       <th className="column-email">Rooms</th>
+          //       <th className="column-price">Adults</th>
+          //       <th className="column-price">Child (0-5)</th>
+          //       <th className="column-price">Child (6-9)</th>
+          //       <th className="column-price">Cars</th>
+          //       <th className="column-price">Total Amount</th>
+          //       <th className="column-price">Paid</th>
+          //       <th className="column-price">Due</th>
+          //       <th className="column-price">Booked On</th>
+          //       <th>Action</th>
+          //     </tr>
+          //   </thead>
+          //   <tbody>
+          //     {/* Map through filtered or original bookings based on search query */}
+          //     {(searchQuery ? filteredBooking : booking).map((book, index) => (
+          //       <tr key={index}>
+          //         <td className="column-name">{book.customerName}</td>
+          //         <td className="column-name">{book.homestayName}</td>
+          //         <td className="column-phone">{book.customerPhoneNumber}</td>
+          //         <td className="column-email">{book.customerEmail}</td>
+          //         <td className="column-address">{moment(book.checkIn).format("MMMM DD, YYYY")}</td>
+          //         <td className="column-price">{moment(book.checkOut).format("MMMM DD, YYYY")}</td>
+          //         <td className="column-price">{book.noOfRoomsBooked}</td>
+          //         <td className="column-price">{book.noOfAdults}</td>
+          //         <td className="column-price">{book.noOfchilds1}</td>
+          //         <td className="column-price">{book.noOfchilds2}</td>
+          //         <td className="column-price">{book.cars}</td>
+          //         <td className="column-price">{book.totalAmount}</td>
+          //         <td className="column-price">{book.paid}</td>
+          //         <td className="column-price">{book.due}</td>
+          //         <td className="column-price">{moment(book.bookedOn).format("MMMM DD, YYYY")}</td>
+          //         <td>
+          //           <button
+          //             onClick={() => {
+          //               updateBooking(book._id);
+          //             }}
+          //             className="list-product-update-item"
+          //           >
+          //             Update
+          //           </button>
+          //         </td>
+          //         <td>
+          //           <button
+          //             onClick={() => {
+          //               updateBooking(book._id);
+          //             }}
+          //             className="list-product-delete-item"
+          //           >
+          //             Delete
+          //           </button>
+          //         </td>
+          //       </tr>
+          //     ))}
+          //   </tbody>
+          // </table>
+//         </div>
+//       </div>
+//     </div>
