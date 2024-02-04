@@ -25,11 +25,11 @@ function ListHomestays() {
         setHomestays(response.data);
         console.log(response.data);
 
-        toast.success("Homestay Listed successfully!", {
-          onClose: () => {
-          },
-          autoClose: 5000,
-        });
+        // toast.success("Homestay Listed successfully!", {
+        //   onClose: () => {
+        //   },
+        //   autoClose: 5000,
+        // });
 
       } catch (error) {
 
