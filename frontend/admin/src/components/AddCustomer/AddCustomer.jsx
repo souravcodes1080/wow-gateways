@@ -106,11 +106,11 @@ function AddCustomer() {
         noOfRoomsBooked: parseInt(customerData.noOfRoomsBooked),
         totalAmount: totalHomestayPriceC,
         paid: parseInt(customerData.paid),
-        due: parseInt(customerData.totalAmount - customerData.paid), //achaa
+        due: parseInt(totalHomestayPriceC - customerData.paid), //achaa
         totalHomestayPriceB2B: totalHomestayPrice, //achaa
         advPaidB2B: parseInt(customerData.advPaidB2B),
-        guestRemainingBalance: parseInt(customerData.guestRemainingBalance),
-        dueB2B: parseInt(customerData.dueB2B)
+        guestRemainingBalance: parseInt(totalHomestayPriceC - customerData.paid),
+        dueB2B: parseInt(totalHomestayPrice - customerData.advPaidB2B)
       };
 
       // Make the POST request with formData
@@ -342,7 +342,7 @@ function AddCustomer() {
                 name="guestRemainingBalance"
                 placeholder="Price"
                 onChange={handleInputChange}
-                value={customerData.totalAmount - customerData.paid}
+                value={totalHomestayPriceC - customerData.paid}
               />
             </div>
             <div className="form-wrapper">
@@ -353,7 +353,7 @@ function AddCustomer() {
                 name="dueB2B"
                 placeholder="Price"
                 onChange={handleInputChange}
-                value={customerData.totalHomestayPriceB2B - customerData.advPaidB2B}
+                value={totalHomestayPrice - customerData.advPaidB2B}
               />
             </div>
             <button
