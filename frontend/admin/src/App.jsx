@@ -17,11 +17,13 @@ import AddCar from "./components/AddCar/AddCar";
 import ListCar from "./components/ListCar/ListCar";
 import EditBooking from "./components/EditBooking/EditBooking";
 import Sidebar from "./components/Sidebar/Sidebar";
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
     <Router>
     <Navbar />
+    <ToastContainer />
     {localStorage.getItem("adminAuthorizationToken") && <Sidebar />}
     {/* <Sidebar /> */}
       <Routes>

@@ -3,6 +3,9 @@ import "./addHomestay.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function AddHomestay() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +40,7 @@ function AddHomestay() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-  
+
     // For the 'features' input, split the value by commas and trim whitespace
     // to create an array of features
     if (name === "features") {
@@ -47,7 +50,7 @@ function AddHomestay() {
       setHomestayData({ ...homestayData, [name]: value });
     }
   };
-  
+
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -99,11 +102,21 @@ function AddHomestay() {
         },
       });
 
-      alert("Homestay added successfully!");
-
-      navigate("/");
+      //alert("Homestay added successfully!");
+      toast.success("Homestay added successfully!", {
+        onClose: () => {
+          navigate("/");
+        },
+        autoClose: 5000,
+      });
     } catch (error) {
-      alert("Error adding homestay. Please try again later.");
+      //alert("Error adding homestay. Please try again later.");
+
+      toast.error("Process Unsuccessfull!", {
+        className: 'custom-toast-success',
+        autoClose: 5000,
+      });
+
       console.error(error);
     } finally {
       setIsSubmitting(false);
@@ -118,7 +131,7 @@ function AddHomestay() {
             <div className="form-wrapper">
               <label>Homestay Name</label>
               <input
-              required
+                required
                 type="text"
                 name="homestayName"
                 placeholder="Homestay Name"
@@ -220,7 +233,7 @@ function AddHomestay() {
                 <option value="ravangla">Ravangla</option>
                 <option value="namchi">Namchi</option>
               </select>
-            </div>  
+            </div>
             <div className="form-wrapper">
               <label>Google Map Link</label>
               <input
@@ -238,7 +251,7 @@ function AddHomestay() {
               <div className="image-previews">
                 {imagePreviews.map((preview, index) => (
                   <img
-                  className="preview-image"
+                    className="preview-image"
                     key={index}
                     src={preview}
                     alt={`Image ${index}`}
@@ -253,7 +266,7 @@ function AddHomestay() {
               <div className="image-previews">
                 {imageBalconyPreviews.map((preview, index) => (
                   <img
-                  className="preview-image"
+                    className="preview-image"
                     key={index}
                     src={preview}
                     alt={`Image ${index}`}
@@ -268,7 +281,7 @@ function AddHomestay() {
               <div className="image-previews">
                 {imageViewPreviews.map((preview, index) => (
                   <img
-                  className="preview-image"
+                    className="preview-image"
                     key={index}
                     src={preview}
                     alt={`Image ${index}`}
@@ -284,7 +297,7 @@ function AddHomestay() {
               <div className="image-previews">
                 {imageRoomPreviews.map((preview, index) => (
                   <img
-                  className="preview-image"
+                    className="preview-image"
                     key={index}
                     src={preview}
                     alt={`Image ${index}`}
@@ -294,11 +307,11 @@ function AddHomestay() {
               </div>
             </div>
 
-          <button className="add-homestay" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Adding Homestay...' : 'Add Homestay'}
+            <button className="add-homestay" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Adding Homestay...' : 'Add Homestay'}
             </button>
           </div>
-        </form>  
+        </form>
       </div>
     </div>
   );

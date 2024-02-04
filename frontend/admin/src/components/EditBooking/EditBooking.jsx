@@ -4,6 +4,9 @@ import "./editBooking.css";
 import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const EditBooking = () => {
   const navigate = useNavigate();
   const [bookingData, setBookingData] = useState({});
@@ -67,8 +70,20 @@ const EditBooking = () => {
         due: parseInt(bookingData.totalAmount - bookingData.paid)
       };
       await axios.put(`http://localhost:8080/home/${id}`, updatedBookingData);
-      navigate("/");
+
+      toast.success("Booking edited successfully!", {
+        onClose: () => {
+          navigate("/");
+        },
+        autoClose: 5000,
+      });
     } catch (error) {
+
+      toast.error("Update unsuccessfull!", {                                                   
+        className: 'custom-toast-success',
+        autoClose: 5000,
+      });
+
       console.log(error);
     }
   };

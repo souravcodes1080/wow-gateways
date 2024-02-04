@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import "./listCar.css";
 import Sidebar from "../Sidebar/Sidebar";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 function ListCar() {
   const navigate = useNavigate();
   const [cars, setCars] = useState([]);
@@ -22,7 +26,19 @@ function ListCar() {
         const response = await axios.get("http://localhost:8080/car");
         setCars(response.data.cars);
         setOriginalCars(response.data.cars); // Store the original list of cars
+
+        toast.success("Cars fetched successfully!", {                                                   
+          className: 'custom-toast-success',
+          autoClose: 5000,
+        });
+
       } catch (error) {
+
+        toast.error("Fetch Unsuccessfull!", {                                                   
+          className: 'custom-toast-success',
+          autoClose: 5000,
+        });
+
         console.log(error);
       }
     };

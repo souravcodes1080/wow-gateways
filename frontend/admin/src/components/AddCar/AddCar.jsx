@@ -3,7 +3,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import "./addCar.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../Sidebar/Sidebar";
+import 'react-toastify/dist/ReactToastify.css';
+
 function AddCar() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -74,12 +75,21 @@ function AddCar() {
     try {
       await axios.post("http://localhost:8080/car", carData);
 
-     alert("Car Added Sucess")
-     navigate("/")
+     //alert("Car Added Sucess")
+     toast.success("Car added successfully!", {
+      onClose: () => {
+        navigate("/");
+      },
+      autoClose: 5000,
+    });
       
     } catch (error) {
-      alert("Error adding Car. Please try again later.");
-      console.error(error);
+      //alert("Error adding Car. Please try again later.");
+      toast.error("Process unsuccessfull!", {                                                   
+        className: 'custom-toast-success',
+        autoClose: 5000,
+      });
+      // console.error(error);
     } finally {
       setIsSubmitting(false);
     }

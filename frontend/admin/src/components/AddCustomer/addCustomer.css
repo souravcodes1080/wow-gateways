@@ -1,10 +1,23 @@
-.green{
+.green {
     background-color: rgba(0, 128, 0, 0.352);
-    
 }
-.red{
-    background-color:rgba(255, 0, 0, 0.397);
+
+.red {
+    background-color: rgba(255, 0, 0, 0.397);
 }
-.form-wrapper input, textarea{
+
+.form-wrapper input,
+textarea {
     outline: 0;
+}
+
+.custom-toast-success {
+    background-color: green;
+    color: white;
+}
+
+
+.custom-toast-error {
+    background-color: red;
+    color: white;
 }

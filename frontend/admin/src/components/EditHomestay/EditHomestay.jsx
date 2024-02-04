@@ -4,6 +4,10 @@ import "./editHomestay.css";
 import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const EditHomestay = () => {
   const navigate = useNavigate();
   const [homestayData, setHomestayData] = useState({});
@@ -32,14 +36,27 @@ const EditHomestay = () => {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:8080/homestay/${id}`, homestayData);
-      navigate("/");
+
+      toast.success("Homestay updated successfully!", {
+        onClose: () => {
+          navigate("/");
+        },
+        autoClose: 5000,
+      });
     } catch (error) {
+      toast.error("Homestay update Unsuccessful!", {
+        onClose: () => {
+        },
+        autoClose: 5000,
+      });
+
       console.log(error);
     }
   };
 
   return (
     <div className="admin-panel-wrapper-add-homestay">
+      <ToastContainer />
       <div className="dashboard-main-add-homestay">
         <h3>{homestayData.homestayName}</h3>
         <p>{homestayData.location}</p>
@@ -227,8 +244,8 @@ const EditHomestay = () => {
               </div>
             </div> */}
 
-            
-            
+
+
           </div>
         </form>
       </div>

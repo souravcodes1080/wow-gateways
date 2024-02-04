@@ -7,6 +7,10 @@ import { FaBook, FaHome, FaList, FaPlus, FaRupeeSign, FaSearch, FaTable, FaTimes
 import moment from "moment"; // Import moment library
 import { RiCalendarEventFill } from "react-icons/ri";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 function ListBooking() {
   const [booking, setBooking] = useState([]);
   const [originalBooking, setOriginalBooking] = useState([]);
@@ -28,7 +32,19 @@ function ListBooking() {
       const response = await axios.get("http://localhost:8080/home/booking");
       setBooking(response.data.bookings);
       setOriginalBooking(response.data.bookings); // Set original bookings
+
+      toast.success("Data fetched successfully!", {
+        onClose: () => {
+        },
+        autoClose: 5000,
+      });
     } catch (error) {
+
+      toast.error("Error!", {
+        className: 'custom-toast-success',
+        autoClose: 5000,
+      });
+
       console.log(error);
     }
   };
@@ -86,16 +102,16 @@ function ListBooking() {
       <div className="dashboard-main-add-homestay">
         <div className="list-product">
           <div className="manage-homestay-header manage-customer-header">
-            <h5> <FaBook/> Manage Bookings</h5>
+            <h5> <FaBook /> Manage Bookings</h5>
             <div>
               <input type="text" placeholder="Search" onChange={handleSearch} />
-             {/* Search input */}
+              {/* Search input */}
               {/* <button><FaSearch/></button> Search button */}
               <button onClick={getAllBookings}> <FaList />All Booking</button>
               <button onClick={getTodaysBookings}> <RiCalendarEventFill />Today's Booking</button>
             </div>
           </div>
-          
+
           <div className="action-buttons">
             <button onClick={getOngoingBookings}>Ongoing Bookings</button>
             <button onClick={getPaymentDueBookings}>Guest Payment Due Bookings</button>

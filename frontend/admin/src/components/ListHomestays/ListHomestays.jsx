@@ -5,6 +5,10 @@ import "./listHomestays.css";
 import Sidebar from "../Sidebar/Sidebar";
 import { FaHome, FaPlus, FaRupeeSign, FaTable } from "react-icons/fa";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 function ListHomestays() {
   const [homestays, setHomestays] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +24,19 @@ function ListHomestays() {
         const response = await axios.get("http://localhost:8080/homestay");
         setHomestays(response.data);
         console.log(response.data);
+
+        toast.success("Homestay Listed successfully!", {
+          onClose: () => {
+          },
+          autoClose: 5000,
+        });
+
       } catch (error) {
+
+        toast.error("Fetch Unsuccessfull!", {
+          className: 'custom-toast-success',
+          autoClose: 5000,
+        });
         console.log(error);
       }
     };
@@ -36,10 +52,10 @@ function ListHomestays() {
     <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
       <div className="dashboard-main-add-homestay">
         <div className="list-product">
-        <div className="manage-homestay-header">
-          <h5> <FaHome/> Manage Homestays</h5>
-          <button onClick={()=>{navigate("/admin/addhomestay")}}> <FaPlus />Add New Homestay </button>
-        </div>
+          <div className="manage-homestay-header">
+            <h5> <FaHome /> Manage Homestays</h5>
+            <button onClick={() => { navigate("/admin/addhomestay") }}> <FaPlus />Add New Homestay </button>
+          </div>
           <br />
           <table className="list-product-table">
             <thead>

@@ -3,6 +3,10 @@ import "./addCustomer.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 function AddCustomer() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -12,6 +16,8 @@ function AddCustomer() {
   const [selectedHomestay, setSelectedHomestay] = useState(null);
   const [totalHomestayPrice, setTotalHomestayPrice] = useState(0);
   const [totalHomestayPriceC, setTotalHomestayPriceC] = useState(0);
+
+
   useEffect(() => {
     if (!localStorage.getItem("adminAuthorizationToken")) {
       navigate("/admin/login");
@@ -70,7 +76,7 @@ function AddCustomer() {
     due: "",
     note: "",
     cars: "",
-    tourPackage: "", 
+    tourPackage: "",
     totalHomestayPriceB2B: "",
     advPaidB2B: "",
     guestRemainingBalance: "",
@@ -80,8 +86,8 @@ function AddCustomer() {
   // Update total price when selected homestay or number of adults changes
   useEffect(() => {
     if (selectedHomestay) {
-      const totalPrice = customerData.noOfAdults * selectedHomestay.b2b + customerData.noOfchilds2 * selectedHomestay.b2b /2;
-      const totalPriceC = customerData.noOfAdults * selectedHomestay.price + customerData.noOfchilds2 * selectedHomestay.price /2;
+      const totalPrice = customerData.noOfAdults * selectedHomestay.b2b + customerData.noOfchilds2 * selectedHomestay.b2b / 2;
+      const totalPriceC = customerData.noOfAdults * selectedHomestay.price + customerData.noOfchilds2 * selectedHomestay.price / 2;
       setTotalHomestayPriceC(totalPriceC);
       setTotalHomestayPrice(totalPrice);
     }
@@ -116,8 +122,13 @@ function AddCustomer() {
       // Make the POST request with formData
       await axios.post("http://localhost:8080/home/booking", formData);
 
-      alert("Customer booked successfully!");
-      navigate("/");
+      //alert
+      toast.success("Customer added successfully!", {
+        onClose: () => {
+          navigate("/");
+        },
+        autoClose: 5000,
+      });
     } catch (error) {
       let errorMessage = "Error booking. Please try again later."; // Default error message
 
@@ -135,8 +146,12 @@ function AddCustomer() {
         // Something happened in setting up the request that triggered an Error
         errorMessage = "An unexpected error occurred. Please try again later.";
       }
-
-      alert(errorMessage); // Show the error message to the user
+      // Custom error toast with red background and 3 seconds duration
+      toast.error(errorMessage, {
+        className: 'custom-toast-error',
+        autoClose: 3000,
+      });
+      //alert(errorMessage);
       console.error(error);
     } finally {
       setIsSubmitting(false);
@@ -145,6 +160,7 @@ function AddCustomer() {
 
   return (
     <div className="admin-panel-wrapper-add-homestay">
+      <ToastContainer />
       <div className="dashboard-main-add-homestay">
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form-left">
@@ -277,7 +293,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Total Price (Customer)</label>
               <input
-              disabled
+                disabled
                 required
                 type="number"
                 name="totalAmount"
@@ -298,7 +314,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Guest Due</label>
               <input
-              disabled
+                disabled
                 type="number"
                 name="due"
                 value={totalHomestayPriceC - customerData.paid}
@@ -318,7 +334,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Homestay Total Price(B2B)</label>
               <input
-              disabled
+                disabled
                 required
                 type="number"
                 name="totalHomestayPriceB2B"
@@ -340,7 +356,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>Guest Remaining Balance</label>
               <input
-              disabled
+                disabled
                 required
                 type="number"
                 name="guestRemainingBalance"
@@ -352,7 +368,7 @@ function AddCustomer() {
             <div className="form-wrapper">
               <label>B2B Homestay Due</label>
               <input
-              disabled
+                disabled
                 required
                 type="number"
                 name="dueB2B"

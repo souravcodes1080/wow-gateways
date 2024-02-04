@@ -7,6 +7,10 @@ import AddHomestay from "../AddHomestay/AddHomestay";
 import EditHomestay from "../EditHomestay/EditHomestay";
 import Sidebar from "../Sidebar/Sidebar";
 import logo from "../../../public/logo.png"
+
+import { ToastContainer ,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Dashboard = () => {
   // const [homestays, setHomestays] = useState([]);
   let time  = new Date().toLocaleTimeString()
@@ -22,21 +26,21 @@ const Dashboard = () => {
       navigate("/admin/login");
     }
 
-    const fetchHomestays = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/homestay");
-        setHomestays(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    // const fetchHomestays = async () => {
+    //   try {
+    //     const response = await axios.get("http://localhost:8080/homestay");
+    //     setHomestays(response.data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
-    fetchHomestays();
+    // fetchHomestays();
   }, []);
   return (
     <>
       <div className="admin-panel-wrapper">
-       
+        <ToastContainer/>
         <div className="dashboard-main">
        
                <div className="box1 box">
