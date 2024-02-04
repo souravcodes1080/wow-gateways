@@ -342,7 +342,7 @@ function AddCustomer() {
                 name="guestRemainingBalance"
                 placeholder="Price"
                 onChange={handleInputChange}
-                value={totalHomestayPriceC - customerData.paid}
+                value={customerData.totalAmount - customerData.paid}
               />
             </div>
             <div className="form-wrapper">
@@ -353,7 +353,7 @@ function AddCustomer() {
                 name="dueB2B"
                 placeholder="Price"
                 onChange={handleInputChange}
-                value={totalHomestayPrice - customerData.advPaidB2B}
+                value={customerData.totalHomestayPriceB2B - customerData.advPaidB2B}
               />
             </div>
             <button
