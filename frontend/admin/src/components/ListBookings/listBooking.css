@@ -32,8 +32,11 @@
     .manage-customer-header{
         background-color: white;
     }
-    .manage-customer-header h5{
+    .manage-homestay-header h5{
         margin-left: 10px;
+    }
+    .manage-customer-header h5{
+        margin-left: 20px;
         padding: 20px 0;
             background-color: white;
             display: flex;
@@ -94,7 +97,13 @@
 
 
 
-
+    tbody button{
+        background-color: blue;
+        padding: 5px 10px;
+        color: white;
+        border: 0;
+        outline: 0;
+    }
 
 
 
@@ -116,3 +125,4 @@
         width: 85%;
         margin-left: 15vw;
 }
+

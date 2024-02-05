@@ -67,7 +67,7 @@ function ListHomestays() {
                 <th className="column-email">Email</th>
                 <th className="column-price">Price</th>
                 <th className="column-room">Rooms</th>
-                {/* <th className="column-price">Cars</th> */}
+                <th className="column-price">Action</th>
               </tr>
             </thead>
             <tbody>
