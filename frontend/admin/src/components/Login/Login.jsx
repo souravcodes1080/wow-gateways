@@ -23,14 +23,14 @@ const Login = () => {
         onClose: () => {
           navigate("/");
         },
-        autoClose: 5000,
+        autoClose: 3000,
       });
     } catch (error) {
 
       toast.error("Login Failed!", {
         onClose: () => {
         },
-        autoClose: 5000,
+        autoClose: 3000,
       });
 
       console.log(error);

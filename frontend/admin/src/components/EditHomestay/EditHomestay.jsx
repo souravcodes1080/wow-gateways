@@ -41,13 +41,13 @@ const EditHomestay = () => {
         onClose: () => {
           navigate("/");
         },
-        autoClose: 5000,
+        autoClose: 3000,
       });
     } catch (error) {
       toast.error("Homestay update Unsuccessful!", {
         onClose: () => {
         },
-        autoClose: 5000,
+        autoClose: 3000,
       });
 
       console.log(error);

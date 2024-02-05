@@ -75,13 +75,13 @@ const EditBooking = () => {
         onClose: () => {
           navigate("/");
         },
-        autoClose: 5000,
+        autoClose: 3000,
       });
     } catch (error) {
 
       toast.error("Update unsuccessfull!", {                                                   
         className: 'custom-toast-success',
-        autoClose: 5000,
+        autoClose: 3000,
       });
 
       console.log(error);
