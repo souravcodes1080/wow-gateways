@@ -331,7 +331,7 @@ function AddCustomer() {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="form-wrapper">
+            {/* <div className="form-wrapper">
               <label>Homestay Total Price(B2B)</label>
               <input
                 disabled
@@ -342,7 +342,7 @@ function AddCustomer() {
                 onChange={handleInputChange}
                 value={totalHomestayPrice}
               />
-            </div>
+            </div> */}
             <div className="form-wrapper">
               <label>Adv. Paid (to Homestay by wow)</label>
               <input
@@ -365,7 +365,7 @@ function AddCustomer() {
                 value={totalHomestayPriceC - customerData.paid}
               />
             </div>
-            <div className="form-wrapper">
+            {/* <div className="form-wrapper">
               <label>B2B Homestay Due</label>
               <input
                 disabled
@@ -377,7 +377,7 @@ function AddCustomer() {
                 value={totalHomestayPrice - customerData.advPaidB2B}
                 className={totalHomestayPrice - customerData.advPaidB2B >= 0 ? "green" : "red"}
               />
-            </div>
+            </div> */}
             <button
               className="add-homestay"
               type="submit"
