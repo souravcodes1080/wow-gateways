@@ -57,4 +57,31 @@ const getAllCar = async (req, res) => {
   }
 };
 
-export { addCar, getAllCar };
+
+const updateCar = async (req, res) => {
+  try {
+    const { carId } = req.params; // Assuming carId is part of the URL parameters
+    const updateData = req.body;
+
+    const updatedCar = await Car.findByIdAndUpdate(carId, updateData, {
+      new: true,
+    });
+
+    if (!updatedCar) {
+      return res.status(404).json({
+        message: "Car not found.",
+        status: false,
+      });
+    }
+
+    res.status(200).json({
+      message: "Car updated successfully.",
+      status: true,
+      car: updatedCar,
+    });
+  } catch (error) {
+    res.status(400).json({ message: "Error updating car details." });
+  }
+};
+
+export { addCar, getAllCar, updateCar };

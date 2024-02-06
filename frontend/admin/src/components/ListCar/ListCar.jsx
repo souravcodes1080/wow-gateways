@@ -6,6 +6,7 @@ import Sidebar from "../Sidebar/Sidebar";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaBook } from "react-icons/fa";
 
 
 function ListCar() {
@@ -27,14 +28,9 @@ function ListCar() {
         setCars(response.data.cars);
         setOriginalCars(response.data.cars); // Store the original list of cars
 
-        toast.success("Cars fetched successfully!", {                                                   
-          className: 'custom-toast-success',
-          autoClose: 5000,
-        });
-
       } catch (error) {
 
-        toast.error("Fetch Unsuccessfull!", {                                                   
+        toast.error("Fetch Unsuccessfull!", {
           className: 'custom-toast-success',
           autoClose: 5000,
         });
@@ -74,24 +70,22 @@ function ListCar() {
   return (
     <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
       <div className="dashboard-main-add-car">
-        <div className="list-product">
-          <h1>All Cars list</h1>
-          <div className="search-sort-buttons">
-            {/* Button to sort by rating */}
+        <div className="manage-customer-header manage-homestay-header">
+          <h5><FaBook />Manage Cars</h5>
+          <div>
+            {/* <input type="text" placeholder="Search" onChange={handleSearch} /> */}
             <button onClick={sortCarsByRating}>Sort by Rating</button>
             {/* Button to sort by condition */}
             <button onClick={sortCarsByCondition}>Sort by Condition</button>
-            {/* Search input field */}
-            <input
-              type="text"
-              placeholder="Search by Car Name"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            {/* Button to trigger search */}
+          </div>
+        </div>
+        <div className="list-product">
+          {/* <h1>All Cars list</h1>
+          <div className="search-sort-buttons">
+           
             <button onClick={handleSearch}>Search</button>
           </div>
-          <br />
+          <br /> */}
           <table className="list-product-table">
             <thead>
               <tr>
@@ -103,6 +97,7 @@ function ListCar() {
                 <th className="column-price">Ac</th>
                 <th className="column-price">Seats</th>
                 <th className="column-price">Condition</th>
+                <th className="column-price">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -116,6 +111,11 @@ function ListCar() {
                   <td className="column-price">{car.ac ? "Yes" : "No"}</td>
                   <td className="column-email">{car.noOfSeats}</td>
                   <td className="column-price">{car.condition}</td>
+                  <td className="column-price">
+                    <button onClick={()=>{
+                      navigate(`admin/updatecar/${car._id}`)
+                    }}>Update</button>
+                  </td>
                   {/* <td>
                     <button
                       onClick={() => {

@@ -16,7 +16,7 @@ function ListBooking() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem("adminAuthorizationToken")) {
+    if (!localStorage.getItem("adminAuthorizationToken")) { 
       navigate("/admin/login");
     }
     fetchBooking();

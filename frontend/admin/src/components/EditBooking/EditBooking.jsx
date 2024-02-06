@@ -4,7 +4,7 @@ import "./editBooking.css";
 import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const EditBooking = () => {
@@ -73,7 +73,7 @@ const EditBooking = () => {
 
       toast.success("Booking edited successfully!", {
         onClose: () => {
-          navigate("/");
+          navigate("/admin/bookinglist");
         },
         autoClose: 3000,
       });
@@ -99,6 +99,7 @@ const EditBooking = () => {
 
   return (
     <div className="admin-panel-wrapper-add-homestay">
+      <ToastContainer/>
       <div className="dashboard-main-add-homestay">
       <h3>{bookingData.customerName}</h3>
       <p>{bookingData.homestayName}</p>

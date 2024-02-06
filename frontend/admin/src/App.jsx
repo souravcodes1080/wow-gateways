@@ -18,6 +18,7 @@ import ListCar from "./components/ListCar/ListCar";
 import EditBooking from "./components/EditBooking/EditBooking";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { ToastContainer } from 'react-toastify';
+import { ManageTours } from "./components/ManageTours/ManageTours";
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/admin/homestaylist" element={<ListHomestays />} />
         <Route path="/admin/bookinglist" element={<ListBooking />} />
         <Route path="/admin/carlist" element={<ListCar/>} />
+        <Route path="/admin/managetour" element={<ManageTours/>} />
 
 
         <Route path="/admin/edithomestay/:id" element={<EditHomestay />} />

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { TiUserAdd } from "react-icons/ti";
 import { MdAddHomeWork } from "react-icons/md";
-import { FaCar, FaCarSide } from "react-icons/fa";
+import { FaCar, FaCarSide, FaLocationArrow } from "react-icons/fa";
 import { RiGridFill } from "react-icons/ri";
 import { FaTable } from "react-icons/fa";
 
@@ -43,30 +43,43 @@ function Sidebar() {
               <TiUserAdd />
               New Booking
             </p>
-          </li><li 
-          onClick={()=>{
-            handleClick("MB")
-            navigate("/admin/bookinglist");
-          }}
-          className={currentTab === "MB" ? "current" : ""}>
-            
-              <p>
-                <FaTable />
-                Manage Bookings
-              </p>
-            
           </li>
           <li
-          onClick={()=>{
-            handleClick("MH")
-                navigate("/admin/homestaylist");
-          }}
-          className={currentTab === "MH" ? "current" : ""}>
-            
-              <p>
-                <RiGridFill />
-                Manage Homestays
-              </p>
+            onClick={() => {
+              handleClick("ManageTour");
+              navigate("/admin/managetour");
+            }}
+            className={currentTab === "ManageTour" ? "current" : ""}
+          >
+            <p>
+              <FaLocationArrow />
+              Manage Tour
+            </p>
+          </li>
+          <li
+            onClick={() => {
+              handleClick("MB")
+              navigate("/admin/bookinglist");
+            }}
+            className={currentTab === "MB" ? "current" : ""}>
+
+            <p>
+              <FaTable />
+              Manage Bookings
+            </p>
+
+          </li>
+          <li
+            onClick={() => {
+              handleClick("MH")
+              navigate("/admin/homestaylist");
+            }}
+            className={currentTab === "MH" ? "current" : ""}>
+
+            <p>
+              <RiGridFill />
+              Manage Homestays
+            </p>
           </li>
 
           {/* <li
@@ -93,19 +106,19 @@ function Sidebar() {
               Add Cars
             </p>
           </li>
-          
+
           <li
-          onClick={()=>{
-            handleClick("MC")
-                navigate("/admin/carlist");
-          }}
-          className={currentTab === "MC" ? "current" : "" }>
-      
-              <p>
-                <FaCarSide />
-                Manage Cars
-              </p>
-           
+            onClick={() => {
+              handleClick("MC")
+              navigate("/admin/carlist");
+            }}
+            className={currentTab === "MC" ? "current" : ""}>
+
+            <p>
+              <FaCarSide />
+              Manage Cars
+            </p>
+
           </li>
         </ul>
       </div>
