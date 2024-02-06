@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const tourPackageSchema = new mongoose.Schema({
     from: { type: String },
     to: { type: String },
+    homestayName: {type: String},
     noOFCar: { type: Number},
     carType: {type: String},
     driverNumber: {type: Number},

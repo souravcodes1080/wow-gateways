@@ -53,7 +53,7 @@ export const ManageTours = () => {
 
 
     const updateBooking = (id) => {
-        navigate(`/admin/editbooking/${id}`);
+        navigate(`/admin/edittour/${id}`);
     };
 
     const handleSearch = (e) => {

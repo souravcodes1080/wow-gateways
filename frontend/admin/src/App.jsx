@@ -19,6 +19,7 @@ import EditBooking from "./components/EditBooking/EditBooking";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { ToastContainer } from 'react-toastify';
 import { ManageTours } from "./components/ManageTours/ManageTours";
+import EditTours from "./components/EditTours/EditTours";
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const App = () => {
 
         <Route path="/admin/edithomestay/:id" element={<EditHomestay />} />
         <Route path="/admin/editbooking/:id" element={<EditBooking />} />
+        <Route path="/admin/edittour/:id" element={<EditTours/>} />
 
         <Route path="/admin/login" element={<Login />} />
       </Routes>
