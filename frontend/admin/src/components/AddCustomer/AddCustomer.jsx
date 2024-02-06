@@ -86,12 +86,20 @@ function AddCustomer() {
   // Update total price when selected homestay or number of adults changes
   useEffect(() => {
     if (selectedHomestay) {
-      const totalPrice = customerData.noOfAdults * selectedHomestay.b2b + customerData.noOfchilds2 * selectedHomestay.b2b / 2;
-      const totalPriceC = customerData.noOfAdults * selectedHomestay.price + customerData.noOfchilds2 * selectedHomestay.price / 2;
+      const checkInDate = new Date(customerData.checkIn);
+      const checkOutDate = new Date(customerData.checkOut);
+      const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+    const numberOfDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
+      const totalPrice =
+        (customerData.noOfAdults * selectedHomestay.b2b +
+        (customerData.noOfchilds2 * selectedHomestay.b2b) / 2) * (numberOfDays);
+      const totalPriceC =
+        (customerData.noOfAdults * selectedHomestay.price +
+        (customerData.noOfchilds2 * selectedHomestay.price) / 2) * (numberOfDays);
       setTotalHomestayPriceC(totalPriceC);
       setTotalHomestayPrice(totalPrice);
     }
-  }, [selectedHomestay, customerData.noOfAdults, customerData.noOfchilds2]);
+  }, [selectedHomestay, customerData.noOfAdults, customerData.noOfchilds2, customerData.checkIn, customerData.checkOut]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
