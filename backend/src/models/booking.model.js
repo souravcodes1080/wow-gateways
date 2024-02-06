@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 
+const tourPackageSchema = new mongoose.Schema({
+    from: { type: String },
+    to: { type: String },
+    noOFoCar: { type: Number},
+    carType: {type: String},
+    driverNumber: {type: Number},
+    price: { type: Number, required: true}
+});
+
 
 const bookingSchema = new mongoose.Schema({
     customerName: {
@@ -73,7 +82,8 @@ const bookingSchema = new mongoose.Schema({
     },
     dueB2B:{
         type: Number
-    }
+    },
+    tourPackages: { type: [tourPackageSchema], default: [null, null, null, null, null] }
 
 });
 
