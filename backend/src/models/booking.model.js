@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const tourPackageSchema = new mongoose.Schema({
     from: { type: String },
     to: { type: String },
-    noOFoCar: { type: Number},
+    noOFCar: { type: Number},
     carType: {type: String},
     driverNumber: {type: Number},
     price: { type: Number, required: true}
