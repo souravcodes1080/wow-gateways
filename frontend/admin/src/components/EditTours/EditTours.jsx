@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./editTours.css";
 import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
-
+import moment from "moment"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -113,7 +113,7 @@ const EditTours = () => {
             </div>
             <div className="form-wrapper">
               <label>To</label>
-              <select required name="homestayName" onChange={handleInputChange}>
+              <select required name="to" onChange={handleInputChange}>
                 <option value="">Select Homestay</option>
                 {homestayList.map((homestay) => (
                   <option key={homestay._id} value={homestay.homestayName}>
@@ -122,17 +122,10 @@ const EditTours = () => {
                 ))}
               </select>
             </div>
-            {/* <div className="form-wrapper">
-              <label>Homestay Name</label>
-              <select required name="homestayName" onChange={handleInputChange}>
-                <option value="">Select Homestay</option>
-                {homestayList.map((homestay) => (
-                  <option key={homestay._id} value={homestay.homestayName}>
-                    {homestay.homestayName}
-                  </option>
-                ))}
-              </select>
-            </div> */}
+            <div className="form-wrapper">
+              <label>Check In Date</label>
+              <input type="text" value={moment(bookingData.checkIn).format('DD-MM-yyyy')} />
+            </div>
 
             <div className="form-wrapper">
               <label>No. of Car</label>
