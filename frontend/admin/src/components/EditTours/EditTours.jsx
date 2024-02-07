@@ -105,20 +105,14 @@ const EditTours = () => {
             <h1>Phase 1</h1>
             <div className="form-wrapper">
               <label>From</label>
-              <input
-                required
-                type="text"
-                name="from"
-                placeholder="From Location"
-                onChange={handleInputChange}
-              />
+              <select  name="from" onChange={handleInputChange}>
+                <option value="">Select Starting point</option>
+                <option value="">New Jalpaiguri</option>
+                <option value="">Bagdogra</option>
+              </select>
             </div>
             <div className="form-wrapper">
               <label>To</label>
-              <input type="text" name="to" placeholder="To Location" />
-            </div>
-            <div className="form-wrapper">
-              <label>Homestay Name</label>
               <select required name="homestayName" onChange={handleInputChange}>
                 <option value="">Select Homestay</option>
                 {homestayList.map((homestay) => (
@@ -128,6 +122,17 @@ const EditTours = () => {
                 ))}
               </select>
             </div>
+            {/* <div className="form-wrapper">
+              <label>Homestay Name</label>
+              <select required name="homestayName" onChange={handleInputChange}>
+                <option value="">Select Homestay</option>
+                {homestayList.map((homestay) => (
+                  <option key={homestay._id} value={homestay.homestayName}>
+                    {homestay.homestayName}
+                  </option>
+                ))}
+              </select>
+            </div> */}
 
             <div className="form-wrapper">
               <label>No. of Car</label>
