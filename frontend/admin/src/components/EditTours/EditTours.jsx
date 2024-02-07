@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./editTours.css";
 import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
-import moment from "moment"
+import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,6 +12,7 @@ const EditTours = () => {
   const [bookingData, setBookingData] = useState({});
   const [homestayList, setHomestayList] = useState([]);
   const [carList, setCarList] = useState([]);
+  const [locationList, setLocationList] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -29,7 +30,12 @@ const EditTours = () => {
   useEffect(() => {
     fetchHomestayNames();
     fetchCarList();
+    fetchLocationList();
   }, []);
+
+  // useEffect(() => {
+  //   filterLocationList();
+  // }, [bookingData.to]);
 
   const fetchHomestayNames = async () => {
     try {
@@ -43,11 +49,42 @@ const EditTours = () => {
     try {
       const response = await axios.get("http://localhost:8080/car");
       setCarList(response.data.cars);
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
   };
+  const fetchLocationList = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/location");
+      setLocationList(response.data.locations);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleHomestayChange = (e) => {
+    const selectedHomestayName = e.target.value;
+    const selectedHomestay = homestayList.find(
+      (homestay) => homestay.homestayName === selectedHomestayName
+    );
+    if (selectedHomestay) {
+      const homestayLocation = selectedHomestay.location; // Assuming 'location' property holds the homestay location
+      const filteredLocations = locationList.filter(
+        (location) => location.locationHolder === homestayLocation
+      );
+      setLocationList(filteredLocations);
+    }
+  };
+
+  // const filterLocationList = () => {
+  //   const selectedHomestay = homestayList.find(homestay => homestay.homestayName === bookingData.to);
+  //   if (selectedHomestay) {
+  //     const homestayLocation = selectedHomestay.location; // Assuming 'location' property holds the homestay location
+  //     const filteredLocations = locationList.filter(location => location.locationName === homestayLocation);
+  //     setLocationList(filteredLocations);
+  //   }
+  // };
+
   const handleInputChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
@@ -66,7 +103,6 @@ const EditTours = () => {
         // paid: parseInt(bookingData.paid),
         // // Calculate due
         // due: parseInt(bookingData.totalAmount - bookingData.paid),
-       
       };
       await axios.put(`http://localhost:8080/home/${id}`, updatedBookingData);
 
@@ -105,15 +141,16 @@ const EditTours = () => {
             <h1>Phase 1</h1>
             <div className="form-wrapper">
               <label>From</label>
-              <select  name="from" onChange={handleInputChange}>
+              <select name="from" onChange={handleInputChange}>
                 <option value="">Select Starting point</option>
                 <option value="">New Jalpaiguri</option>
                 <option value="">Bagdogra</option>
               </select>
             </div>
+
             <div className="form-wrapper">
               <label>To</label>
-              <select required name="to" onChange={handleInputChange}>
+              <select required name="to" onChange={handleHomestayChange}>
                 <option value="">Select Homestay</option>
                 {homestayList.map((homestay) => (
                   <option key={homestay._id} value={homestay.homestayName}>
@@ -123,8 +160,27 @@ const EditTours = () => {
               </select>
             </div>
             <div className="form-wrapper">
+              <label>Available Location list</label>
+              {locationList.map((location) => (
+                <div key={location._id}>
+                  <input
+                    type="checkbox"
+                    id={location._id}
+                    name="location"
+                    value={location.locationName}
+                    onChange={handleInputChange}
+                  />
+                  <label htmlFor={location._id}>{location.locationName}</label>
+                </div>
+              ))}
+            </div>
+
+            <div className="form-wrapper">
               <label>Check In Date</label>
-              <input type="text" value={moment(bookingData.checkIn).format('DD-MM-yyyy')} />
+              <input
+                type="text"
+                value={moment(bookingData.checkIn).format("DD-MM-yyyy")}
+              />
             </div>
 
             <div className="form-wrapper">
@@ -156,8 +212,6 @@ const EditTours = () => {
                 onChange={handleInputChange}
               />
             </div>
-
-
 
             <h1>Phase 2</h1>
             <div className="form-wrapper">
@@ -215,7 +269,6 @@ const EditTours = () => {
                 onChange={handleInputChange}
               />
             </div>
-
 
             <h1>Phase 3</h1>
             <div className="form-wrapper">
@@ -330,7 +383,6 @@ const EditTours = () => {
                 onChange={handleInputChange}
               />
             </div>
-
 
             <h1>Phase 5</h1>
             <div className="form-wrapper">
