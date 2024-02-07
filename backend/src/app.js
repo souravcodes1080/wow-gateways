@@ -20,10 +20,12 @@ import bookingRouter from "./routes/booking.route.js";
 import adminRouter from "./routes/admin.route.js";
 import homestayRouter from "./routes/homestay.route.js";
 import carRouter from "./routes/car.route.js";
+import locationRouter from "./routes/location.route.js";
 
 //routes declaration
 app.use("/home", bookingRouter);
 app.use("/admin", adminRouter);
 app.use("/homestay", homestayRouter);
 app.use("/car", carRouter);
+app.use("/location", locationRouter);
 export { app };

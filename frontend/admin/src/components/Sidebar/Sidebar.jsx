@@ -8,6 +8,7 @@ import { MdAddHomeWork } from "react-icons/md";
 import { FaCar, FaCarSide, FaLocationArrow } from "react-icons/fa";
 import { RiGridFill } from "react-icons/ri";
 import { FaTable } from "react-icons/fa";
+import { FaLocationPin } from "react-icons/fa6";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -104,6 +105,19 @@ function Sidebar() {
             <p>
               <FaCar />
               Add Cars
+            </p>
+          </li>
+
+          <li
+            onClick={() => {
+              handleClick("AddLocations");
+              navigate("/admin/addlocations");
+            }}
+            className={currentTab === "AddLocations" ? "current" : ""}
+          >
+            <p>
+              <FaLocationPin />
+              Add Locations
             </p>
           </li>
 
