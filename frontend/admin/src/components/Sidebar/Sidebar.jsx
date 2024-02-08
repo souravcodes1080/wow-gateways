@@ -95,7 +95,7 @@ function Sidebar() {
               Add Homestay
             </p>
           </li> */}
-          <li
+          {/* <li
             onClick={() => {
               handleClick("AddCar");
               navigate("/admin/addcar");
@@ -106,7 +106,7 @@ function Sidebar() {
               <FaCar />
               Add Cars
             </p>
-          </li>
+          </li> */}
 
           <li
             onClick={() => {
@@ -117,7 +117,7 @@ function Sidebar() {
           >
             <p>
               <FaLocationPin />
-              Add Locations
+              Add Viewpoints
             </p>
           </li>
 

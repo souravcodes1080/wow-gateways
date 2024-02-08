@@ -68,7 +68,7 @@ function AddLocations() {
     <div className="admin-panel-wrapper-add-homestay">
       <ToastContainer />
       <div className="dashboard-main-add-homestay">
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={handleSubmit} encType="multipart/form-data" className="form-add-location">
           <div className="form-left">
             <div className="form-wrapper">
               <label>Location Name</label>
@@ -129,6 +129,10 @@ function AddLocations() {
                 <option value="namchi">Namchi</option>
               </select>
             </div>
+
+            
+          </div>
+              <div className="form-right">
             <div className="form-wrapper-pictures">
               <label>Viewpoint images (Max 20)</label>
               <input required type="file" multiple onChange={handleFileChange} />
@@ -152,10 +156,8 @@ function AddLocations() {
             >
               {isSubmitting ? "Adding location..." : "Add location"}
             </button>
-          </div>
-          <div className="form-right">
-            {/* Commented out unused code */}
-          </div>
+            </div>
+                
         </form>
       </div>
     </div>
