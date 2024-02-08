@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function AddLocations() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [imagePreviews, setImagePreviews] = useState([]);
   useEffect(() => {
     if (!localStorage.getItem("adminAuthorizationToken")) {
       navigate("/admin/login");
@@ -22,19 +22,31 @@ function AddLocations() {
     locationHolder: "",
   });
 
+  const [images, setImages] = useState([]);
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
 
     setlocationData({ ...locationData, [name]: name === "locationRating" ? parseInt(newValue) : newValue });
   };
+  
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImages(e.target.files);
+    const previews = files.map((file) => URL.createObjectURL(file));
+    setImagePreviews(previews);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+    const formData = new FormData();
+    Object.keys(locationData).forEach((key) =>
+      formData.append(key, locationData[key])
+    );
+    Array.from(images).forEach((image) => formData.append("viewpointImages", image));
     try {
-      await axios.post("http://localhost:8080/location", locationData);
+      await axios.post("http://localhost:8080/location", formData);
 
       toast.success("Location added successfully!", {
         onClose: () => {
@@ -117,7 +129,21 @@ function AddLocations() {
                 <option value="namchi">Namchi</option>
               </select>
             </div>
-
+            <div className="form-wrapper-pictures">
+              <label>Viewpoint images (Max 20)</label>
+              <input required type="file" multiple onChange={handleFileChange} />
+              <div className="image-previews">
+                {imagePreviews.map((preview, index) => (
+                  <img
+                    className="preview-image"
+                    key={index}
+                    src={preview}
+                    alt={`Image ${index}`}
+                    width={"50px"}
+                  />
+                ))}
+              </div>
+            </div>
 
             <button
               className="add-homestay"
