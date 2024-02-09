@@ -52,12 +52,12 @@ function AddLocations() {
         onClose: () => {
           navigate("/");
         },
-        autoClose: 5000,
+        autoClose: 3000,
       });
     } catch (error) {
       toast.error("Process unsuccessful!", {
         className: 'custom-toast-success',
-        autoClose: 5000,
+        autoClose: 3000,
       });
     } finally {
       setIsSubmitting(false);
@@ -150,7 +150,7 @@ function AddLocations() {
             </div>
 
             <button
-              className="add-homestay"
+              className={isSubmitting ? "fade add-homestay" : "add-homestay"}
               type="submit"
               disabled={isSubmitting}
             >
