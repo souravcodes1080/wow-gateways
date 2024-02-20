@@ -7,6 +7,7 @@ import moment from "moment";
 import { RiCalendarEventFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ReactPaginate from 'react-paginate';
 
 function ListBooking() {
   const [booking, setBooking] = useState([]);
@@ -74,10 +75,28 @@ function ListBooking() {
       (book) =>
         book.customerName.toLowerCase().includes(value) ||
         book.homestayName.toLowerCase().includes(value) ||
-        book.customerEmail.toLowerCase().includes(value)
+        book.customerEmail.toLowerCase().includes(value) ||
+        book.customerPhoneNumber.toString().includes(value)
     );
     setFilteredBooking(filtered);
   };
+
+  //==================================================
+
+  const [itemOffset, setItemOffset] = useState(0);
+const itemsPerPage = 5;
+
+const endOffset = itemOffset + itemsPerPage;
+
+const currentItems = booking.slice(itemOffset, endOffset);
+const pageCount = Math.ceil(booking.length / itemsPerPage);
+
+const handlePageClick = (event) => {
+  const newOffset = (event.selected * itemsPerPage) % booking.length;
+  setItemOffset(newOffset);
+};
+
+//====================================================
 
   return (
     <>
@@ -119,7 +138,7 @@ function ListBooking() {
               </tr>
             </thead>
             <tbody>
-              {(searchQuery ? filteredBooking : booking).map((book, index) => (
+              {(searchQuery ? filteredBooking : currentItems).map((book, index) => (
                 <tr key={index}>
                   <td>{book.customerName}</td>
                   <td>{book.homestayName}</td>
@@ -146,6 +165,17 @@ function ListBooking() {
               ))}
             </tbody>
           </table>
+
+          <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+        />
+        
         </div>
       </div>
     </>
