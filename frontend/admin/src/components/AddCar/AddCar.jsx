@@ -9,13 +9,6 @@ function AddCar() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imagePreviews, setImagePreviews] = useState([]);
-
-  useEffect(() => {
-    if (!localStorage.getItem("adminAuthorizationToken")) {
-      navigate("/admin/login");
-    }
-  }, []);
-
   const [carData, setCarData] = useState({
     carName: "",
     driverName: "",
@@ -28,68 +21,34 @@ function AddCar() {
     condition: "",
     carRating: "",
   });
-  //   const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("adminAuthorizationToken")) {
+      navigate("/admin/login");
+    }
+  }, [navigate]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
-
     setCarData({ ...carData, [name]: name === "noOfSeats" ? parseInt(newValue) : newValue });
   };
 
-  //   const handleFileChange = (e) => {
-  //     const files = Array.from(e.target.files);
-  //     setImages(e.target.files);
-  //     const previews = files.map((file) => URL.createObjectURL(file));
-  //     setImagePreviews(previews);
-  //   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-  //   const formData = new FormData();
-  //   Object.keys(carData).forEach((key) => formData.append(key, carData[key]));
-  //   // Array.from(images).forEach((image) => formData.append("images", image));
-
-  //   try {
-  //     await axios.post("http://localhost:8080/car", formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-
-  //     alert("Car added successfully!");
-
-  //     navigate("/");
-  //   } catch (error) {
-  //     alert("Error adding Car. Please try again later.");
-  //     console.error(error);
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
       await axios.post("http://localhost:8080/car", carData);
-
-     //alert("Car Added Sucess")
-     toast.success("Car added successfully!", {
-      onClose: () => {
-        navigate("/");
-      },
-      autoClose: 5000,
-    });
-      
+      toast.success("Car added successfully!", {
+        onClose: () => navigate("/"),
+        autoClose: 5000,
+      });
     } catch (error) {
-      //alert("Error adding Car. Please try again later.");
-      toast.error("Process unsuccessfull!", {                                                   
+      toast.error("Process unsuccessful!", {
         className: 'custom-toast-success',
         autoClose: 5000,
       });
-      // console.error(error);
     } finally {
       setIsSubmitting(false);
     }
@@ -97,7 +56,7 @@ function AddCar() {
 
   return (
     <div className="admin-panel-wrapper-add-homestay">
-    <ToastContainer />
+      <ToastContainer />
       <div className="dashboard-main-add-homestay">
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form-left">
@@ -114,7 +73,7 @@ function AddCar() {
             <div className="form-wrapper">
               <label>Car Driver Name</label>
               <input
-              required
+                required
                 type="text"
                 name="driverName"
                 placeholder="Driver Name"
@@ -124,7 +83,7 @@ function AddCar() {
             <div className="form-wrapper">
               <label>Driver Phone Number</label>
               <input
-              required
+                required
                 type="number"
                 name="driverPhoneNumber"
                 placeholder="Driver Phone Number"

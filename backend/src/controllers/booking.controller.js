@@ -4,113 +4,191 @@ import { Homestay } from "../models/homestay.model.js";
 
 import moment from "moment";
 
+// const booking = asyncHandler(async (req, res, next) => {
+//   try {
+//     const {
+//       customerName,
+//         customerPhoneNumber,
+//         customerEmail,
+//         noOfAdults,
+//         noOfchilds1,
+//         noOfchilds2,
+//         totalAmount,
+//         paid,
+//         due,
+//         note,
+//         totalHomestayPriceB2B,
+//         advPaidB2B,
+//         guestRemainingBalance,
+//         dueB2B,
+//         homestayName,
+//         checkIn,
+//         checkOut,
+//         price,
+//         car,
+//         carCost,
+//         rooms
+
+//     } = req.body;
+
+//     const homestay = await Homestay.findOne({ homestayName: homestayName });
+
+//     if (!homestay) {
+//       return res.status(404).json({
+//         message: "Homestay not found.",
+//         status: false,
+//       });
+//     }
+
+//     const existingBookingsOnDate = await Booking.find({
+//       homestayName: homestayName,
+//       $or: [
+//         {
+//           $and: [
+//             { checkIn: { $lte: checkIn } },
+//             { checkOut: { $gte: checkIn } },
+//           ],
+//         },
+//         {
+//           $and: [
+//             { checkIn: { $lte: checkOut } },
+//             { checkOut: { $gte: checkOut } },
+//           ],
+//         },
+//       ],
+//     });
+
+//     const totalRooms = homestay.noOfrooms;
+//     const bookedRooms = existingBookingsOnDate.reduce(
+//       (acc, booking) => acc + booking.noOfRoomsBooked,
+//       0
+//     );
+//     const availableRooms = totalRooms - bookedRooms;
+
+//     console.log("Available Rooms:", availableRooms);
+
+//     if (availableRooms >= noOfRoomsBooked) {
+//       const booking = await Booking.create({
+//         customerName,
+//         customerPhoneNumber,
+//         customerEmail,
+//         noOfAdults,
+//         noOfchilds1,
+//         noOfchilds2,
+//         totalAmount,
+//         paid,
+//         due,
+//         note,
+//         totalHomestayPriceB2B,
+//         advPaidB2B,
+//         guestRemainingBalance,
+//         dueB2B,
+//         homestayName,
+//         checkIn,
+//         checkOut,
+//         price,
+//         car,
+//         carCost,
+//         rooms
+//       });
+
+//       return res.status(201).json({
+//         message: "Booking created successfully.",
+//         status: true,
+//         booking,
+//       });
+//     } else {
+//       const nextAvailableDate = moment(checkOut).add(1, "day").toDate();
+
+//       return res.status(400).json({
+//         message: `No available rooms on ${moment(checkIn).format(
+//           "MMMM Do YYYY"
+//         )}. Next available date is ${moment(nextAvailableDate).format(
+//           "MMMM Do YYYY"
+//         )}.`,
+//         status: false,
+//         nextAvailableDate,
+//       });
+//     }
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 const booking = asyncHandler(async (req, res, next) => {
   try {
     const {
       customerName,
       customerPhoneNumber,
       customerEmail,
-      checkIn,
-      checkOut,
       noOfAdults,
       noOfchilds1,
       noOfchilds2,
-      homestayName,
-      noOfRoomsBooked,
       totalAmount,
       paid,
       due,
       note,
-      cars,
-      tourPackage,
       totalHomestayPriceB2B,
       advPaidB2B,
-        guestRemainingBalance,
-        dueB2B
+      guestRemainingBalance,
+      dueB2B,
+      tour
     } = req.body;
 
-    const homestay = await Homestay.findOne({ homestayName: homestayName });
+    // Iterate over each homestay in the tour
+    for (const homestayBooking of tour) {
+      const { homestayName, checkIn, checkOut, rooms } = homestayBooking;
 
-    if (!homestay) {
-      return res.status(404).json({
-        message: "Homestay not found.",
-        status: false,
+      // Check if the homestay exists
+      const homestay = await Homestay.findOne({ homestayName:homestayName });
+      if (!homestay) {
+        return res.status(404).json({
+          message: `Homestay '${homestayName}' not found.`,
+          status: false
+        });
+      }
+
+      // Check for existing bookings for the homestay and date range
+      const existingBookingsOnDate = await Booking.find({
+        homestayName,
+        $or: [
+          { $and: [{ checkIn: { $lte: checkIn } }, { checkOut: { $gte: checkIn } }] },
+          { $and: [{ checkIn: { $lte: checkOut } }, { checkOut: { $gte: checkOut } }] }
+        ]
       });
+
+      const totalRooms = homestay.noOfrooms;
+      const bookedRooms = existingBookingsOnDate.reduce((acc, booking) => acc + booking.rooms, 0);
+      const availableRooms = totalRooms - bookedRooms;
+
+      // If rooms are not available, return an error response
+      if (availableRooms < rooms) {
+        const nextAvailableDate = moment(checkOut).add(1, 'day').toDate();
+        return res.status(400).json({
+          message: `No available rooms for '${homestayName}' on ${moment(checkIn).format('MMMM Do YYYY')}. Next available date is ${moment(nextAvailableDate).format('MMMM Do YYYY')}.`,
+          status: false,
+          nextAvailableDate
+        });
+      }
     }
 
-    const existingBookingsOnDate = await Booking.find({
-      homestayName: homestayName,
-      $or: [
-        {
-          $and: [
-            { checkIn: { $lte: checkIn } },
-            { checkOut: { $gte: checkIn } },
-          ],
-        },
-        {
-          $and: [
-            { checkIn: { $lte: checkOut } },
-            { checkOut: { $gte: checkOut } },
-          ],
-        },
-      ],
+    // If all bookings are valid, create the bookings
+    const createdBookings = await Booking.create(req.body);
+
+    // Respond with success message and created bookings
+    res.status(201).json({
+      message: 'Bookings created successfully.',
+      status: true,
+      bookings: createdBookings
     });
-
-    const totalRooms = homestay.noOfrooms;
-    const bookedRooms = existingBookingsOnDate.reduce(
-      (acc, booking) => acc + booking.noOfRoomsBooked,
-      0
-    );
-    const availableRooms = totalRooms - bookedRooms;
-
-    console.log("Available Rooms:", availableRooms);
-
-    if (availableRooms >= noOfRoomsBooked) {
-      const booking = await Booking.create({
-        customerName,
-        customerPhoneNumber,
-        customerEmail,
-        noOfAdults,
-        noOfchilds1,
-        noOfchilds2,
-        checkIn,
-        checkOut,
-        homestayName: homestayName,
-        noOfRoomsBooked,
-        cars,
-        totalAmount,
-        paid,
-        due,
-        note,
-        tourPackage,
-        totalHomestayPriceB2B,
-        advPaidB2B,
-        guestRemainingBalance,
-        dueB2B
-      });
-
-      return res.status(201).json({
-        message: "Booking created successfully.",
-        status: true,
-        booking,
-      });
-    } else {
-      const nextAvailableDate = moment(checkOut).add(1, "day").toDate();
-
-      return res.status(400).json({
-        message: `No available rooms on ${moment(checkIn).format(
-          "MMMM Do YYYY"
-        )}. Next available date is ${moment(nextAvailableDate).format(
-          "MMMM Do YYYY"
-        )}.`,
-        status: false,
-        nextAvailableDate,
-      });
-    }
   } catch (error) {
     next(error);
   }
 });
+
+
+
+
 const getAllBooking = asyncHandler(async (req, res, next) => {
   try {
     

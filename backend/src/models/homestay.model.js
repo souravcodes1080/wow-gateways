@@ -46,7 +46,6 @@ const homestaySchema = new mongoose.Schema({
     },
     balconyImage:{
         type: [],
-       
     },
     viewImage:{
         type: [],
