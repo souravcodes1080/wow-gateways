@@ -1,6 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Booking } from "../models/booking.model.js";
 import { Homestay } from "../models/homestay.model.js";
+import { CustomerTour } from '../models/customerTour.model.js';
 
 import moment from "moment";
 
@@ -229,6 +230,17 @@ const updateBooking = async (req, res) => {
   }
 }
 
+const addTour = async (req, res) => {
+  try {
+    const tour = new CustomerTour(req.body);
+    const result = await tour.save();
+    res.status(201).json(result);
+  } catch(err) {
+    res.status(401).json({"message":"Could not add tour"});
+    console.log(err);
+  }
+}
 
 
-export { booking, getAllBooking, updateBooking };
+export { booking, getAllBooking, updateBooking, addTour };
+  

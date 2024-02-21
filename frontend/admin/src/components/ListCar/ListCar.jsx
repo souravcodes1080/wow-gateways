@@ -6,7 +6,7 @@ import Sidebar from "../Sidebar/Sidebar";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaBook } from "react-icons/fa";
+import { FaBook, FaCar, FaPlusCircle } from "react-icons/fa";
 
 
 function ListCar() {
@@ -55,6 +55,9 @@ function ListCar() {
     );
     setCars(sortedCars);
   };
+  const addCar = ()=>{
+    navigate("/admin/addcar")
+  }
 
   // Function to handle search filtering
   const handleSearch = () => {
@@ -71,12 +74,13 @@ function ListCar() {
     <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
       <div className="dashboard-main-add-car">
         <div className="manage-customer-header manage-homestay-header">
-          <h5><FaBook />Manage Cars</h5>
+          <h5><FaCar />Manage Cars</h5>
           <div>
             {/* <input type="text" placeholder="Search" onChange={handleSearch} /> */}
             <button onClick={sortCarsByRating}>Sort by Rating</button>
             {/* Button to sort by condition */}
             <button onClick={sortCarsByCondition}>Sort by Condition</button>
+            <button onClick={addCar}><FaPlusCircle/> Add New Car</button>
           </div>
         </div>
         <div className="list-product">

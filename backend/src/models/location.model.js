@@ -8,6 +8,9 @@ const locationSchema = new mongoose.Schema({
    locationAddress:{
     type: String,
    },
+   viewpointImages:{
+      type: [],
+   },
    locationRating:{
     type: Number,
    },
