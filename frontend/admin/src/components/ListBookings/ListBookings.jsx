@@ -8,12 +8,12 @@ import { RiCalendarEventFill } from "react-icons/ri";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactPaginate from "react-paginate";
-
 function ListBooking() {
   const [booking, setBooking] = useState([]);
   const [originalBooking, setOriginalBooking] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredBooking, setFilteredBooking] = useState([]);
+  const [noResults, setNoResults] = useState(false); // State to track if no results are found
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -78,16 +78,18 @@ function ListBooking() {
     if (value === "") {
       // If the search query is empty, show all original bookings
       setBooking(originalBooking);
+      setFilteredBooking([]);
+      setNoResults(false);
       return;
     }
   
     const filtered = originalBooking.filter(
       (book) =>
-        book.customerName.toLowerCase().includes(value) ||
-        book.customerEmail.toLowerCase().includes(value) ||
-        book.customerPhoneNumber.toString().includes(value)
+        book.customerName.toLowerCase().includes(value) 
     );
+
     setFilteredBooking(filtered);
+    setNoResults(filtered.length === 0); // Set noResults to true if filtered array is empty
   };
   
   //==================================================
@@ -136,52 +138,56 @@ function ListBooking() {
         </div>
 
         <div className="list-booking">
-          <table className="list-product-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Homestay Name</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Adults</th>
-
-                <th>Total Amount</th>
-                <th>Paid</th>
-                <th>Booked On</th>
-                <th>Action</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(searchQuery ? filteredBooking : currentItems).map(
-                (book, index) => (
-                  <tr key={index}>
-                    <td>{book.customerName}</td>
-                    <td>{book.homestayName}</td>
-                    <td>{book.customerPhoneNumber}</td>
-                    <td>{book.customerEmail}</td>
-
-                    <td>{book.noOfAdults}</td>
-
-                    <td>{book.totalAmount}</td>
-                    <td>{book.paid}</td>
-
-                    <td>{moment(book.bookedOn).format("DD, MMMM YYYY")}</td>
-                    <td>
-                      <button onClick={() => viewBooking(book._id)}>
-                        <FaEye/> View
-                      </button>
-                    </td>
-                    <td>
-                      <button onClick={() => updateBooking(book._id)}>
-                        <FaEdit/> Update
-                      </button>
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
+          {noResults ? (
+            <p>No search results found</p>
+          ) : (
+            <table className="list-product-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Homestay Name</th>
+                  <th>Phone Number</th>
+                  <th>Email</th>
+                  <th>Adults</th>
+  
+                  <th>Total Amount</th>
+                  <th>Paid</th>
+                  <th>Booked On</th>
+                  <th>Action</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(searchQuery ? filteredBooking : currentItems).map(
+                  (book, index) => (
+                    <tr key={index}>
+                      <td>{book.customerName}</td>
+                      <td>{book.homestayName}</td>
+                      <td>{book.customerPhoneNumber}</td>
+                      <td>{book.customerEmail}</td>
+  
+                      <td>{book.noOfAdults}</td>
+  
+                      <td>{book.totalAmount}</td>
+                      <td>{book.paid}</td>
+  
+                      <td>{moment(book.bookedOn).format("DD, MMMM YYYY")}</td>
+                      <td>
+                        <button onClick={() => viewBooking(book._id)}>
+                          <FaEye/> View
+                        </button>
+                      </td>
+                      <td>
+                        <button onClick={() => updateBooking(book._id)}>
+                          <FaEdit/> Update
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </table>
+          )}
 
           <ReactPaginate
             breakLabel="..."
