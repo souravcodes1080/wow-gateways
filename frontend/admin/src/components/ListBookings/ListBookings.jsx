@@ -74,7 +74,7 @@ function ListBooking() {
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchQuery(value);
-  
+
     if (value === "") {
       // If the search query is empty, show all original bookings
       setBooking(originalBooking);
@@ -82,16 +82,15 @@ function ListBooking() {
       setNoResults(false);
       return;
     }
-  
-    const filtered = originalBooking.filter(
-      (book) =>
-        book.customerName.toLowerCase().includes(value) 
+
+    const filtered = originalBooking.filter((book) =>
+      book.customerName.toLowerCase().includes(value)
     );
 
     setFilteredBooking(filtered);
     setNoResults(filtered.length === 0); // Set noResults to true if filtered array is empty
   };
-  
+
   //==================================================
 
   const [itemOffset, setItemOffset] = useState(0);
@@ -99,7 +98,9 @@ function ListBooking() {
 
   const endOffset = itemOffset + itemsPerPage;
 
-  const currentItems = booking.slice(Math.max(booking.length - endOffset, 0), booking.length - itemOffset).reverse();
+  const currentItems = booking
+    .slice(Math.max(booking.length - endOffset, 0), booking.length - itemOffset)
+    .reverse();
 
   const pageCount = Math.ceil(booking.length / itemsPerPage);
 
@@ -138,25 +139,31 @@ function ListBooking() {
         </div>
 
         <div className="list-booking">
-          {noResults ? (
-            <p>No search results found</p>
-          ) : (
-            <table className="list-product-table">
-              <thead>
+          <table className="list-product-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Homestay Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Adults</th>
+
+                <th>Total Amount</th>
+                <th>Paid</th>
+                <th>Booked On</th>
+                <th>Action</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            {noResults ? (
+              <tbody>
                 <tr>
-                  <th>Name</th>
-                  <th>Homestay Name</th>
-                  <th>Phone Number</th>
-                  <th>Email</th>
-                  <th>Adults</th>
-  
-                  <th>Total Amount</th>
-                  <th>Paid</th>
-                  <th>Booked On</th>
-                  <th>Action</th>
-                  <th>Action</th>
+                  <td colSpan="10" style={{ textAlign: "center" }}>
+                    No search results found
+                  </td>
                 </tr>
-              </thead>
+              </tbody>
+            ) : (
               <tbody>
                 {(searchQuery ? filteredBooking : currentItems).map(
                   (book, index) => (
@@ -165,29 +172,29 @@ function ListBooking() {
                       <td>{book.homestayName}</td>
                       <td>{book.customerPhoneNumber}</td>
                       <td>{book.customerEmail}</td>
-  
+
                       <td>{book.noOfAdults}</td>
-  
+
                       <td>{book.totalAmount}</td>
                       <td>{book.paid}</td>
-  
+
                       <td>{moment(book.bookedOn).format("DD, MMMM YYYY")}</td>
                       <td>
                         <button onClick={() => viewBooking(book._id)}>
-                          <FaEye/> View
+                          <FaEye /> View
                         </button>
                       </td>
                       <td>
                         <button onClick={() => updateBooking(book._id)}>
-                          <FaEdit/> Update
+                          <FaEdit /> Update
                         </button>
                       </td>
                     </tr>
                   )
                 )}
               </tbody>
-            </table>
-          )}
+            )}
+          </table>
 
           <ReactPaginate
             breakLabel="..."
