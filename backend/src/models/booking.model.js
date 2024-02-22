@@ -27,11 +27,11 @@ const tourSchema = new mongoose.Schema({
 const bookingSchema = new mongoose.Schema({
     customerName: {
         type: String,
-        required: true,
+       
     },
     customerPhoneNumber: {
         type: Number,
-        required: true,
+       
     },
     customerEmail: {
         type: String,
@@ -78,11 +78,11 @@ const bookingSchema = new mongoose.Schema({
     },
     tour: {
         type: [tourSchema],
-        default: () => {
-            return Array.from({ length: 5 }, () => {
-                return new tourSchema();
-            });
-        },
+        // default: () => {
+        //     return Array.from({ length: 5 }, () => {
+        //         return new tourSchema();
+        //     });
+        // },
     }
 });
 

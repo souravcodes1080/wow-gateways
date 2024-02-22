@@ -21,3 +21,42 @@ textarea {
     background-color: red;
     color: white;
 }
+.form-left{
+    position: relative;
+}
+
+.add-tour{
+    background-color: green;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    outline: 0;
+    border: 0;
+    padding: 5px 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.remove-tour{
+    position: absolute;
+    right: 0;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    outline: 0;
+    border: 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.rooms-form{
+    margin-bottom: 10px;
+}
+.tour-form-data{
+    margin-bottom: 60px;
+}
+.tour-form-data h3{
+    margin-top: 50px;
+}

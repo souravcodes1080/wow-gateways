@@ -2,21 +2,71 @@ import React, { useEffect, useState } from "react";
 import "./addCustomer.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../Sidebar/Sidebar";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-
+import { FaMinus, FaPlus } from "react-icons/fa";
 function AddCustomer() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [homestayList, setHomestayList] = useState([]);
-  const [carList, setCarList] = useState([]);
-  // Inside your component function
-  const [selectedHomestay, setSelectedHomestay] = useState(null);
+  const [customerData, setCustomerData] = useState({
+    customerName: "",
+    customerPhoneNumber: "",
+    customerEmail: "",
+    noOfAdults: "",
+    noOfchilds1: "",
+    noOfchilds2: "",
+    totalAmount: "",
+    paid: "",
+    due: "",
+    note: "",
+    totalHomestayPriceB2B: "",
+    advPaidB2B: "",
+    guestRemainingBalance: "",
+    dueB2B: "",
+  });
+  const [tourData, setTourData] = useState([
+    {
+      homestayName: "",
+      checkIn: "",
+      checkOut: "",
+      price: "",
+      car: "",
+      carCost: "",
+      rooms: "",
+    },
+  ]);
+  const handleTourChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedTour = [...tourData];
+    updatedTour[index][name] = value;
+    setTourData(updatedTour);
+  };
+
+  const handleAddTour = () => {
+    setTourData([
+      ...tourData,
+      {
+        homestayName: "",
+        checkIn: "",
+        checkOut: "",
+        price: "",
+        car: "",
+        carCost: "",
+        rooms: "",
+      },
+    ]);
+  };
+
+  const handleRemoveTour = (index) => {
+    const updatedTour = [...tourData];
+    updatedTour.splice(index, 1);
+    setTourData(updatedTour);
+  };
+
   const [totalHomestayPrice, setTotalHomestayPrice] = useState(0);
   const [totalHomestayPriceC, setTotalHomestayPriceC] = useState(0);
-
 
   useEffect(() => {
     if (!localStorage.getItem("adminAuthorizationToken")) {
@@ -25,7 +75,6 @@ function AddCustomer() {
   }, []);
   useEffect(() => {
     fetchHomestayNames();
-    fetchCarList();
   }, []);
 
   const fetchHomestayNames = async () => {
@@ -37,69 +86,6 @@ function AddCustomer() {
       console.error("Error fetching homestay names:", error);
     }
   };
-
-  const handleHomestayChange = (e) => {
-    const homestayName = e.target.value;
-    const homestay = homestayList.find((h) => h.homestayName === homestayName);
-
-    setSelectedHomestay(homestay);
-
-    // Update total price based on the selected homestay
-    if (homestay) {
-      const totalPrice = customerData.noOfAdults * homestay.b2b;
-      setTotalHomestayPrice(totalPrice);
-    }
-  };
-
-  const fetchCarList = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/car");
-      setCarList(response.data.cars);
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const [customerData, setCustomerData] = useState({
-    customerName: "",
-    customerPhoneNumber: "",
-    customerEmail: "",
-    checkIn: "",
-    checkOut: "",
-    noOfAdults: "",
-    noOfchilds1: "",
-    noOfchilds2: "",
-    homestayName: "",
-    noOfRoomsBooked: "",
-    totalAmount: "",
-    paid: "",
-    due: "",
-    note: "",
-    cars: "",
-    tourPackage: "",
-    totalHomestayPriceB2B: "",
-    advPaidB2B: "",
-    guestRemainingBalance: "",
-    dueB2B: "",
-  });
-
-  // Update total price when selected homestay or number of adults changes
-  useEffect(() => {
-    if (selectedHomestay) {
-      const checkInDate = new Date(customerData.checkIn);
-      const checkOutDate = new Date(customerData.checkOut);
-      const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
-    const numberOfDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
-      const totalPrice =
-        (customerData.noOfAdults * selectedHomestay.b2b +
-        (customerData.noOfchilds2 * selectedHomestay.b2b) / 2) * (numberOfDays);
-      const totalPriceC =
-        (customerData.noOfAdults * selectedHomestay.price +
-        (customerData.noOfchilds2 * selectedHomestay.price) / 2) * (numberOfDays);
-      setTotalHomestayPriceC(totalPriceC);
-      setTotalHomestayPrice(totalPrice);
-    }
-  }, [selectedHomestay, customerData.noOfAdults, customerData.noOfchilds2, customerData.checkIn, customerData.checkOut]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -113,24 +99,12 @@ function AddCustomer() {
     try {
       const formData = {
         ...customerData,
-        // Convert number inputs to integers
-        noOfAdults: parseInt(customerData.noOfAdults),
-        noOfchilds1: parseInt(customerData.noOfchilds1),
-        noOfchilds2: parseInt(customerData.noOfchilds2),
-        noOfRoomsBooked: parseInt(customerData.noOfRoomsBooked),
-        totalAmount: totalHomestayPriceC,
-        paid: parseInt(customerData.paid),
-        due: parseInt(totalHomestayPriceC - customerData.paid), //achaa
-        totalHomestayPriceB2B: totalHomestayPrice, //achaa
-        advPaidB2B: parseInt(customerData.advPaidB2B),
-        guestRemainingBalance: parseInt(totalHomestayPriceC - customerData.paid),
-        dueB2B: parseInt(totalHomestayPrice - customerData.advPaidB2B)
+        tour: tourData, // Include tour data in the form data
       };
 
-      // Make the POST request with formData
+      // Perform your axios request to submit the form data
       await axios.post("http://localhost:8080/home/booking", formData);
 
-      //alert
       toast.success("Customer added successfully!", {
         onClose: () => {
           navigate("/");
@@ -138,28 +112,22 @@ function AddCustomer() {
         autoClose: 5000,
       });
     } catch (error) {
-      let errorMessage = "Error booking. Please try again later."; // Default error message
+      let errorMessage = "Error booking. Please try again later.";
 
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         const { status, data } = error.response;
         if (status === 400 && data.message) {
-          errorMessage = data.message; // Use the specific error message from the server
+          errorMessage = data.message;
         }
       } else if (error.request) {
-        // The request was made but no response was received
         errorMessage = "No response from the server. Please try again later.";
       } else {
-        // Something happened in setting up the request that triggered an Error
         errorMessage = "An unexpected error occurred. Please try again later.";
       }
-      // Custom error toast with red background and 3 seconds duration
       toast.error(errorMessage, {
-        className: 'custom-toast-error',
+        className: "custom-toast-error",
         autoClose: 3000,
       });
-      //alert(errorMessage);
       console.error(error);
     } finally {
       setIsSubmitting(false);
@@ -182,41 +150,6 @@ function AddCustomer() {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="form-wrapper">
-              <label>Homestay Name</label>
-              <select
-                required
-                name="homestayName"
-                value={customerData.homestayName}
-                onChange={(e) => {
-                  handleHomestayChange(e);
-                  handleInputChange(e); // Optionally, you might want to update other customer data
-                }}
-              >
-                <option value="">Select Homestay</option>
-                {homestayList.map((homestay) => (
-                  <option key={homestay._id} value={homestay.homestayName}>
-                    {homestay.homestayName}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="form-wrapper">
-              <label>Package</label>
-              <select
-                required
-                type="text"
-                name="tourPackage"
-                placeholder="Homestay Name"
-                onChange={handleInputChange}
-              >
-                <option value="">Select packages</option>
-                <option value="premium">Premium</option>
-                <option value="dulux">Dulux</option>
-                <option value="normal">Normal</option>
-                <option value="others">Others</option>
-              </select>
-            </div>
 
             <div className="form-wrapper">
               <label>Customer Phone Number</label>
@@ -236,23 +169,7 @@ function AddCustomer() {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="form-wrapper">
-              <label>Check In Date</label>
-              <input type="date" name="checkIn" onChange={handleInputChange} />
-            </div>
-            <div className="form-wrapper">
-              <label>Check Out Date</label>
-              <input type="date" name="checkOut" onChange={handleInputChange} />
-            </div>
-            <div className="form-wrapper">
-              <label>Number of Rooms booked</label>
-              <input
-                type="number"
-                name="noOfRoomsBooked"
-                placeholder="Rooms Booked"
-                onChange={handleInputChange}
-              />
-            </div>
+
             <div className="form-wrapper">
               <label>Number of adults</label>
               <input
@@ -280,24 +197,94 @@ function AddCustomer() {
                 onChange={handleInputChange}
               />
             </div>
+
+            <div className="tour-form-data">
+              {tourData.map((tourItem, index) => (
+                <div key={index}>
+                  <h3>Tour {index + 1}</h3>
+                  <div className="form-wrapper">
+                    <label>Homestay Name</label>
+                    <select
+                      required
+                      name="homestayName"
+                      value={tourItem.homestayName}
+                      onChange={(e) => {
+                        handleTourChange(index, e)
+                      }}
+                    >
+                      <option value="">Select Homestay</option>
+                      {homestayList.map((homestay) => (
+                        <option
+                          key={homestay._id}
+                          value={homestay.homestayName}
+                        >
+                          {homestay.homestayName}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-wrapper">
+                    <label>Check In</label>
+                    <input
+                      type="date"
+                      name="checkIn"
+                      value={tourItem.checkIn}
+                      onChange={(e) => handleTourChange(index, e)}
+                    />
+                  </div>
+                  <div className="form-wrapper">
+                    <label>Check Out</label>
+                    <input
+                      type="date"
+                      name="checkOut"
+                      value={tourItem.checkOut}
+                      onChange={(e) => handleTourChange(index, e)}
+                    />
+                  </div>
+                  <div className="form-wrapper">
+                    <label>Car</label>
+                    <input
+                      type="text"
+                      name="car"
+                      value={tourItem.car}
+                      onChange={(e) => handleTourChange(index, e)}
+                    />
+                  </div>
+                  <div className="form-wrapper">
+                    <label>Car Cost</label>
+                    <input
+                      type="number"
+                      name="carCost"
+                      value={tourItem.carCost}
+                      onChange={(e) => handleTourChange(index, e)}
+                    />
+                  </div>
+                  <div className="form-wrapper rooms-form">
+                    <label>Rooms</label>
+                    <input
+                      type="number"
+                      name="rooms"
+                      value={tourItem.rooms}
+                      onChange={(e) => handleTourChange(index, e)}
+                    />
+                  </div>
+                  {/* Add more fields as needed */}
+                  <button
+                    className="remove-tour"
+                    type="button"
+                    onClick={() => handleRemoveTour(index)}
+                  >
+                    <FaMinus /> Remove Tour
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <button className="add-tour" type="button" onClick={handleAddTour}>
+              <FaPlus /> Add Tour
+            </button>
           </div>
           <div className="form-right">
-            <div className="form-wrapper">
-              <label>Cars</label>
-              <select
-                required
-                name="cars"
-                value={customerData.cars}
-                onChange={handleInputChange}
-              >
-                <option value="">Select Car</option>
-                {carList.map((car) => (
-                  <option key={car._id} value={car.carName}>
-                    {car.carName}
-                  </option>
-                ))}
-              </select>
-            </div>
             <div className="form-wrapper">
               <label>Total Price (Customer)</label>
               <input
