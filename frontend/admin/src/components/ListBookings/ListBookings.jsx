@@ -84,7 +84,11 @@ function ListBooking() {
     }
 
     const filtered = originalBooking.filter((book) =>
-      book.customerName.toLowerCase().includes(value) 
+
+    
+      book.customerName.toLowerCase().includes(value) ||
+      book.customerPhoneNumber.toString().includes(value)
+    
     );
 
     setFilteredBooking(filtered);
