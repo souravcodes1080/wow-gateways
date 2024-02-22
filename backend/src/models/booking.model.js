@@ -27,17 +27,19 @@ const tourSchema = new mongoose.Schema({
 const bookingSchema = new mongoose.Schema({
     customerName: {
         type: String,
+        required: true,
        
     },
     customerPhoneNumber: {
         type: Number,
-       
+        required: true,
     },
     customerEmail: {
         type: String,
     },
     noOfAdults: {
         type: Number,
+        required: true,
         default: 1
     },
     noOfchilds1: {
@@ -53,6 +55,7 @@ const bookingSchema = new mongoose.Schema({
     },
     paid: {
         type: Number,
+        required: true,
     },
     due: {
         type: Number,

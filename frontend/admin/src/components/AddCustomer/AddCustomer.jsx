@@ -155,6 +155,7 @@ function AddCustomer() {
               <label>Customer Phone Number</label>
               <input
                 type="number"
+                required
                 name="customerPhoneNumber"
                 placeholder="Customer phonenumber"
                 onChange={handleInputChange}
@@ -174,6 +175,7 @@ function AddCustomer() {
               <label>Number of adults</label>
               <input
                 type="number"
+                required
                 name="noOfAdults"
                 placeholder="Number of Adults"
                 onChange={handleInputChange}
@@ -372,7 +374,14 @@ function AddCustomer() {
                 value={totalHomestayPrice - customerData.advPaidB2B}
                 className={totalHomestayPrice - customerData.advPaidB2B >= 0 ? "green" : "red"}
               />
-            </div> */}
+            // </div> */}
+
+
+            {/* <button type="reset">
+              Reset
+            </button> */}
+
+            
             <button
               className="add-homestay"
               type="submit"
