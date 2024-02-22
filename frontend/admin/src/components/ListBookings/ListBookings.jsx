@@ -72,7 +72,7 @@ function ListBooking() {
   };
 
   const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
+    const value = e.target.value;
     setSearchQuery(value);
 
     if (value === "") {
@@ -84,7 +84,7 @@ function ListBooking() {
     }
 
     const filtered = originalBooking.filter((book) =>
-      book.customerName.toLowerCase().includes(value)
+      book.customerName.toLowerCase().includes(value) 
     );
 
     setFilteredBooking(filtered);
