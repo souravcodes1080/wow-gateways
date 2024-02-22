@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./listBooking.css";
-import { FaBook, FaList, FaSearch } from "react-icons/fa";
-import moment from "moment"; 
+import { FaBook, FaEdit, FaEye, FaList, FaSearch } from "react-icons/fa";
+import moment from "moment";
 import { RiCalendarEventFill } from "react-icons/ri";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import ReactPaginate from 'react-paginate';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ReactPaginate from "react-paginate";
 
 function ListBooking() {
   const [booking, setBooking] = useState([]);
@@ -17,7 +17,7 @@ function ListBooking() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem("adminAuthorizationToken")) { 
+    if (!localStorage.getItem("adminAuthorizationToken")) {
       navigate("/admin/login");
     }
     fetchBooking();
@@ -30,7 +30,7 @@ function ListBooking() {
       setOriginalBooking(response.data.bookings);
     } catch (error) {
       toast.error("Error!", {
-        className: 'custom-toast-success',
+        className: "custom-toast-success",
         autoClose: 5000,
       });
       console.log(error);
@@ -67,48 +67,71 @@ function ListBooking() {
   const updateBooking = (id) => {
     navigate(`/admin/editbooking/${id}`);
   };
+  const viewBooking = (id) => {
+    navigate(`/admin/viewbooking/${id}`);
+  };
 
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchQuery(value);
+  
+    if (value === "") {
+      // If the search query is empty, show all original bookings
+      setBooking(originalBooking);
+      return;
+    }
+  
     const filtered = originalBooking.filter(
       (book) =>
         book.customerName.toLowerCase().includes(value) ||
-        book.homestayName.toLowerCase().includes(value) ||
         book.customerEmail.toLowerCase().includes(value) ||
         book.customerPhoneNumber.toString().includes(value)
     );
     setFilteredBooking(filtered);
   };
-
+  
   //==================================================
 
   const [itemOffset, setItemOffset] = useState(0);
-const itemsPerPage = 5;
+  const itemsPerPage = 7;
 
-const endOffset = itemOffset + itemsPerPage;
+  const endOffset = itemOffset + itemsPerPage;
 
-const currentItems = booking.slice(itemOffset, endOffset);
-const pageCount = Math.ceil(booking.length / itemsPerPage);
+  const currentItems = booking.slice(Math.max(booking.length - endOffset, 0), booking.length - itemOffset).reverse();
 
-const handlePageClick = (event) => {
-  const newOffset = (event.selected * itemsPerPage) % booking.length;
-  setItemOffset(newOffset);
-};
+  const pageCount = Math.ceil(booking.length / itemsPerPage);
 
-//====================================================
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % booking.length;
+    setItemOffset(newOffset);
+  };
+
+  //====================================================
 
   return (
     <>
       <div className="admin-booking-list-container">
         <div className="manage-customer-header manage-homestay-header">
-          <h5><FaBook/>Manage Bookings</h5>
+          <h5>
+            <FaBook />
+            Manage Bookings
+          </h5>
           <div>
             <input type="text" placeholder="Search" onChange={handleSearch} />
-            <button onClick={getAllBookings}> <FaList />All Booking</button>
-            <button onClick={getTodaysBookings}> <RiCalendarEventFill />Today's Booking</button>
+            <button onClick={getAllBookings}>
+              {" "}
+              <FaList />
+              All Booking
+            </button>
+            <button onClick={getTodaysBookings}>
+              {" "}
+              <RiCalendarEventFill />
+              Today's Booking
+            </button>
             <button onClick={getOngoingBookings}>Ongoing Bookings</button>
-            <button onClick={getPaymentDueBookings}>Payment Due Bookings</button>
+            <button onClick={getPaymentDueBookings}>
+              Payment Due Bookings
+            </button>
           </div>
         </div>
 
@@ -120,62 +143,56 @@ const handlePageClick = (event) => {
                 <th>Homestay Name</th>
                 <th>Phone Number</th>
                 <th>Email</th>
-                <th>CheckIn</th>
-                <th>CheckOut</th>
-                <th>Rooms</th>
                 <th>Adults</th>
-                <th>Child (0-5)</th>
-                <th>Child (6-9)</th>
-                <th>Cars</th>
+
                 <th>Total Amount</th>
                 <th>Paid</th>
-                <th>Guest Due</th>
-                <th>B2B Price</th>
-                <th>Advanced paid B2B</th>
-                <th>Due B2B</th>
                 <th>Booked On</th>
+                <th>Action</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {(searchQuery ? filteredBooking : currentItems).map((book, index) => (
-                <tr key={index}>
-                  <td>{book.customerName}</td>
-                  <td>{book.homestayName}</td>
-                  <td>{book.customerPhoneNumber}</td>
-                  <td>{book.customerEmail}</td>
-                  <td>{moment(book.checkIn).format("MMMM DD, YYYY")}</td>
-                  <td>{moment(book.checkOut).format("MMMM DD, YYYY")}</td>
-                  <td>{book.noOfRoomsBooked}</td>
-                  <td>{book.noOfAdults}</td>
-                  <td>{book.noOfchilds1}</td>
-                  <td>{book.noOfchilds2}</td>
-                  <td>{book.cars}</td>
-                  <td>{book.totalAmount}</td>
-                  <td>{book.paid}</td>
-                  <td>{book.due}</td>
-                  <td>{book.totalHomestayPriceB2B}</td>
-                  <td>{book.advPaidB2B}</td>
-                  <td>{book.dueB2B}</td>
-                  <td>{moment(book.bookedOn).format("MMMM DD, YYYY")}</td>
-                  <td>
-                    <button onClick={() => updateBooking(book._id)}>Update</button>
-                  </td>
-                </tr>
-              ))}
+              {(searchQuery ? filteredBooking : currentItems).map(
+                (book, index) => (
+                  <tr key={index}>
+                    <td>{book.customerName}</td>
+                    <td>{book.homestayName}</td>
+                    <td>{book.customerPhoneNumber}</td>
+                    <td>{book.customerEmail}</td>
+
+                    <td>{book.noOfAdults}</td>
+
+                    <td>{book.totalAmount}</td>
+                    <td>{book.paid}</td>
+
+                    <td>{moment(book.bookedOn).format("DD, MMMM YYYY")}</td>
+                    <td>
+                      <button onClick={() => viewBooking(book._id)}>
+                        <FaEye/> View
+                      </button>
+                    </td>
+                    <td>
+                      <button onClick={() => updateBooking(book._id)}>
+                        <FaEdit/> Update
+                      </button>
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
 
           <ReactPaginate
-          breakLabel="..."
-          nextLabel=">"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="<"
-          renderOnZeroPageCount={null}
-        />
-        
+            breakLabel="..."
+            nextLabel=">"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={10}
+            pageCount={pageCount}
+            previousLabel="<"
+            renderOnZeroPageCount={null}
+            className="pagination"
+          />
         </div>
       </div>
     </>

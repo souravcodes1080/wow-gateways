@@ -66,7 +66,7 @@
         width: 300px;
         padding: 10px;
         border: 1px solid #ddd;
-        text-align: left;
+        text-align: center;
         
     }
     
@@ -103,6 +103,10 @@
         color: white;
         border: 0;
         outline: 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 5px;
     }
 
 
@@ -126,3 +130,40 @@
         margin-left: 15vw;
 }
 
+
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .pagination ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .pagination li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .pagination li a {
+    color: #333;
+    padding: 6px 12px;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .pagination li a:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .pagination .active a {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+  

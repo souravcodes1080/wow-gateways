@@ -230,6 +230,23 @@ const updateBooking = async (req, res) => {
   }
 }
 
+const getBookingById = async (req, res) => {
+  const bookingId = req.params.id; 
+  
+  try {
+    const booking = await Booking.findById(bookingId);
+    
+    if (!booking) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+    
+    res.json(booking);
+  } catch (error) {
+    res.status(500).send("Error retrieving customer");
+  }
+};
+
+
 const addTour = async (req, res) => {
   try {
     const tour = new CustomerTour(req.body);
@@ -242,5 +259,5 @@ const addTour = async (req, res) => {
 }
 
 
-export { booking, getAllBooking, updateBooking, addTour };
+export { booking, getAllBooking, updateBooking, addTour, getBookingById };
   
