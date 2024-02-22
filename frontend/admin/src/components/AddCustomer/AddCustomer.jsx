@@ -79,7 +79,7 @@ function AddCustomer() {
 
   const fetchHomestayNames = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/homestay");
+      const response = await axios.get("http://localhost:8080/homestay/homestayName");
       setHomestayList(response.data);
       console.log(response.data);
     } catch (error) {

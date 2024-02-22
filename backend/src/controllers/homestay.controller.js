@@ -65,6 +65,15 @@ const addHomestay = async (req, res) => {
 };
 
 // Get all homestays
+const getAllHomestayName = async (req, res) => {
+  try {
+    const homestays = await Homestay.find({}, 'homestayName price b2b'); 
+    res.json(homestays);
+  } catch (error) {
+    res.status(500).send("Error retrieving homestays");
+  }
+};
+
 const getAllHomestay = async (req, res) => {
   try {
     const homestays = await Homestay.find();
@@ -106,4 +115,4 @@ const deleteHomestay = async (req, res) => {
   }
 }
 
-export { addHomestay, getAllHomestay, updateHomestay, deleteHomestay };
+export { addHomestay, getAllHomestay, updateHomestay, deleteHomestay, getAllHomestayName };
