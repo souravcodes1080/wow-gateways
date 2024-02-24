@@ -45,7 +45,7 @@ function Sidebar() {
               New Booking
             </p>
           </li>
-          <li
+          {/* <li
             onClick={() => {
               handleClick("ManageTour");
               navigate("/admin/managetour");
@@ -56,7 +56,7 @@ function Sidebar() {
               <FaLocationArrow />
               Manage Tour
             </p>
-          </li>
+          </li> */}
           <li
             onClick={() => {
               handleClick("MB")

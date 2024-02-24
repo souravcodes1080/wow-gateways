@@ -14,26 +14,26 @@ function AddCustomer() {
     customerName: "",
     customerPhoneNumber: "",
     customerEmail: "",
-    noOfAdults: "",
-    noOfchilds1: "",
-    noOfchilds2: "",
-    totalAmount: "",
-    paid: "",
-    due: "",
+    noOfAdults: "0",
+    noOfchilds1: "0",
+    noOfchilds2: "0",
+    totalHomestayPriceC: "0",
+    paid: "0",
+    due: "0",
     note: "",
-    totalHomestayPriceB2B: "",
-    advPaidB2B: "",
-    guestRemainingBalance: "",
-    dueB2B: "",
+    totalHomestayPriceB2B: "0",
+    advPaidB2B: "0",
+    guestRemainingBalance: "0",
+    dueB2B: "0",
   });
   const [tourData, setTourData] = useState([
     {
       homestayName: "",
       checkIn: "",
       checkOut: "",
-      price: "",
+      price: "0",
       car: "",
-      carCost: "",
+      carCost: "0",
       rooms: "",
     },
   ]);
@@ -57,19 +57,26 @@ function AddCustomer() {
         const price = homestay.price;
         const checkIn = new Date(tour.checkIn);
         const checkOut = new Date(tour.checkOut);
+        const childCost = parseInt(customerData.noOfchilds2);
         const timeDifference = checkOut - checkIn;
         const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
         const totalPriceForThisTour = price * daysDifference;
         totalPriceC += totalPriceForThisTour;
         const carCost = parseInt(tour.carCost, 10);
+        const guestCost = parseInt(customerData.noOfAdults);
+        if(childCost > 0){
+          totalPriceC *= (guestCost + (childCost/2));
+        }else{
+          totalPriceC *= guestCost;
+        }
         totalPriceC += carCost;
-        const guestCost = customerData.noOfAdults + (customerData.noOfchilds2/2);
-        totalPriceC *= guestCost;
+        
       }
 
     });
     setTotalHomestayPriceC(totalPriceC);
   };
+  
 
   useEffect(() => {
     calculateTotalHomestayPriceC();
@@ -129,11 +136,17 @@ function AddCustomer() {
     setIsSubmitting(true);
 
     try {
-      const formData = {
+      const updatedCustomerData = {
         ...customerData,
-        tour: tourData, // Include tour data in the form data
+        totalHomestayPriceC: totalHomestayPriceC.toString(), // Ensure totalHomestayPriceC is a string
+        due: totalHomestayPriceC - customerData.paid,
       };
-
+  
+      // Include tour data in the form data
+      const formData = {
+        ...updatedCustomerData,
+        tour: tourData,
+      };
       // Perform your axios request to submit the form data
       await axios.post("http://localhost:8080/home/booking", formData);
 
@@ -276,6 +289,15 @@ function AddCustomer() {
                     />
                   </div>
                   <div className="form-wrapper">
+                    <label>Advance Paid B2B</label>
+                    <input
+                      type="number"
+                      name="price"
+                      value={tourItem.price}
+                      onChange={(e) => handleTourChange(index, e)}
+                    />
+                  </div>
+                  <div className="form-wrapper">
                     <label>Car</label>
                     <input
                       type="text"
@@ -325,7 +347,7 @@ function AddCustomer() {
                 disabled
                 required
                 type="number"
-                name="totalAmount"
+                name="totalHomestayPriceC"
                 placeholder="Price"
                 onChange={handleInputChange}
                 value={totalHomestayPriceC}
@@ -340,7 +362,7 @@ function AddCustomer() {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="form-wrapper">
+            {/* <div className="form-wrapper">
               <label>Guest Due</label>
               <input
                 disabled
@@ -349,7 +371,7 @@ function AddCustomer() {
                 value={totalHomestayPriceC - customerData.paid}
                 placeholder="Total Amount Due"
               />
-            </div>
+            </div> */}
             <div className="form-wrapper">
               <label>Note</label>
               <textarea
@@ -372,7 +394,7 @@ function AddCustomer() {
                 value={totalHomestayPrice}
               />
             </div> */}
-            <div className="form-wrapper">
+            {/* <div className="form-wrapper">
               <label>Adv. Paid (to Homestay by wow)</label>
               <input
                 required
@@ -381,14 +403,14 @@ function AddCustomer() {
                 placeholder="Price"
                 onChange={handleInputChange}
               />
-            </div>
+            </div> */}
             <div className="form-wrapper">
               <label>Guest Remaining Balance</label>
               <input
                 disabled
                 required
                 type="number"
-                name="guestRemainingBalance"
+                name="due"
                 placeholder="Price"
                 onChange={handleInputChange}
                 value={totalHomestayPriceC - customerData.paid}

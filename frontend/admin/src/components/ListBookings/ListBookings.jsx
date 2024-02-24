@@ -147,7 +147,7 @@ function ListBooking() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Homestay Name</th>
+                {/* <th>Homestay Name</th> */}
                 <th>Phone Number</th>
                 <th>Email</th>
                 <th>Adults</th>
@@ -173,13 +173,13 @@ function ListBooking() {
                   (book, index) => (
                     <tr key={index}>
                       <td>{book.customerName}</td>
-                      <td>{book.homestayName}</td>
+                      {/* <td>{book.homestayName}</td> */}
                       <td>{book.customerPhoneNumber}</td>
                       <td>{book.customerEmail}</td>
 
                       <td>{book.noOfAdults}</td>
 
-                      <td>{book.totalAmount}</td>
+                      <td>{book.totalHomestayPriceC}</td>
                       <td>{book.paid}</td>
 
                       <td>{moment(book.bookedOn).format("DD, MMMM YYYY")}</td>

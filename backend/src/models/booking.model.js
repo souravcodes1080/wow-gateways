@@ -50,7 +50,7 @@ const bookingSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    totalAmount: {
+    totalHomestayPriceC: {
         type: Number,
     },
     paid: {
