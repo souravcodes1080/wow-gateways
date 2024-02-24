@@ -214,7 +214,7 @@ function AddCustomer() {
               />
             </div>
             <div className="form-wrapper">
-              <label>Number of Childs(0-5 yrs.)</label>
+              <label>Number of Childs(0-4 yrs.)</label>
               <input
                 type="number"
                 name="noOfchilds1"
