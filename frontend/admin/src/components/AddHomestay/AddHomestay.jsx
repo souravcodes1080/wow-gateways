@@ -277,7 +277,7 @@ function AddHomestay() {
             </div>
             <div className="form-wrapper-pictures">
               <label>Exterior images</label>
-              <input required type="file" multiple onChange={handleViewFileChange} />
+              <input  type="file" multiple onChange={handleViewFileChange} />
               <div className="image-previews">
                 {imageViewPreviews.map((preview, index) => (
                   <img
@@ -293,7 +293,7 @@ function AddHomestay() {
 
             <div className="form-wrapper-pictures">
               <label>Room View</label>
-              <input required type="file" multiple onChange={handleRoomFileChange} />
+              <input  type="file" multiple onChange={handleRoomFileChange} />
               <div className="image-previews">
                 {imageRoomPreviews.map((preview, index) => (
                   <img
