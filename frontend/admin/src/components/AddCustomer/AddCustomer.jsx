@@ -44,6 +44,31 @@ function AddCustomer() {
     setTourData(updatedTour);
   };
 
+
+  const calculateTotalHomestayPriceC = () => {
+    let totalPriceC = 0;
+    tourData.forEach((tour) => {
+      const homestay = homestayList.find(
+        (h) => h.homestayName === tour.homestayName
+
+      );
+
+      if (homestay) {
+        const price = homestay.price;
+        const checkIn = new Date(tour.checkIn);
+        const checkOut = new Date(tour.checkOut);
+        const timeDifference = checkOut - checkIn;
+        const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+        const totalPriceForThisTour = price * daysDifference;
+        totalPriceC += totalPriceForThisTour;
+      }
+
+    });
+
+    setTotalHomestayPriceC(totalPriceC);
+
+  };
+
   const handleAddTour = () => {
     setTourData([
       ...tourData,
@@ -63,8 +88,8 @@ function AddCustomer() {
     const updatedTour = [...tourData];
     updatedTour.splice(index, 1);
     setTourData(updatedTour);
+    calculateTotalHomestayPriceC();
   };
-
   const [totalHomestayPrice, setTotalHomestayPrice] = useState(0);
   const [totalHomestayPriceC, setTotalHomestayPriceC] = useState(0);
 
@@ -381,7 +406,7 @@ function AddCustomer() {
               Reset
             </button> */}
 
-            
+
             <button
               className="add-homestay"
               type="submit"
