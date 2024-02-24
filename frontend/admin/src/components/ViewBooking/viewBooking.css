@@ -1,0 +1,32 @@
+.booked-on{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+.name{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 25px;
+}
+.phonenumber{
+    margin-left: 35px;
+}
+.note{    width: 350px;
+    text-align: justify;
+}
+.booking-details{
+    display: flex;
+    gap: 40px;
+}
+.underline{
+    text-decoration: underline;
+    line-height: 30px;
+    font-size: 20px;
+}
+.booking-details-right{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+}
