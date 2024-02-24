@@ -64,10 +64,13 @@ function AddCustomer() {
       }
 
     });
-
     setTotalHomestayPriceC(totalPriceC);
-
   };
+
+  useEffect(() => {
+    calculateTotalHomestayPriceC();
+  }, [tourData]);
+
 
   const handleAddTour = () => {
     setTourData([
