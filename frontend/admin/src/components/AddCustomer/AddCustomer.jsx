@@ -59,7 +59,7 @@ function AddCustomer() {
         const checkOut = new Date(tour.checkOut);
         const timeDifference = checkOut - checkIn;
         const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-        const totalPriceForThisTour = price * daysDifference;
+        const totalPriceForThisTour = price * daysDifference * tour.rooms;
         totalPriceC += totalPriceForThisTour;
       }
 
