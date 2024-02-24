@@ -59,8 +59,10 @@ function AddCustomer() {
         const checkOut = new Date(tour.checkOut);
         const timeDifference = checkOut - checkIn;
         const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-        const totalPriceForThisTour = price * daysDifference * tour.rooms;
+        const totalPriceForThisTour = price * daysDifference;
         totalPriceC += totalPriceForThisTour;
+        // const carCost = parseInt(tour.carCost, 10);
+        // totalPriceC += carCost;
       }
 
     });
@@ -69,7 +71,7 @@ function AddCustomer() {
 
   useEffect(() => {
     calculateTotalHomestayPriceC();
-  }, [tourData]);
+  }, [tourData.flat()]);
 
 
   const handleAddTour = () => {
