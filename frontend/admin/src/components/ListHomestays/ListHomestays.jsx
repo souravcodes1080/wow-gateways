@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./listHomestays.css";
 import Sidebar from "../Sidebar/Sidebar";
-import { FaHome, FaPlus, FaRupeeSign, FaTable } from "react-icons/fa";
+import { FaEdit, FaHome, FaPlus, FaRupeeSign, FaTable } from "react-icons/fa";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -65,7 +65,7 @@ function ListHomestays() {
                 <th className="column-address">Address</th>
                 <th className="column-phone">Phone Number</th>
                 <th className="column-email">Email</th>
-                <th className="column-price">Price</th>
+                <th className="column-price">Price / day</th>
                 <th className="column-room">Rooms</th>
                 <th className="column-price">Action</th>
               </tr>
@@ -90,7 +90,7 @@ function ListHomestays() {
                       }}
                       className="list-product-update-item"
                     >
-                      Update
+                      <FaEdit/> &nbsp; Update
                     </button>
                   </td>
                   {/* <td>

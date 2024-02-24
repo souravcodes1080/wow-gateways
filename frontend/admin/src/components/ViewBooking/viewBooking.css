@@ -12,7 +12,8 @@
 .phonenumber{
     margin-left: 35px;
 }
-.note{    width: 350px;
+.note{    
+    width: 350px;
     text-align: justify;
 }
 .booking-details{
@@ -28,5 +29,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    justify-content: space-between;
+}
+.booking-details-right div{
+    background-color: beige;
+    padding: 20px;
+    width: 260px;
+    height: min-content;
 }

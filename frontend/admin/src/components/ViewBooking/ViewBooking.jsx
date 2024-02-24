@@ -19,15 +19,41 @@ function ViewBooking() {
     };
     fetchBookingDetails();
   }, [id]);
+
+  const calculateTotalTourDays = () => {
+    if (bookingData.length === 0 || !bookingData.tour || bookingData.tour.length === 0) {
+      return 0; // No tours or booking data, return 0 days
+    }
+  
+    // Get the check-in date of the first tour
+    const firstCheckIn = new Date(bookingData.tour[0].checkIn);
+  
+    // Get the check-out date of the last tour
+    const lastCheckOut = new Date(bookingData.tour[bookingData.tour.length - 1].checkOut);
+  
+    // Calculate the time difference in milliseconds
+    const timeDifference = lastCheckOut - firstCheckIn;
+  
+    // Convert milliseconds to days
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+  
+    return daysDifference;
+  };
+  
+  
+  // Now you can use this function to calculate total tour days
+  const totalTourDays = calculateTotalTourDays();
+  
   return (
     <>
       <div className="admin-panel-wrapper-add-homestay">
         <div className="dashboard-main-add-homestay">
-          <div style={{ marginLeft: "20px", marginRight:"20px" }}>
-            <div className="booked-on">
-              Booked on: {Moment(bookingData.bookedOn).format("DD - MM - yyyy")}
-            </div>
-            <div className="basic-details">
+          <div style={{ margin: "20px" }}>
+            
+            
+            <div className="booking-details">
+              <div className="booking-details-left">
+              <div className="basic-details">
               <div className="name">
                 <FaCircleUser />
                 {bookingData.customerName}
@@ -36,10 +62,11 @@ function ViewBooking() {
                 {bookingData.customerPhoneNumber}
               </div>
               <div className="phonenumber">{bookingData.customerEmail}</div>
+              <div className="phonenumber">
+            {Moment(bookingData.bookedOn).format("DD - MM - yyyy")}
+            </div>
             </div>
             <br /><br />
-            <div className="booking-details">
-              <div className="booking-details-left">
                 <div className="adults">
                   Number of Adults: {bookingData.noOfAdults}
                 </div>
@@ -48,6 +75,9 @@ function ViewBooking() {
                 </div>
                 <div className="child2">
                   Number of Child (under 10 years): {bookingData.noOfchilds2}
+                </div>
+                <div className="">
+                  Total Tour Days: {totalTourDays}
                 </div>
                 <br />
                 <div className="total amount">
@@ -72,8 +102,8 @@ function ViewBooking() {
                 {bookingData?.tour &&
                   bookingData.tour.map((tourItem, index) => (
                     <div key={tourItem._id}>
-                      <p className="underline">Tour {index+1}</p>
-                      <p>Homestay Name: {tourItem.homestayName}</p>
+                      <p style={{textAlign:"center"}} className="underline">Tour {index+1}</p>
+                      <p style={{textAlign:"center", fontWeight:"600", paddingBottom:"10px"}}>{tourItem.homestayName}</p>
                       <p>
                         Check-In Date:{" "}
                         {new Date(tourItem.checkIn).toLocaleDateString()}

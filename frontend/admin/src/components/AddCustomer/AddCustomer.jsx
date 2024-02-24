@@ -302,6 +302,7 @@ function AddCustomer() {
                     <input
                       type="text"
                       name="car"
+                      placeholder="Car Note"
                       value={tourItem.car}
                       onChange={(e) => handleTourChange(index, e)}
                     />
@@ -311,6 +312,7 @@ function AddCustomer() {
                     <input
                       type="number"
                       name="carCost"
+                      placeholder="Car price"
                       value={tourItem.carCost}
                       onChange={(e) => handleTourChange(index, e)}
                     />
@@ -320,6 +322,7 @@ function AddCustomer() {
                     <input
                       type="number"
                       name="rooms"
+                      placeholder="Number of Rooms"
                       value={tourItem.rooms}
                       onChange={(e) => handleTourChange(index, e)}
                     />

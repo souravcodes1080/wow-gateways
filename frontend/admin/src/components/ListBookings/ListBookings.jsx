@@ -40,12 +40,13 @@ function ListBooking() {
   const getOngoingBookings = () => {
     const currentDate = moment();
     const ongoingBookings = originalBooking.filter((book) => {
-      const checkInDate = moment(book.checkIn);
-      const checkOutDate = moment(book.checkOut);
+      const checkInDate = moment(book.tour[0].checkIn); // Accessing the first tour array's checkIn date
+      const checkOutDate = moment(book.tour[book.tour.length - 1].checkOut); // Accessing the last tour array's checkOut date
       return currentDate.isBetween(checkInDate, checkOutDate);
     });
     setBooking(ongoingBookings);
   };
+  
 
   const getAllBookings = () => {
     setBooking(originalBooking);
@@ -98,7 +99,7 @@ function ListBooking() {
   //==================================================
 
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 7;
+  const itemsPerPage = 9;
 
   const endOffset = itemOffset + itemsPerPage;
 
@@ -204,7 +205,7 @@ function ListBooking() {
             breakLabel="..."
             nextLabel=">"
             onPageChange={handlePageClick}
-            pageRangeDisplayed={10}
+            pageRangeDisplayed={5}
             pageCount={pageCount}
             previousLabel="<"
             renderOnZeroPageCount={null}

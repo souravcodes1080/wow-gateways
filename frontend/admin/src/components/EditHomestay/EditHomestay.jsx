@@ -6,11 +6,16 @@ import Sidebar from "../Sidebar/Sidebar";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaHome } from "react-icons/fa";
 
 
 const EditHomestay = () => {
   const navigate = useNavigate();
   const [homestayData, setHomestayData] = useState({});
+  const [images, setImages] = useState([])
+  const [balconyImage, setBalconyImage] = useState([])
+  const [viewImage, setViewImage] = useState([])
+  const [roomImage, setRoomImage] = useState([])
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,12 +25,17 @@ const EditHomestay = () => {
           `http://localhost:8080/homestay/${id}`
         );
         setHomestayData(response.data);
+        setImages(response.data.images)
+        setBalconyImage(response.data.balconyImage)
+        setRoomImage(response.data.roomImage)
+        setViewImage(response.data.viewImage)
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchHomestay();
+    
   }, [id]);
 
   const handleInputChange = (e) => {
@@ -58,10 +68,20 @@ const EditHomestay = () => {
     <div className="admin-panel-wrapper-add-homestay">
       <ToastContainer />
       <div className="dashboard-main-add-homestay">
-        <h3>{homestayData.homestayName}</h3>
-        <p>{homestayData.location}</p>
+        <h3 style={{margin:"10px", display:"flex", alignItems:"center", gap:"10px"}}><FaHome/> {homestayData.homestayName}</h3>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <div className="form-left">
+        <div className="form-left">
+            <div className="form-wrapper">
+              <label>Homestay Name</label>
+              <input
+                required
+                type="text"
+                name="homestayName"
+                value={homestayData.homestayName}
+                placeholder="Homestay Name"
+                onChange={handleInputChange}
+              />
+            </div>
             <div className="form-wrapper">
               <label>Homestay Phone Number</label>
               <input
@@ -77,28 +97,28 @@ const EditHomestay = () => {
               <input
                 type="email"
                 name="email"
-                value={homestayData.email}
                 placeholder="Homestay Email"
+                value={homestayData.email}
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-wrapper">
-              <label>Price per day</label>
+              <label>Customer Price per day</label>
               <input
                 type="number"
                 name="price"
+                placeholder="Customer price/day"
                 value={homestayData.price}
-                placeholder="Homestay price/day"
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-wrapper">
-              <label>B2B Price per day</label>
+              <label>Homestay B2B Price</label>
               <input
                 type="number"
                 name="b2b"
+                placeholder="Homestay B2B Price"
                 value={homestayData.b2b}
-                placeholder="Homestay price/day"
                 onChange={handleInputChange}
               />
             </div>
@@ -108,9 +128,9 @@ const EditHomestay = () => {
                 className="address-textarea"
                 type="text"
                 name="address"
+                value={homestayData.address}
                 placeholder="Homestay Address"
                 onChange={handleInputChange}
-                value={homestayData.address}
               />
             </div>
             <div className="form-wrapper">
@@ -118,9 +138,9 @@ const EditHomestay = () => {
               <input
                 type="number"
                 name="noOfrooms"
+                value={homestayData.noOfrooms}
                 placeholder="Homestay Rooms"
                 onChange={handleInputChange}
-                value={homestayData.noOfrooms}
               />
             </div>
             <div className="form-wrapper">
@@ -129,8 +149,8 @@ const EditHomestay = () => {
                 type="number"
                 name="noOfcarss"
                 placeholder="Homestay Cars"
-                onChange={handleInputChange}
                 value={homestayData.noOfCars}
+                onChange={handleInputChange}
               />
             </div>
             {/* <div className="form-wrapper">
@@ -170,25 +190,28 @@ const EditHomestay = () => {
               <label>Google Map Link</label>
               <input
                 type="text"
-                value={homestayData.googleMapLink}
                 name="googleMapLink"
                 placeholder="Homestay Google Map"
+                value={homestayData.googleMapLink}
                 onChange={handleInputChange}
               />
-            </div>
-            <button className="add-homestay" type="submit">
+            </div><div className="form-right"><button className="add-homestay" type="submit">
               {/* {isSubmitting ? 'Adding Homestay...' : 'Add Homestay'} */}
               Update
             </button>
           </div>
-          <div className="form-right">
-            {/* <div className="form-wrapper-pictures">
-              <label>Homestay images (Max 20)</label>
-              <input required type="file" multiple  />
+         
+
+
+
+          </div> <div className="form-right">
+            <div className="form-wrapper-pictures">
+
+            <label>Homestay images</label>
               <div className="image-previews">
-                {imagePreviews.map((preview, index) => (
+                {images.map((preview, index) => (
                   <img
-                  className="preview-image"
+                    className="preview-image"
                     key={index}
                     src={preview}
                     alt={`Image ${index}`}
@@ -196,14 +219,14 @@ const EditHomestay = () => {
                   />
                 ))}
               </div>
-            </div> */}
-            {/* <div className="form-wrapper-pictures">
+            </div>
+            <div className="form-wrapper-pictures">
               <label>Interior images</label>
-              <input type="file" required multiple onChange={handleBalconyFileChange} />
+             
               <div className="image-previews">
-                {imageBalconyPreviews.map((preview, index) => (
+                {balconyImage.map((preview, index) => (
                   <img
-                  className="preview-image"
+                    className="preview-image"
                     key={index}
                     src={preview}
                     alt={`Image ${index}`}
@@ -214,11 +237,11 @@ const EditHomestay = () => {
             </div>
             <div className="form-wrapper-pictures">
               <label>Exterior images</label>
-              <input required type="file" multiple onChange={handleViewFileChange} />
+              
               <div className="image-previews">
-                {imageViewPreviews.map((preview, index) => (
+                {viewImage.map((preview, index) => (
                   <img
-                  className="preview-image"
+                    className="preview-image"
                     key={index}
                     src={preview}
                     alt={`Image ${index}`}
@@ -230,11 +253,11 @@ const EditHomestay = () => {
 
             <div className="form-wrapper-pictures">
               <label>Room View</label>
-              <input required type="file" multiple onChange={handleRoomFileChange} />
+             
               <div className="image-previews">
-                {imageRoomPreviews.map((preview, index) => (
+                {roomImage.map((preview, index) => (
                   <img
-                  className="preview-image"
+                    className="preview-image"
                     key={index}
                     src={preview}
                     alt={`Image ${index}`}
@@ -242,11 +265,11 @@ const EditHomestay = () => {
                   />
                 ))}
               </div>
-            </div> */}
+            </div>
 
-
-
+            
           </div>
+         
         </form>
       </div>
     </div>

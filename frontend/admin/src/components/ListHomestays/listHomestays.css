@@ -54,11 +54,14 @@
     .list-product-update-item{
         cursor: pointer;
         padding: 5px 15px;
-        background-color: rgb(50, 206, 50);
+        background-color: blue !important;
         color: white;
-        border-radius: 5px;
+        border-radius: 0px !important;
         outline: none;
         border: none;
+        font-size: 14px;
+        display: flex !important;
+
 
     }
 
