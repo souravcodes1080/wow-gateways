@@ -61,8 +61,10 @@ function AddCustomer() {
         const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
         const totalPriceForThisTour = price * daysDifference;
         totalPriceC += totalPriceForThisTour;
-        // const carCost = parseInt(tour.carCost, 10);
-        // totalPriceC += carCost;
+        const carCost = parseInt(tour.carCost, 10);
+        totalPriceC += carCost;
+        const guestCost = customerData.noOfAdults + (customerData.noOfchilds2/2);
+        totalPriceC *= guestCost;
       }
 
     });
