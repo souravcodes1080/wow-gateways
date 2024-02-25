@@ -11,6 +11,7 @@ function AddCustomer() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [homestayList, setHomestayList] = useState([]);
   const [customerData, setCustomerData] = useState({
+    customerID: "",
     customerName: "",
     customerPhoneNumber: "",
     customerEmail: "",
@@ -37,6 +38,12 @@ function AddCustomer() {
       rooms: "",
     },
   ]);
+
+  function generateCustomerID() {
+    const randomNum = Math.floor(10000 + Math.random() * 90000);
+    return randomNum.toString().padStart(5, "0");
+  }
+
   const handleTourChange = (index, e) => {
     const { name, value } = e.target;
     const updatedTour = [...tourData];
@@ -44,13 +51,11 @@ function AddCustomer() {
     setTourData(updatedTour);
   };
 
-
   const calculateTotalHomestayPriceC = () => {
     let totalPriceC = 0;
     tourData.forEach((tour) => {
       const homestay = homestayList.find(
         (h) => h.homestayName === tour.homestayName
-
       );
 
       if (homestay) {
@@ -64,24 +69,20 @@ function AddCustomer() {
         totalPriceC += totalPriceForThisTour;
         const carCost = parseInt(tour.carCost, 10);
         const guestCost = parseInt(customerData.noOfAdults);
-        if(childCost > 0){
-          totalPriceC *= (guestCost + (childCost/2));
-        }else{
+        if (childCost > 0) {
+          totalPriceC *= guestCost + childCost / 2;
+        } else {
           totalPriceC *= guestCost;
         }
         totalPriceC += carCost;
-        
       }
-
     });
     setTotalHomestayPriceC(totalPriceC);
   };
-  
 
   useEffect(() => {
     calculateTotalHomestayPriceC();
   }, [tourData.flat()]);
-
 
   const handleAddTour = () => {
     setTourData([
@@ -118,7 +119,9 @@ function AddCustomer() {
 
   const fetchHomestayNames = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/homestay/homestayName");
+      const response = await axios.get(
+        "http://localhost:8080/homestay/homestayName"
+      );
       setHomestayList(response.data);
       console.log(response.data);
     } catch (error) {
@@ -130,19 +133,21 @@ function AddCustomer() {
     const { name, value } = e.target;
     setCustomerData({ ...customerData, [name]: value });
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
+      const customerID = generateCustomerID();
+
       const updatedCustomerData = {
         ...customerData,
+        customerID: customerID, // Assign the generated customer ID
         totalHomestayPriceC: totalHomestayPriceC.toString(), // Ensure totalHomestayPriceC is a string
         due: totalHomestayPriceC - customerData.paid,
       };
-  
+
       // Include tour data in the form data
       const formData = {
         ...updatedCustomerData,
@@ -157,7 +162,15 @@ function AddCustomer() {
         },
         autoClose: 3000,
       });
-      
+
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      const currentDate = new Date().toLocaleDateString(undefined, options);
+      const txt = `*WOW GATEWAYS*\n*Booking Confirmed!*\n\nHi ${customerData.customerName}, your tour is successfully booked on *${currentDate}*. \nYour Booking ID is: *${customerID}* \nLet the adventure begin!\nHave any questions or need assistance, feel free to reach out to our team. \n\n_har safar aapke saath!_ `;
+      const message = encodeURIComponent(txt);
+      window.open(
+        `https://wa.me/${customerData.customerPhoneNumber}?text=${message}`,
+        "_blank"
+      );
     } catch (error) {
       let errorMessage = "Error booking. Please try again later.";
 
@@ -258,7 +271,7 @@ function AddCustomer() {
                       name="homestayName"
                       value={tourItem.homestayName}
                       onChange={(e) => {
-                        handleTourChange(index, e)
+                        handleTourChange(index, e);
                       }}
                     >
                       <option value="">Select Homestay</option>
@@ -435,11 +448,9 @@ function AddCustomer() {
               />
             // </div> */}
 
-
             {/* <button type="reset">
               Reset
             </button> */}
-
 
             <button
               className="add-homestay"
