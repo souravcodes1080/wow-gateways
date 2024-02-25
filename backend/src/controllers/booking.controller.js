@@ -116,6 +116,8 @@ import moment from "moment";
 //   }
 // });
 
+
+
 const booking = asyncHandler(async (req, res, next) => {
   try {
     const {
@@ -176,7 +178,7 @@ const booking = asyncHandler(async (req, res, next) => {
     // If all bookings are valid, create the bookings
     const createdBookings = await Booking.create(req.body);
 
-    // Respond with success message and created bookings
+   
     res.status(201).json({
       message: 'Bookings created successfully.',
       status: true,

@@ -59,6 +59,9 @@ function ViewBooking() {
                 {bookingData.customerName}
               </div>
               <div className="phonenumber">
+                {bookingData.customerID}
+              </div>
+              <div className="phonenumber">
                 {bookingData.customerPhoneNumber}
               </div>
               <div className="phonenumber">{bookingData.customerEmail}</div>

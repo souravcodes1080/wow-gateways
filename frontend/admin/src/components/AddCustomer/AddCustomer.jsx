@@ -130,6 +130,7 @@ function AddCustomer() {
     const { name, value } = e.target;
     setCustomerData({ ...customerData, [name]: value });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -154,8 +155,9 @@ function AddCustomer() {
         onClose: () => {
           navigate("/");
         },
-        autoClose: 5000,
+        autoClose: 3000,
       });
+      
     } catch (error) {
       let errorMessage = "Error booking. Please try again later.";
 

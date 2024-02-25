@@ -88,7 +88,8 @@ function ListBooking() {
 
     
       book.customerName.toLowerCase().includes(value) ||
-      book.customerPhoneNumber.toString().includes(value)
+      book.customerID.toString().includes(value) ||
+      book.customerPhoneNumber.toString().includes(value) 
     
     );
 
@@ -147,6 +148,7 @@ function ListBooking() {
           <table className="list-product-table">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Name</th>
                 {/* <th>Homestay Name</th> */}
                 <th>Phone Number</th>
@@ -173,6 +175,7 @@ function ListBooking() {
                 {(searchQuery ? filteredBooking : currentItems).map(
                   (book, index) => (
                     <tr key={index}>
+                      <td>{book.customerID}</td>
                       <td>{book.customerName}</td>
                       {/* <td>{book.homestayName}</td> */}
                       <td>{book.customerPhoneNumber}</td>
