@@ -100,7 +100,7 @@ function ListBooking() {
   //==================================================
 
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 9;
+  const itemsPerPage = 8;
 
   const endOffset = itemOffset + itemsPerPage;
 

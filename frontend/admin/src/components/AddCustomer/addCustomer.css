@@ -10,19 +10,46 @@
 textarea {
     outline: 0;
 }
+.add-customer form{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start;
+    width: max-content;
+}
+
+.form-first-part{
+    display: flex;
+    gap: 40px;
+    /* justify-content: space-between; */
+}
+.form-second-part{
+    display: flex;
+    gap: 40px;
+    /* justify-content: space-between; */
+}
 
 .custom-toast-success {
     background-color: green;
     color: white;
 }
-
-
+.form-second-part-left p{
+    font-weight: 600;
+    font-size: 20px;
+}
+.form-second-part-right{
+    margin-top: 36px;
+    position: relative;
+}
+.tour-form-data-wrapper{
+    display: flex;
+    gap: 80px;
+}
 .custom-toast-error {
     background-color: red;
     color: white;
 }
 .form-left{
-    position: relative;
+    /* position: relative; */
 }
 
 .add-tour{
@@ -36,6 +63,7 @@ textarea {
     padding: 5px 15px;
     font-size: 14px;
     cursor: pointer;
+    width: fit-content;
 }
 .remove-tour{
     position: absolute;
@@ -55,7 +83,7 @@ textarea {
     margin-bottom: 10px;
 }
 .tour-form-data{
-    margin-bottom: 60px;
+    margin-bottom: 20px;
 }
 .tour-form-data h3{
     margin-top: 50px;

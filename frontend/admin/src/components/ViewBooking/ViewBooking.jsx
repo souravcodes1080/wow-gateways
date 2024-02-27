@@ -59,14 +59,14 @@ function ViewBooking() {
                 {bookingData.customerName}
               </div>
               <div className="phonenumber">
-                {bookingData.customerID}
+                ID: {bookingData.customerID}
               </div>
               <div className="phonenumber">
-                {bookingData.customerPhoneNumber}
+                Phone number: {bookingData.customerPhoneNumber}
               </div>
               <div className="phonenumber">{bookingData.customerEmail}</div>
               <div className="phonenumber">
-            {Moment(bookingData.bookedOn).format("DD - MM - yyyy")}
+            {Moment(bookingData.bookedOn).format("DD.MM.yyyy")}
             </div>
             </div>
             <br /><br />

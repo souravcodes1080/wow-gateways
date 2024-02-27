@@ -57,32 +57,27 @@ function ListHomestays() {
             <button onClick={() => { navigate("/admin/addhomestay") }}> <FaPlus />Add New Homestay </button>
           </div>
           <br />
-          <table className="list-product-table">
+          <table className="list-product-table" style={{ width: "100%" }}>
             <thead>
               <tr>
-                {/* <th className="column-picture">Picture</th> */}
-                <th className="column-name">Homestay Name</th>
-                <th className="column-address">Address</th>
-                <th className="column-phone">Phone Number</th>
-                <th className="column-email">Email</th>
-                <th className="column-price">Price / day</th>
-                <th className="column-room">Rooms</th>
-                <th className="column-price">Action</th>
+                <th style={{ width: "20%" }}>Homestay Name</th>
+                <th style={{ width: "30%" }}>Address</th>
+                <th style={{ width: "10%" }}>Phone Number</th>
+                <th style={{ width: "15%" }}>Email</th>
+                <th style={{ width: "10%" }}>Price / day</th>
+                <th style={{ width: "5%" }}>Rooms</th>
+                <th style={{ width: "10%" }}>Action</th>
               </tr>
             </thead>
             <tbody>
               {homestays.map((homestay, index) => (
                 <tr key={index}>
-                  {/* <td className="column-picture">
-                    <img src={homestay.images[4]} alt={homestay.homestayName} />
-                  </td> */}
-                  <td className="column-name">{homestay.homestayName}</td>
-                  <td className="column-address">{homestay.address}</td>
-                  <td className="column-phone">{homestay.phoneNumber}</td>
-                  <td className="column-email">{homestay.email}</td>
-                  <td className="column-price">{homestay.price}</td>
-                  <td className="column-room">{homestay.noOfrooms}</td>
-                  {/* <td className="column-price"  >{homestay.noOfCars}</td> */}
+                  <td>{homestay.homestayName}</td>
+                  <td>{homestay.address}</td>
+                  <td>{homestay.phoneNumber}</td>
+                  <td>{homestay.email}</td>
+                  <td>{homestay.price}</td>
+                  <td>{homestay.noOfrooms}</td>
                   <td>
                     <button
                       onClick={() => {
@@ -93,16 +88,6 @@ function ListHomestays() {
                       <FaEdit/> &nbsp; Update
                     </button>
                   </td>
-                  {/* <td>
-                    <button
-                      onClick={() => {
-                        updateHomestay(homestay._id);
-                      }}
-                      className="list-product-delete-item"
-                    >
-                      Delete
-                    </button>
-                  </td> */}
                 </tr>
               ))}
             </tbody>
@@ -111,6 +96,7 @@ function ListHomestays() {
       </div>
     </div>
   );
+  
 }
 
 export default ListHomestays;
