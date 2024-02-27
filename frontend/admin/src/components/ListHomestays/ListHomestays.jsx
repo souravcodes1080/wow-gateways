@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./listHomestays.css";
 import Sidebar from "../Sidebar/Sidebar";
 import { FaEdit, FaHome, FaPlus, FaRupeeSign, FaTable } from "react-icons/fa";
+import ReactPaginate from "react-paginate";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -48,6 +49,24 @@ function ListHomestays() {
     navigate(`/admin/edithomestay/${id}`);
   };
 
+  //==============================  REACT PAGENATION   ====================
+
+  const [itemOffset, setItemOffset] = useState(homestays.length > 0 ? 0 : undefined);
+  const itemsPerPage = 3;
+
+  const endOffset = itemOffset + itemsPerPage;
+
+  const currentItems = homestays.slice(itemOffset, endOffset).reverse();
+
+  const pageCount = Math.ceil(homestays.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % homestays.length;
+    setItemOffset(newOffset);
+  };
+
+  //==============================  REACT PAGENATION   ====================
+
   return (
     <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
       <div className="dashboard-main-add-homestay">
@@ -85,13 +104,23 @@ function ListHomestays() {
                       }}
                       className="list-product-update-item"
                     >
-                      <FaEdit/> &nbsp; Update
+                      <FaEdit /> &nbsp; Update
                     </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel=">"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={2}
+            pageCount={pageCount}
+            previousLabel="<"
+            renderOnZeroPageCount={null}
+            className="pagination"
+          />
         </div>
       </div>
     </div>
