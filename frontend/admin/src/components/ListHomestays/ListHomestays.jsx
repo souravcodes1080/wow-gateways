@@ -11,6 +11,10 @@ import "react-toastify/dist/ReactToastify.css";
 function ListHomestays() {
   const [homestays, setHomestays] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [originalHomestays, setOriginalHomestays] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredHomestays, setFilteredHomestays] = useState([]);
+  const [noResults, setNoResults] = useState(false); // State to track if no results are found
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 3;
 
@@ -25,6 +29,7 @@ function ListHomestays() {
       try {
         const response = await axios.get("http://localhost:8080/homestay");
         setHomestays(response.data);
+        setOriginalHomestays(response.data);
         console.log(response.data);
       } catch (error) {
         toast.error("Fetch Unsuccessful!", {
@@ -40,6 +45,29 @@ function ListHomestays() {
 
   const updateHomestay = (id) => {
     navigate(`/admin/edithomestay/${id}`);
+  };
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    if (value === "") {
+      // If the search query is empty, show all original bookings
+      setHomestays(originalHomestays);
+      setFilteredHomestays([]);
+      setNoResults(false);
+      return;
+    }
+
+    const filtered = originalHomestays.filter(
+      (homestay) =>
+        (homestay.homestayName &&
+          homestay.homestayName.toLowerCase().includes(value)) ||
+        (homestay.location && homestay.location.toLowerCase().includes(value))
+    );
+
+    setFilteredHomestays(filtered);
+    setNoResults(filtered.length === 0);
   };
 
   const endOffset = itemOffset + itemsPerPage;
@@ -65,6 +93,10 @@ function ListHomestays() {
               {" "}
               <FaHome /> Manage Homestays
             </h5>
+            <div>
+
+            <input style={{paddingLeft:"20px"}} type="text" placeholder="Search Homestays" onChange={handleSearch} />
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <button
               onClick={() => {
                 navigate("/admin/addhomestay");
@@ -74,6 +106,7 @@ function ListHomestays() {
               <FaPlus />
               Add New Homestay{" "}
             </button>
+            </div>
           </div>
           <br />
           <table className="list-product-table" style={{ width: "100%" }}>
@@ -88,28 +121,40 @@ function ListHomestays() {
                 <th style={{ width: "10%" }}>Action</th>
               </tr>
             </thead>
-            <tbody>
-              {currentItems.map((homestay, index) => (
-                <tr key={index}>
-                  <td>{homestay.homestayName}</td>
-                  <td>{homestay.address}</td>
-                  <td>{homestay.phoneNumber}</td>
-                  <td>{homestay.email}</td>
-                  <td>{homestay.price}</td>
-                  <td>{homestay.noOfrooms}</td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        updateHomestay(homestay._id);
-                      }}
-                      className="list-product-update-item"
-                    >
-                      <FaEdit /> &nbsp; Update
-                    </button>
+            {noResults ? (
+              <tbody>
+                <tr>
+                  <td colSpan="10" style={{ textAlign: "center" }}>
+                    No search results found
                   </td>
                 </tr>
-              ))}
-            </tbody>
+              </tbody>
+            ) : (
+              <tbody>
+                {(searchQuery ? filteredHomestays : currentItems).map(
+                  (homestay, index) => (
+                    <tr key={index}>
+                      <td>{homestay.homestayName}</td>
+                      <td>{homestay.address}</td>
+                      <td>{homestay.phoneNumber}</td>
+                      <td>{homestay.email}</td>
+                      <td>{homestay.price}</td>
+                      <td>{homestay.noOfrooms}</td>
+                      <td>
+                        <button
+                          onClick={() => {
+                            updateHomestay(homestay._id);
+                          }}
+                          className="list-product-update-item"
+                        >
+                          <FaEdit /> &nbsp; Update
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            )}
           </table>
           <ReactPaginate
             breakLabel="..."

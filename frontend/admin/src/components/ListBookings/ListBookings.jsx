@@ -125,7 +125,7 @@ function ListBooking() {
             Manage Bookings
           </h5>
           <div>
-            <input type="text" placeholder="Search" onChange={handleSearch} />
+            <input type="text" placeholder="Search Bookings" onChange={handleSearch} />
             <button onClick={getAllBookings}>
               {" "}
               <FaList />

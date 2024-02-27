@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { booking, getBookingById, updateBooking } from "../controllers/booking.controller.js"
+import { booking, deleteBooking, getBookingById, updateBooking } from "../controllers/booking.controller.js"
 import { getAllBooking, addTour  } from "../controllers/booking.controller.js"
 
 const bookingRouter = Router()
@@ -10,6 +10,6 @@ bookingRouter.get("/booking", getAllBooking)
 bookingRouter.get("/booking/:id", getBookingById)
 bookingRouter.put("/:id", updateBooking)
 bookingRouter.post("/tour", addTour)
-
+bookingRouter.delete("/:id", deleteBooking)
 
 export default bookingRouter

@@ -70,6 +70,9 @@ const bookingSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    bookedBy:{
+        type: String,
+    },
     totalHomestayPriceB2B: {
         type: Number,
     },

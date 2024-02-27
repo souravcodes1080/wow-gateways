@@ -96,6 +96,32 @@ const EditBooking = () => {
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
+  const cancelBooking = async () => {
+    try {
+      // Send a DELETE request to cancel the booking
+      await axios.delete(`http://localhost:8080/home/${id}`);
+      toast.success("Booking canceled successfully!", {
+        onClose: () => {
+          navigate("/admin/bookinglist");
+          
+        },
+        autoClose: 1000,
+      });
+      const txt = `*WOW GATEWAYS*\n*Booking Canceled!*\nYour booking has been sucessfully canceled.`;
+      const message = encodeURIComponent(txt);
+      window.open(
+        `https://wa.me/${bookingData.customerPhoneNumber}?text=${message}`,
+        "_blank"
+      );
+    } catch (error) {
+      // Handle errors
+      toast.error("Cancellation unsuccessful!", {
+        autoClose: 3000,
+      });
+      console.log(error);
+    }
+  };
+  
 
 
   return (
@@ -258,7 +284,14 @@ const EditBooking = () => {
               
             >
               Update Customer
-            </button>
+            </button> &nbsp;&nbsp;&nbsp;
+            <p
+              className="add-homestay"
+              onClick={cancelBooking}
+              style={{background:"red"}}
+            >
+              Cancel Booking
+            </p>
           </div>
         </form>
       </div>

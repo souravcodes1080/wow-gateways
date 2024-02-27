@@ -135,6 +135,7 @@ const booking = asyncHandler(async (req, res, next) => {
       guestRemainingBalance,
       dueB2B,
       tour,
+      bookedBy
     } = req.body;
 
     // Iterate over each homestay in the tour
@@ -272,4 +273,26 @@ const addTour = async (req, res) => {
   }
 };
 
-export { booking, getAllBooking, updateBooking, addTour, getBookingById };
+const deleteBooking = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Check if the booking exists
+    const booking = await Booking.findById(id);
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found." });
+    }
+
+    // If the booking exists, delete it
+    await Booking.findByIdAndDelete(id);
+
+    // Return success response
+    res.status(200).json({ message: "Booking deleted successfully." });
+  } catch (error) {
+    // Handle errors
+    console.error(error);
+    res.status(500).json({ message: "Error deleting booking." });
+  }
+});
+
+export { booking, getAllBooking, updateBooking, addTour, getBookingById, deleteBooking };

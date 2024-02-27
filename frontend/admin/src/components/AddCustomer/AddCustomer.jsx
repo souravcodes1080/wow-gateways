@@ -26,6 +26,7 @@ function AddCustomer() {
     advPaidB2B: "0",
     guestRemainingBalance: "0",
     dueB2B: "0",
+    bookedBy: localStorage.getItem("username")
   });
   const [tourData, setTourData] = useState([
     {
@@ -36,6 +37,7 @@ function AddCustomer() {
       car: "",
       carCost: "0",
       rooms: "",
+      
     },
   ]);
 
@@ -168,12 +170,20 @@ const calculateTotalHomestayPriceC = () => {
         onClose: () => {
           navigate("/");
         },
-        autoClose: 3000,
+        autoClose: 2000,
       });
 
       const options = { year: "numeric", month: "long", day: "numeric" };
       const currentDate = new Date().toLocaleDateString(undefined, options);
-      const txt = `*WOW GATEWAYS*\n*Booking Confirmed!*\n\nHi ${customerData.customerName}, your tour is successfully booked on *${currentDate}*. \nYour Booking ID is: *${customerID}* \nLet the adventure begin!\nHave any questions or need assistance, feel free to reach out to our team. \n\n_har safar aapke saath!_ `;
+    //   let totalNumberOfDays = 0;
+    // tourData.forEach((tour) => {
+    //   const checkInDate = new Date(tour.checkIn);
+    //   const checkOutDate = new Date(tour.checkOut);
+    //   const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+    //   const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    //   totalNumberOfDays += daysDifference;
+    // });
+      const txt = `*WOW GATEWAYS*\n*Booking Confirmed!*\n\nHi ${customerData.customerName}, your tour is successfully booked on *${currentDate}*. \nYour Booking ID is: *${customerID}*\n*Tour Details:*\n- Total number of people: ${parseInt(customerData.noOfAdults)+parseInt(customerData.noOfchilds1)+parseInt(customerData.noOfchilds2)} \nLet the adventure begin!\nHave any questions or need assistance, feel free to reach out to our team. \n\n_har safar aapke saath!_ \n\nBooked By - ${customerData.bookedBy}`;
       const message = encodeURIComponent(txt);
       window.open(
         `https://wa.me/${customerData.customerPhoneNumber}?text=${message}`,

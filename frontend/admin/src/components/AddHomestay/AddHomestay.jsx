@@ -107,7 +107,7 @@ function AddHomestay() {
         onClose: () => {
           navigate("/");
         },
-        autoClose: 5000,
+        autoClose: 3000,
       });
     } catch (error) {
       //alert("Error adding homestay. Please try again later.");

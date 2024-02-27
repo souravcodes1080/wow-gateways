@@ -13,6 +13,7 @@ function Navbar() {
 
   const adminLogout = () =>{
     localStorage.removeItem("adminAuthorizationToken");
+    localStorage.removeItem("username");
     setIsLogout(false);
     navigate("/admin/login")
   }

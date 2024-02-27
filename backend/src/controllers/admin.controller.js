@@ -35,7 +35,7 @@ const login = async (req, res) => {
     }
     const token = generateJwtToken(admin._id);
 
-    res.json({ token });
+    res.json({ token, username });
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ message: "Error logging in" });

@@ -18,6 +18,7 @@ const Login = () => {
         { username, password });
 
       localStorage.setItem("adminAuthorizationToken", response.data.token);
+      localStorage.setItem("username", response.data.username);
 
       toast.success("Login Successfull", {
         onClose: () => {
