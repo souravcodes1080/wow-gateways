@@ -3,7 +3,7 @@ import "./addHomestay.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function AddHomestay() {
@@ -125,6 +125,7 @@ function AddHomestay() {
 
   return (
     <div className="admin-panel-wrapper-add-homestay">
+      <ToastContainer />
       <div className="dashboard-main-add-homestay">
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form-left">
