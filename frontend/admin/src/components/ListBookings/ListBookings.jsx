@@ -61,7 +61,7 @@ function ListBooking() {
   };
 
   const getPaymentDueBookings = () => {
-    const paymentDueBookings = originalBooking.filter((book) => book.due > 0);
+    const paymentDueBookings = originalBooking.filter((book) => (book.totalHomestayPriceC - book.paid) > 0);
     setBooking(paymentDueBookings);
   };
 
