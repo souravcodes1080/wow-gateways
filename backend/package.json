@@ -27,6 +27,7 @@
     "multer-s3": "^3.0.1",
     "multer-storage-cloudinary": "^4.0.0",
     "puppeteer": "^22.2.0",
+    "twilio": "^4.22.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

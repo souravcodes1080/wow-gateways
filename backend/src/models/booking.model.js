@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
-import { v4 as uuidv4 } from 'uuid';
 const tourSchema = new mongoose.Schema({
     homestayName: {
         type:String
@@ -24,14 +23,10 @@ const tourSchema = new mongoose.Schema({
         type: Number,
     }
 })
-function generateCustomerID() {
-    const randomNum = Math.floor(10000 + Math.random() * 90000);
-    return randomNum.toString().padStart(5, '0');
-}
+
 const bookingSchema = new mongoose.Schema({
     customerID: {
         type: String,
-        default: generateCustomerID // Generate random 5-digit number
     },
     customerName: {
         type: String,
