@@ -24,20 +24,17 @@ function ListBooking() {
   }, []);
 
   const fetchBooking = async () => {
-
     try {
       const response = await axios.get("http://localhost:8080/home/booking");
       setBooking(response.data.bookings);
       setOriginalBooking(response.data.bookings);
     } catch (error) {
-      toast.error("Error fetching bookings. Please try again later.", {
-        className: "custom-toast-error",
+      toast.error("Error!", {
+        className: "custom-toast-success",
         autoClose: 5000,
       });
       console.log(error);
-  
     }
-  
   };
 
   const getOngoingBookings = () => {
@@ -78,7 +75,7 @@ function ListBooking() {
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearchQuery(value);
-
+  
     if (value === "") {
       // If the search query is empty, show all original bookings
       setBooking(originalBooking);
@@ -86,19 +83,18 @@ function ListBooking() {
       setNoResults(false);
       return;
     }
-
+  
     const filtered = originalBooking.filter((book) =>
-
-    
-      book.customerName.toLowerCase().includes(value) ||
-      book.customerID.toString().includes(value) ||
-      book.customerPhoneNumber.toString().includes(value) 
-    
+      (book.customerName && book.customerName.toLowerCase().includes(value)) ||
+      (book.customerID && book.customerID.toString().includes(value)) ||
+      (book.customerPhoneNumber && book.customerPhoneNumber.toString().includes(value))
     );
-
+  
     setFilteredBooking(filtered);
-    setNoResults(filtered.length === 0); // Set noResults to true if filtered array is empty
+    setNoResults(filtered.length === 0);
   };
+  
+  
 
   //==================================================
 
@@ -211,7 +207,7 @@ function ListBooking() {
             breakLabel="..."
             nextLabel=">"
             onPageChange={handlePageClick}
-            pageRangeDisplayed={3}
+            pageRangeDisplayed={5}
             pageCount={pageCount}
             previousLabel="<"
             renderOnZeroPageCount={null}
