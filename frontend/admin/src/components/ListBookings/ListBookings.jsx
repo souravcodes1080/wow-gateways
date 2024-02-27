@@ -24,17 +24,20 @@ function ListBooking() {
   }, []);
 
   const fetchBooking = async () => {
+
     try {
       const response = await axios.get("http://localhost:8080/home/booking");
       setBooking(response.data.bookings);
       setOriginalBooking(response.data.bookings);
     } catch (error) {
-      toast.error("Error!", {
-        className: "custom-toast-success",
+      toast.error("Error fetching bookings. Please try again later.", {
+        className: "custom-toast-error",
         autoClose: 5000,
       });
       console.log(error);
+  
     }
+  
   };
 
   const getOngoingBookings = () => {
@@ -208,7 +211,7 @@ function ListBooking() {
             breakLabel="..."
             nextLabel=">"
             onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={3}
             pageCount={pageCount}
             previousLabel="<"
             renderOnZeroPageCount={null}
