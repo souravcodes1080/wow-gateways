@@ -4,8 +4,8 @@ import "./editBooking.css";
 import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { FaUser, FaUserCircle } from "react-icons/fa";
 
 const EditBooking = () => {
@@ -18,9 +18,7 @@ const EditBooking = () => {
   useEffect(() => {
     const fetchBooking = async () => {
       try {
-        const response = await axios.put(
-          `http://localhost:8080/home/${id}`
-        );
+        const response = await axios.put(`http://localhost:8080/home/${id}`);
         setBookingData(response.data);
       } catch (error) {
         console.log(error);
@@ -31,7 +29,7 @@ const EditBooking = () => {
   }, [id]);
   useEffect(() => {
     fetchHomestayNames();
-    fetchCarList()
+    fetchCarList();
   }, []);
 
   const fetchHomestayNames = async () => {
@@ -42,15 +40,15 @@ const EditBooking = () => {
       console.error("Error fetching homestay names:", error);
     }
   };
-  const fetchCarList = async () =>{
-    try{
-      const response = await axios.get("http://localhost:8080/car")
-       setCarList(response.data.cars)
-       console.log(response.data)
-    }catch(err){
-      console.log(err)
+  const fetchCarList = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/car");
+      setCarList(response.data.cars);
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
   const handleInputChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
@@ -68,7 +66,7 @@ const EditBooking = () => {
         totalAmount: parseInt(bookingData.totalAmount),
         paid: parseInt(bookingData.paid),
         // Calculate due
-        due: parseInt(bookingData.totalAmount - bookingData.paid)
+        due: parseInt(bookingData.totalAmount - bookingData.paid),
       };
       await axios.put(`http://localhost:8080/home/${id}`, updatedBookingData);
 
@@ -79,16 +77,15 @@ const EditBooking = () => {
         autoClose: 3000,
       });
     } catch (error) {
-
-      toast.error("Update unsuccessfull!", {                                                   
-        className: 'custom-toast-success',
+      toast.error("Update unsuccessfull!", {
+        className: "custom-toast-success",
         autoClose: 3000,
       });
 
       console.log(error);
     }
   };
-  
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -103,7 +100,6 @@ const EditBooking = () => {
       toast.success("Booking canceled successfully!", {
         onClose: () => {
           navigate("/admin/bookinglist");
-          
         },
         autoClose: 1000,
       });
@@ -121,18 +117,25 @@ const EditBooking = () => {
       console.log(error);
     }
   };
-  
-
 
   return (
     <div className="admin-panel-wrapper-add-homestay">
-      <ToastContainer/>
+      <ToastContainer />
       <div className="dashboard-main-add-homestay">
-      <h2 style={{margin:"10px",display: "flex", alignItems: "center", gap:"10px"}}><FaUserCircle/> {bookingData.customerName}</h2>
-      <p>{bookingData.homestayName}</p>
+        <h2
+          style={{
+            margin: "10px",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <FaUserCircle /> {bookingData.customerName}
+        </h2>
+        <p>{bookingData.homestayName}</p>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form-left">
-          <div className="form-wrapper">
+            <div className="form-wrapper">
               <label>Customer Name</label>
               <input
                 required
@@ -197,12 +200,9 @@ const EditBooking = () => {
                 onChange={handleInputChange}
               />
             </div>
-
-            
-            
           </div>
           <div className="form-right">
-          <div className="form-wrapper">
+            <div className="form-wrapper">
               <label>Total Price (Customer)</label>
               <input
                 disabled
@@ -271,24 +271,17 @@ const EditBooking = () => {
                 className={totalHomestayPrice - customerData.advPaidB2B >= 0 ? "green" : "red"}
               />
             // </div> */}
-
-
             {/* <button type="reset">
               Reset
             </button> */}
-
-
-            <button
-              className="add-homestay"
-              type="submit"
-              
-            >
+            <button className="add-homestay" type="submit">
               Update Customer
-            </button> &nbsp;&nbsp;&nbsp;
+            </button>{" "}
+            &nbsp;&nbsp;&nbsp;
             <p
               className="add-homestay"
               onClick={cancelBooking}
-              style={{background:"red"}}
+              style={{ background: "red", fontSize: "13px", margin: "0" }}
             >
               Cancel Booking
             </p>

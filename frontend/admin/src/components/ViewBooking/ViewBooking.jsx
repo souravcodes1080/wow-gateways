@@ -115,7 +115,7 @@ function ViewBooking() {
                         {new Date(tourItem.checkOut).toLocaleDateString()}
                       </p>
                       <p>Price: ₹ {tourItem.price}</p>
-                      <p>Tour Details: {tourItem.journey}</p>
+                      <p>Journey: {tourItem.journey}</p>
                       <p>Car: {tourItem.car}</p>
                       <p>Driver Name: {tourItem.driverName}</p>
                       <p>Car Cost: ₹ {tourItem.carCost}</p>

@@ -7,6 +7,7 @@
     background-color: #353434;
 }
 .dashboard-sidebar ul{
+    position: relative;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -37,4 +38,10 @@
     gap: 10px;
     font-size: 14px;
     color: white;
+}
+.username-absolute{
+    border-top: 1px solid white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

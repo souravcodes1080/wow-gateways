@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { TiUserAdd } from "react-icons/ti";
 import { MdAddHomeWork } from "react-icons/md";
-import { FaCar, FaCarSide, FaLocationArrow } from "react-icons/fa";
+import { FaCar, FaCarSide, FaLocationArrow, FaUser } from "react-icons/fa";
 import { RiGridFill } from "react-icons/ri";
 import { FaTable } from "react-icons/fa";
 import { FaLocationPin } from "react-icons/fa6";
@@ -134,6 +134,8 @@ function Sidebar() {
             </p>
 
           </li>
+          <li className="username-absolute"><p><FaUser/>{localStorage.getItem("username")}</p></li>
+          
         </ul>
       </div>
     </>
