@@ -48,9 +48,7 @@ function ViewBooking() {
     <>
       <div className="admin-panel-wrapper-add-homestay">
         <div className="dashboard-main-add-homestay">
-          <div style={{ margin: "20px" }}>
-            
-            
+          <div style={{ margin: "20px" }}>  
             <div className="booking-details">
               <div className="booking-details-left">
               <div className="basic-details">
@@ -107,6 +105,7 @@ function ViewBooking() {
                     <div key={tourItem._id}>
                       <p style={{textAlign:"center"}} className="underline">Tour {index+1}</p>
                       <p style={{textAlign:"center", fontWeight:"600", paddingBottom:"10px"}}>{tourItem.homestayName}</p>
+                      <p>Rooms: {tourItem.rooms}</p>
                       <p>
                         Check-In Date:{" "}
                         {new Date(tourItem.checkIn).toLocaleDateString()}
@@ -116,9 +115,10 @@ function ViewBooking() {
                         {new Date(tourItem.checkOut).toLocaleDateString()}
                       </p>
                       <p>Price: ₹ {tourItem.price}</p>
+                      <p>Tour Details: {tourItem.journey}</p>
                       <p>Car: {tourItem.car}</p>
+                      <p>Driver Name: {tourItem.driverName}</p>
                       <p>Car Cost: ₹ {tourItem.carCost}</p>
-                      <p>Rooms: {tourItem.rooms}</p>
                       <br />
                     </div>
                   ))}

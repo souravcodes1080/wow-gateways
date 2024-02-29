@@ -16,6 +16,12 @@ const tourSchema = new mongoose.Schema({
     car: {
         type: String,
     },
+    journey:{
+        type: String,
+    },
+    driverName: {
+        type: String,
+    },
     carCost: {
         type: Number,
     },
