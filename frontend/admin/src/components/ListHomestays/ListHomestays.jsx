@@ -3,10 +3,12 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./listHomestays.css";
 import Sidebar from "../Sidebar/Sidebar";
-import { FaEdit, FaHome, FaPlus, FaRupeeSign, FaTable } from "react-icons/fa";
+import { FaDownload, FaEdit, FaHome, FaPlus, FaRupeeSign, FaTable } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import * as XLSX from 'xlsx'; // Import xlsx for Excel conversion
+import * as FileSaver from 'file-saver'; // Import file-saver for file downloading
 
 function ListHomestays() {
   const [homestays, setHomestays] = useState([]);
@@ -83,6 +85,15 @@ function ListHomestays() {
     const newOffset = event.selected * itemsPerPage;
     setItemOffset(newOffset);
   };
+  const downloadExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(homestays); // Convert data to worksheet
+    const wb = XLSX.utils.book_new(); // Create a new workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Homestays"); // Add the worksheet to the workbook
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' }); // Convert workbook to array buffer
+    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' }); // Create a blob from array buffer
+    FileSaver.saveAs(blob, 'Homestays.xlsx'); // Save blob as Excel file
+  };
+
 
   return (
     <div className="admin-panel-wrapper admin-panel-wrapper-add-homestay">
@@ -106,6 +117,8 @@ function ListHomestays() {
               <FaPlus />
               Add New Homestay{" "}
             </button>
+            {/* <button onClick={downloadExcel}><FaDownload />Download</button> */}
+
             </div>
           </div>
           <br />
