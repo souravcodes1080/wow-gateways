@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./listBooking.css";
-import { FaBook, FaEdit, FaEye, FaList, FaSearch } from "react-icons/fa";
+import { FaBook, FaDownload, FaEdit, FaEye, FaList, FaSearch } from "react-icons/fa";
 import moment from "moment";
 import { RiCalendarEventFill } from "react-icons/ri";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactPaginate from "react-paginate";
+import * as XLSX from 'xlsx'; // Import xlsx for Excel conversion
+import * as FileSaver from 'file-saver'; // Import file-saver for file downloading
 function ListBooking() {
   const [booking, setBooking] = useState([]);
   const [originalBooking, setOriginalBooking] = useState([]);
@@ -116,6 +118,15 @@ function ListBooking() {
 
   //====================================================
 
+  const downloadExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(booking); // Convert data to worksheet
+    const wb = XLSX.utils.book_new(); // Create a new workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Bookings"); // Add the worksheet to the workbook
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' }); // Convert workbook to array buffer
+    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' }); // Create a blob from array buffer
+    FileSaver.saveAs(blob, 'bookings.xlsx'); // Save blob as Excel file
+  };
+
   return (
     <>
       <div className="admin-booking-list-container">
@@ -126,6 +137,11 @@ function ListBooking() {
           </h5>
           <div>
             <input type="text" placeholder="Search Bookings" onChange={handleSearch} />
+            <button onClick={downloadExcel}>
+              {" "}
+              <FaDownload />
+              Download
+            </button>
             <button onClick={getAllBookings}>
               {" "}
               <FaList />
