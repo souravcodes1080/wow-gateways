@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -40,6 +40,7 @@ const Login = () => {
 
   return (
     <div className="login-form-wrapper">
+      <ToastContainer />
       <form onSubmit={handleLogin}>
         <p>Admin Login</p>
         <input
