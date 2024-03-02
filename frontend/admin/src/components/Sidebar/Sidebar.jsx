@@ -72,6 +72,19 @@ function Sidebar() {
           </li>
           <li
             onClick={() => {
+              handleClick("BG")
+              navigate("/admin/bookingGrid");
+            }}
+            className={currentTab === "BG" ? "current" : ""}>
+
+            <p>
+              <FaTable />
+              Booking Grid
+            </p>
+
+          </li>
+          <li
+            onClick={() => {
               handleClick("MH")
               navigate("/admin/homestaylist");
             }}
@@ -108,7 +121,7 @@ function Sidebar() {
             </p>
           </li> */}
 
-          <li
+          {/* <li
             onClick={() => {
               handleClick("AddLocations");
               navigate("/admin/addlocations");
@@ -119,7 +132,7 @@ function Sidebar() {
               <FaLocationPin />
               Add Viewpoints
             </p>
-          </li>
+          </li> */}
 
           <li
             onClick={() => {

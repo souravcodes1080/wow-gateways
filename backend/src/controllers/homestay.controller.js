@@ -67,7 +67,7 @@ const addHomestay = async (req, res) => {
 // Get all homestays
 const getAllHomestayName = async (req, res) => {
   try {
-    const homestays = await Homestay.find({}, 'homestayName price b2b'); 
+    const homestays = await Homestay.find({}, 'homestayName price b2b noOfrooms'); 
     res.json(homestays);
   } catch (error) {
     res.status(500).send("Error retrieving homestays");

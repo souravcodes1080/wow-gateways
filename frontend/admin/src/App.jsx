@@ -22,14 +22,15 @@ import { ManageTours } from "./components/ManageTours/ManageTours";
 import EditTours from "./components/EditTours/EditTours";
 import AddLocations from "./components/AddLocations/AddLocations";
 import ViewBooking from "./components/ViewBooking/ViewBooking";
+import BookingGrid from "./components/BookingGrid/BookingGrid";
 
 const App = () => {
   return (
     <Router>
-    <Navbar />
-    <ToastContainer />
-    {localStorage.getItem("adminAuthorizationToken") && <Sidebar />}
-    {/* <Sidebar /> */}
+      <Navbar />
+      <ToastContainer />
+      {localStorage.getItem("adminAuthorizationToken") && <Sidebar />}
+      {/* <Sidebar /> */}
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/admin/addhomestay" element={<AddHomestay />} />
@@ -40,15 +41,16 @@ const App = () => {
 
         <Route path="/admin/homestaylist" element={<ListHomestays />} />
         <Route path="/admin/bookinglist" element={<ListBooking />} />
-        <Route path="/admin/carlist" element={<ListCar/>} />
-        <Route path="/admin/managetour" element={<ManageTours/>} />
-        <Route path="/admin/addlocations" element={<AddLocations/>} />
+        <Route path="/admin/carlist" element={<ListCar />} />
+        <Route path="/admin/managetour" element={<ManageTours />} />
+        <Route path="/admin/addlocations" element={<AddLocations />} />
+        <Route path="/admin/bookingGrid" element={<BookingGrid />} />
 
 
         <Route path="/admin/edithomestay/:id" element={<EditHomestay />} />
         <Route path="/admin/editbooking/:id" element={<EditBooking />} />
         <Route path="/admin/viewbooking/:id" element={<ViewBooking />} />
-        <Route path="/admin/edittour/:id" element={<EditTours/>} />
+        <Route path="/admin/edittour/:id" element={<EditTours />} />
 
         <Route path="/admin/login" element={<Login />} />
       </Routes>
