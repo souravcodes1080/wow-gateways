@@ -24,8 +24,9 @@ height: 100%;
 overflow: scroll;
 }
 
+
   
+
   .booked {
-    background-color: #ff0000; /* Change background color for booked rooms */
+    background-color: red;
   }
-  
