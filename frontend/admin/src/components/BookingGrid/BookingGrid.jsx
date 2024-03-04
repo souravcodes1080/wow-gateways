@@ -36,9 +36,10 @@ function BookingGrid() {
     try {
       console.log("Fetching room availability for:", selectedHomestay);
       const response = await axios.get(
-        `http://localhost:8080/home/roomAvailability?homestayName=${selectedHomestay}`
+        `http://localhost:8080/homestay/homestay?homestayName=${selectedHomestay}`
       );
       setRoomAvailabilityData(response.data);
+      console.log(response.data)
       const selectedHomestayObj = homestaylist.find(
         (h) => h.homestayName === selectedHomestay
       );

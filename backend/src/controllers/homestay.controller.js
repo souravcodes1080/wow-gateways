@@ -64,6 +64,18 @@ const addHomestay = async (req, res) => {
   }
 };
 
+const getHomestayByHomestayName = async (req, res, next)=>{
+  try{
+    const {homestayName} = req.query;
+    const homestay = await Homestay.findOne({homestayName})
+    res.status(201).json(homestay)
+  }
+  catch(err){
+    console.log(err)
+
+  }
+}
+
 // Get all homestays
 const getAllHomestayName = async (req, res) => {
   try {
@@ -115,4 +127,4 @@ const deleteHomestay = async (req, res) => {
   }
 }
 
-export { addHomestay, getAllHomestay, updateHomestay, deleteHomestay, getAllHomestayName };
+export { addHomestay, getAllHomestay, updateHomestay, deleteHomestay, getAllHomestayName, getHomestayByHomestayName };

@@ -41,20 +41,20 @@ function Table({ homestayName, rooms }) {
 
   useEffect(() => {
     // Fetch room availability data from the backend when component mounts
-    fetchRoomAvailabilityData();
+    // fetchRoomAvailabilityData();
   }, []);
 
-  const fetchRoomAvailabilityData = async () => {
-    try {
-      // Fetch room availability data from the backend API
-      const response = await fetch(`/api/roomAvailability?homestayName=${homestayName}`);
-      const data = await response.json();
-      console.log(data)
-      setRoomAvailabilityData(data);
-    } catch (error) {
-      console.error('Error fetching room availability data:', error);
-    }
-  };
+  // const fetchRoomAvailabilityData = async () => {
+  //   try {
+  //     // Fetch room availability data from the backend API
+  //     const response = await fetch(`/api/roomAvailability?homestayName=${homestayName}`);
+  //     const data = await response.json();
+  //     console.log(data)
+  //     setRoomAvailabilityData(data);
+  //   } catch (error) {
+  //     console.error('Error fetching room availability data:', error);
+  //   }
+  // };
 
   return (
     <>
