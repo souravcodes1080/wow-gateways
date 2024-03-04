@@ -1,5 +1,24 @@
 import mongoose from "mongoose";
 
+const roomStatusSchema = new mongoose.Schema({
+    customerName: {
+        type: String,
+            },
+    checkIn: {
+        type: Date,
+    },
+    checkOut: {
+        type: Date,
+    },
+    rooms: {
+        type: Number,
+    },
+    booked: {
+        type: Boolean,
+        default: false,
+    },
+});
+
 
 const homestaySchema = new mongoose.Schema({
     homestayName: {
@@ -13,24 +32,24 @@ const homestaySchema = new mongoose.Schema({
     email: {
         type: String,
     },
-    price:{
+    price: {
         type: Number,
     },
-    b2b:{
+    b2b: {
         type: Number,
     },
-    address:{
+    address: {
         type: String,
         required: true
     },
-    location:{
+    location: {
         type: String,
         required: false
     },
-    features:{
-        type:[],
+    features: {
+        type: [],
     },
-    noOfrooms:{
+    noOfrooms: {
         type: Number,
         required: true,
         default: 1,
@@ -40,30 +59,35 @@ const homestaySchema = new mongoose.Schema({
         required: true,
         default: 1
     },
-    images:{
+    images: {
         type: [],
         required: true,
     },
-    balconyImage:{
+    balconyImage: {
         type: [],
     },
-    viewImage:{
+    viewImage: {
         type: [],
-        
+
     },
-    roomImage:{
+    roomImage: {
         type: [],
-      
+
     },
-    googleMapLink:{
+    googleMapLink: {
         type: String,
     },
-    review:{
+    review: {
         type: [],
     },
-    package:{
-        type:[]
-    }
+    package: {
+        type: []
+    },
+    rooms: {
+        type: [[roomStatusSchema]],
+        required: true,
+        default: [[]],
+    },
 
 });
 
