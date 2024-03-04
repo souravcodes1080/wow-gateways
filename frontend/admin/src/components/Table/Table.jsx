@@ -1,72 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import axios from 'axios';
+import "./table.css";
 
-function Table({ homestayName, rooms }) {
-  const [bookings, setBookings] = useState([]);
-
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/booking/getBookingsByHomestay?homestayName=${homestayName}`);
-        setBookings(response.data);
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-      }
-    };
-    fetchBookings();
-  }, [homestayName]);
-
-  const getDates = (bookings) => {
-    const dates = [];
-    bookings.forEach((booking) => {
-      const date = moment(booking.checkIn).format('DD-MM-YYYY');
-      if (!dates.includes(date)) {
-        dates.push(date);
-      }
-      const lastDate = moment(booking.checkOut).format('DD-MM-YYYY');
-      for (let d = moment(date).add(1, 'days'); d.isSameOrBefore(lastDate); d.add(1, 'days')) {
-        if (!dates.includes(d.format('DD-MM-YYYY'))) {
-          dates.push(d.format('DD-MM-YYYY'));
-        }
-      }
-    });
-    return dates;
-  };
-
-  const dates = getDates(bookings);
+function MonthSection({ month, rooms, roomAvailabilityData }) {
+  const daysInMonth = moment().month(month).daysInMonth();
 
   return (
-    <table className="table" style={{ width: '50%' }}>
-      <thead>
-        <tr>
-          <th></th>
-          {dates.map((date, index) => (
-            <th key={index}>{date}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {[...Array(rooms)].map((_, roomNumber) => (
-          <tr key={roomNumber}>
-            <td>{roomNumber + 1}</td>
-            {dates.map((_, dateIndex) => {
-              const bookedRooms = bookings.filter(
-                (booking) =>
-                  (moment(booking.checkIn).isSame(dates[dateIndex], 'day') ||
-                    moment(booking.checkOut).isSame(dates[dateIndex], 'day') ||
-                    (moment(booking.checkIn).isBefore(dates[dateIndex]) &&
-                      moment(booking.checkOut).isAfter(dates[dateIndex]))) &&
-                  booking.roomNumber === roomNumber + 1
-              );
+    <>   
+      <p style={{fontSize: "18px", marginTop:"30px"}}>{month}</p>
+      <div className="grid-box-wrapper">
+        {Array.from({ length: daysInMonth }).map((_, dayIndex) => (
+          <div key={dayIndex} className="day-row">
+            <p style={{textAlign: "center"}}>{dayIndex + 1}</p>
+            {Array.from({ length: rooms }).map((_, roomIndex) => {
+              const isBooked = roomAvailabilityData.some(booking => {
+                const checkIn = moment(booking.checkIn).format('YYYY-MM-DD');
+                const checkOut = moment(booking.checkOut).format('YYYY-MM-DD');
+                const currentDate = moment().month(month).date(dayIndex + 1).format('YYYY-MM-DD');
+                return currentDate >= checkIn && currentDate <= checkOut && booking.rooms.includes(roomIndex + 1);
+              });
               return (
-                <td key={dateIndex} style={{ backgroundColor: bookedRooms.length > 0 ? 'red' : 'white' }}></td>
+                <div
+                  key={roomIndex}
+                  className={`grid-box ${isBooked ? 'booked' : ''}`}
+                >
+                  R{roomIndex + 1}
+                </div>
               );
             })}
-          </tr>
+          </div>
         ))}
-      </tbody>
-    </table>
+      </div>
+    </>
+  );
+}
+
+function Table({ homestayName, rooms }) {
+  const months = moment.months();
+  const [roomAvailabilityData, setRoomAvailabilityData] = useState([]);
+
+  useEffect(() => {
+    // Fetch room availability data from the backend when component mounts
+    fetchRoomAvailabilityData();
+  }, []);
+
+  const fetchRoomAvailabilityData = async () => {
+    try {
+      // Fetch room availability data from the backend API
+      const response = await fetch(`/api/roomAvailability?homestayName=${homestayName}`);
+      const data = await response.json();
+      console.log(data)
+      setRoomAvailabilityData(data);
+    } catch (error) {
+      console.error('Error fetching room availability data:', error);
+    }
+  };
+
+  return (
+    <>
+      {months.map((month, index) => (
+        <MonthSection
+          key={index}
+          month={month}
+          rooms={rooms}
+          roomAvailabilityData={roomAvailabilityData}
+        />
+      ))}
+    </>
   );
 }
 

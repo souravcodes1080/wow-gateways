@@ -1,0 +1,31 @@
+.grid-box-wrapper{
+    display: flex;
+    
+
+}
+.grid-box{
+    width: 35px ;
+    height: 35px;
+    background-color: aqua;
+    border-radius: 3px;
+    margin-top: 7px;
+    margin-right: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.view-table{
+width: 100%;
+height: 100%;
+/* background-color: aquamarine; */
+overflow: scroll;
+}
+
+  
+  .booked {
+    background-color: #ff0000; /* Change background color for booked rooms */
+  }
+  

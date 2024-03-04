@@ -1,68 +1,106 @@
-import React, { useEffect, useState } from 'react'
-import './bookingGrid.css'
+import React, { useEffect, useState } from "react";
+import "./bookingGrid.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBook } from 'react-icons/fa';
-import Table from '../Table/Table';
-
+import { FaBook, FaTable } from "react-icons/fa";
+import Table from "../Table/Table";
 
 function BookingGrid() {
-    const [homestaylist, setHomestayList] = useState([]);
-    const [selectedHomestay, setSelectedHomestay] = useState("");
-    const [noOfRooms, setNoOfRooms] = useState(0);
-    useEffect(() => {
-        if (!localStorage.getItem("adminAuthorizationToken")) {
-            navigate("/admin/login");
-        }
-        fetchHomestayList()
-    }, []);
-    
-  
-    const fetchHomestayList = async () => {
-        const response = await axios.get("http://localhost:8080/homestay/homestayName")
-        setHomestayList(response.data)
-        
-        console.log(response.data)
+  const navigate = useNavigate();
+  const [homestaylist, setHomestayList] = useState([]);
+  const [selectedHomestay, setSelectedHomestay] = useState("");
+  const [noOfRooms, setNoOfRooms] = useState(0);
+  const [roomAvailabilityData, setRoomAvailabilityData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (!localStorage.getItem("adminAuthorizationToken")) {
+      navigate("/admin/login");
     }
-
-    const handleHomestayNameChange = (e) => {
-        setSelectedHomestay(e.target.value)
-        const selectedHomestayObj = homestaylist.find(h => h.homestayName === e.target.value)
-        setNoOfRooms(selectedHomestayObj ? selectedHomestayObj.noOfrooms : null)
+    fetchHomestayList();
+  }, []);
+  useEffect(() => {
+    fetchRoomAvailability();
+  }, [selectedHomestay]);
+  const fetchHomestayList = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/homestay/homestayName"
+      );
+      setHomestayList(response.data);
+    } catch (error) {
+      console.error("Error fetching homestay list:", error);
     }
+  };
 
-    const handleRooms = () =>{
-
+  const fetchRoomAvailability = async () => {
+    try {
+      console.log("Fetching room availability for:", selectedHomestay);
+      const response = await axios.get(
+        `http://localhost:8080/home/roomAvailability?homestayName=${selectedHomestay}`
+      );
+      setRoomAvailabilityData(response.data);
+      const selectedHomestayObj = homestaylist.find(
+        (h) => h.homestayName === selectedHomestay
+      );
+      setNoOfRooms(selectedHomestayObj ? selectedHomestayObj.noOfrooms : null);
+    } catch (error) {
+      console.error("Error fetching room availability:", error);
     }
-    return (
-        <>
-            <div className="">
-                <div className="admin-booking-list-container">
-                    <div className="manage-customer-header manage-homestay-header">
-                        <h5>
-                            <FaBook />
-                            Booking Grid
-                        </h5>
+  };
 
-                    </div>
-                    <div className="">
-                        <select value={selectedHomestay} name="" id="" onChange={handleHomestayNameChange}>
-                            <option value="">Select Homestay</option>
-                            {homestaylist.map((item, index) => (
-                                <option key={index} value={item.homestayName}>{item.homestayName}</option>
+  const handleHomestayNameChange = (e) => {
+    setSelectedHomestay(e.target.value);
+    const selectedHomestayObj = homestaylist.find(
+      (h) => h.homestayName === e.target.value
+    );
+    setNoOfRooms(selectedHomestayObj ? selectedHomestayObj.noOfrooms : null);
+  };
 
-                            ))}
-                        </select>
-                    </div>
-                    {selectedHomestay === "" ? <p>No homestay selected</p> : <div><p>{selectedHomestay}</p>
-                     <Table homestayName={selectedHomestay}  rooms={noOfRooms}/>
-          
-                      </div>}
-                </div>
+  const handleRooms = () => {};
+  return (
+    <>
+      <div className="">
+        <div className="admin-booking-list-container">
+          <div className="manage-customer-header manage-homestay-header">
+            <h5>
+              <FaTable />
+              Booking Grid 2024
+            </h5>
+
+            <div className="select-homestay-list">
+              <select
+                value={selectedHomestay}
+                name=""
+                id=""
+                onChange={handleHomestayNameChange}
+              >
+                <option value="">Select Homestay</option>
+                {homestaylist.map((item, index) => (
+                  <option key={index} value={item.homestayName}>
+                    {item.homestayName}
+                  </option>
+                ))}
+              </select>
             </div>
-
-        </>
-    )
+          </div>
+          {selectedHomestay === "" ? (
+            <p style={{ textAlign: "center", marginTop: "40px" }}>
+              No homestay selected
+            </p>
+          ) : (
+            <div className="view-table">
+              <Table
+                homestayName={selectedHomestay}
+                rooms={noOfRooms}
+                roomAvailabilityData={roomAvailabilityData}
+                loading={loading}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default BookingGrid
+export default BookingGrid;
