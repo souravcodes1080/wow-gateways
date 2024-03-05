@@ -68,7 +68,7 @@ const getHomestayByHomestayName = async (req, res, next)=>{
   try{
     const {homestayName} = req.query;
     const homestay = await Homestay.findOne({homestayName})
-    res.status(201).json(homestay)
+    res.status(201).json(homestay.rooms)
   }
   catch(err){
     console.log(err)
