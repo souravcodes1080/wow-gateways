@@ -64,17 +64,21 @@ const addHomestay = async (req, res) => {
   }
 };
 
-const getHomestayByHomestayName = async (req, res, next)=>{
-  try{
-    const {homestayName} = req.query;
-    const homestay = await Homestay.findOne({homestayName})
-    res.status(201).json(homestay.rooms)
-  }
-  catch(err){
-    console.log(err)
+const getHomestayByHomestayName = async (req, res, next) => {
+  try {
+    const { homestayName } = req.query;
+    const homestay = await Homestay.findOne({ homestayName });
 
+    if (homestay) {
+      res.status(201).json(homestay.rooms);
+    } else {
+      res.status(404).json({ message: 'Homestay not found' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving homestay');
   }
-}
+};
 
 // Get all homestays
 const getAllHomestayName = async (req, res) => {

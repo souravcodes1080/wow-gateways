@@ -1,5 +1,20 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
+const carSchema = new mongoose.Schema({
+    carName: {
+        type: String,
+    },
+    journey:{
+        type: String,
+    },
+    driverName: {
+        type: String,
+    },
+    carCost: {
+        type: Number,
+    }
+
+})
 const tourSchema = new mongoose.Schema({
     homestayName: {
         type:String
@@ -13,20 +28,11 @@ const tourSchema = new mongoose.Schema({
     price: {
         type: Number,
     },
-    car: {
-        type: String,
-    },
-    journey:{
-        type: String,
-    },
-    driverName: {
-        type: String,
-    },
-    carCost: {
-        type: Number,
-    },
     rooms: {
         type: Number,
+    },
+    car:{
+        type:[carSchema]
     }
 })
 

@@ -24,6 +24,7 @@ const booking = asyncHandler(async (req, res, next) => {
       guestRemainingBalance,
       dueB2B,
       tour,
+      car,
       bookedBy
     } = req.body;
 
@@ -89,6 +90,15 @@ const booking = asyncHandler(async (req, res, next) => {
         rooms: rooms,
         booked: true,
       });
+
+
+
+      // booking.tour.car.push([{
+      //   carName: car.carName,
+      //   journey: car.journey,
+      //   driverName: car.driverName,
+      //   carCost: car.carCost
+      // }]);
 
       // Save the updated homestay document
       await homestay.save();
