@@ -70,7 +70,7 @@ textarea {
 }
 .remove-tour{
     position: absolute;
-    bottom: -10px;
+    bottom: -35px;
     right: 0;
     background-color: red;
     display: flex;

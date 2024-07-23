@@ -282,7 +282,7 @@ function AddCustomer() {
               {tourData.map((tourItem, index) => (
                 <div className="tour-form-data-wrapper">
                   <div className="form-second-part-left">
-                    <p>Day {index + 1}</p>
+                    <p>Tour {index + 1}</p>
                     <div className="form-wrapper">
                       <label>Homestay Name</label>
                       <select
